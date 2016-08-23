@@ -1,0 +1,12 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item>
+        <shape>
+            <solid android:color="#f2f2f2" />
+            <corners android:radius="3dp"></corners>
+        </shape>
+    </item>
+
+</layer-list>
+<!-- From: file:/home/newtrainee/AndroidStudioProjects/PregnantWomanApplication/app/src/main/res/drawable/button_selected_bottom.xml -->

@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:clickable="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:id="@+id/title"
+        android:background="@color/accent_material_light"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp">
+
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back" />
+
+        <com.widevision.pregnantwoman.model.CustomTextViewBold
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:text="Baby Details"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/white"></com.widevision.pregnantwoman.model.CustomTextViewBold>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:fadingEdge="none"
+        android:layout_below="@+id/title"
+        android:layout_above="@+id/buttomLayout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/top"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/dateofbirthEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Date of birth"
+                android:textColor="@color/text_color"
+                android:editable="false"
+                app:met_floatingLabelTextColor="#8805ad"
+                android:clickable="true"
+                android:focusable="true"
+                app:met_floatingLabel="highlight"
+                android:layout_marginTop="10dp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/edit_text_padding10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
+
+                <com.widevision.pregnantwoman.model.CustomTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="Select Gender :"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/black" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:weightSum="1"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:layout_weight="0.5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="  Boy"
+                        android:textColor="@color/black"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <RadioButton
+                        android:layout_weight="0.5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="  Girl"
+                        android:textColor="@color/black"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/dialog_rounded_white_background">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/edit_text_padding10dp"
+                    android:orientation="horizontal">
+
+                    <com.widevision.pregnantwoman.model.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Weight : "
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/text_color" />
+
+                    <com.widevision.pregnantwoman.model.CustomTextView
+                        android:id="@+id/weightTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="xx"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/text_color" />
+
+                    <com.widevision.pregnantwoman.model.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" Kg."
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/text_color" />
+                </LinearLayout>
+
+                <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+                    android:id="@+id/weight_seek"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:dsb_min="1"
+                    app:dsb_max="10"
+                    app:dsb_progressColor="@color/blue_color"
+                    app:dsb_trackColor="@color/orange_text"
+                    app:dsb_indicatorColor="@color/blue_color"
+                    app:dsb_rippleColor="@color/red" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/edit_text_padding10dp"
+                    android:orientation="horizontal">
+
+                    <com.widevision.pregnantwoman.model.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Height : "
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/text_color" />
+
+                    <com.widevision.pregnantwoman.model.CustomTextView
+                        android:id="@+id/heightTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="xx"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/text_color" />
+
+                    <com.widevision.pregnantwoman.model.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" cms."
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/text_color" />
+                </LinearLayout>
+
+                <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+                    android:id="@+id/height_seek"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:dsb_min="1"
+                    app:dsb_max="100"
+                    app:dsb_progressColor="@color/blue_color"
+                    app:dsb_trackColor="@color/orange_text"
+                    app:dsb_indicatorColor="@color/blue_color"
+                    app:dsb_rippleColor="@color/red" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/edit_text_padding10dp"
+                    android:orientation="horizontal">
+
+                    <com.widevision.pregnantwoman.model.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Circumferance of head : "
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/text_color" />
+
+                    <com.widevision.pregnantwoman.model.CustomTextView
+                        android:id="@+id/headTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="xx"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/text_color" />
+
+                    <com.widevision.pregnantwoman.model.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" cms."
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/text_color" />
+                </LinearLayout>
+
+                <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+                    android:id="@+id/head_seek"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:dsb_min="1"
+                    app:dsb_max="60"
+                    app:dsb_progressColor="@color/blue_color"
+                    app:dsb_trackColor="@color/orange_text"
+                    app:dsb_indicatorColor="@color/blue_color"
+                    app:dsb_rippleColor="@color/red" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/buttomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/accent_material_light"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="1"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/accent_material_light"
+                    android:text="SAVE"
+                    android:background="@drawable/button_buttom_selector"
+                    android:id="@+id/saveBt" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/accent_material_light"></View>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/cancelBt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/accent_material_light"
+                    android:text="CANCEL"
+                    android:background="@color/white"
+                    android:layout_marginLeft="20dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout><!-- From: file:/Users/rocks/Documents/workspace%20android/PregnantWomanApplication/app/src/main/res/layout/baby_info_activity.xml -->

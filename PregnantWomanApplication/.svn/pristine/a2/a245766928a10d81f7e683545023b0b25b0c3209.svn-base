@@ -1,0 +1,570 @@
+package com.widevision.pregnantwoman.baby;
+
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.widevision.pregnantwoman.Bean.BabyDBBean;
+import com.widevision.pregnantwoman.MainFragmentActivity;
+import com.widevision.pregnantwoman.R;
+import com.widevision.pregnantwoman.database.ActiveAndroidDBHelper;
+import com.widevision.pregnantwoman.database.BabyInfoTable;
+import com.widevision.pregnantwoman.model.HideKeyFragment;
+import com.widevision.pregnantwoman.util.Constant;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+import static android.widget.Toast.LENGTH_SHORT;
+
+/**
+ * Created by mercury-two on 18/8/15.
+ */
+public class BabyNotes extends HideKeyFragment implements DatePickerDialog.OnDateSetListener, Validator.ValidationListener {
+
+    @NotEmpty(message = "Name Required.")
+    @Bind(R.id.etnamenote)
+    EditText nameET;
+    @NotEmpty(message = "Date Required.")
+    @Bind(R.id.etdatefromnote)
+    EditText dateET;
+
+    @Bind(R.id.spcategorynote)
+    Spinner categorySP;
+    @NotEmpty(message = "NoteDetail Required.")
+    @Bind(R.id.tvnotedetailnote)
+    EditText notedetailTV;
+    @Bind(R.id.bttngonote)
+    Button goBTTN;
+
+
+    @Bind(R.id.llnotetablelist)
+    LinearLayout noteListtableLL;
+    @Bind(R.id.llnotedetailnote)
+    LinearLayout notedetailLL;
+
+    /*@Bind(R.id.lvnotebaby)
+    ListView noteLV;*/
+
+    @Bind(R.id.bttnsavenote)
+    Button saveBTTN;
+    @Bind(R.id.bttncanclenote)
+    Button cancelBTTN;
+
+
+    private boolean addView = false;
+    private ActiveAndroidDBHelper helper;
+    private Validator validator;
+    private boolean otherin = false, aDate = false, bDate = false;
+    String done;
+    int a = 0;
+    private String name, dateofbirth, datenote, notes, categorys, dateFood, dateHeiWei, dateSleep, noteFoodDetail, noteheiweiDetail, noteSleepdetail;
+    private long babyid;
+    String currentDateandTime;
+
+    List<BabyDBBean> foodlist;
+    List<BabyDBBean> heiWeilist;
+    List<BabyDBBean> sleeplist;
+    private String category[] = {"Food", "Height", "Weight", "Sleep"};
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.baby_notes, container, false);
+        ButterKnife.bind(this, view);
+        helper = ActiveAndroidDBHelper.getInstance();
+        validator = new Validator(this);
+        validator.setValidationListener(this);
+
+        noteListtableLL.setVisibility(View.GONE);
+        notedetailLL.setVisibility(View.GONE);
+
+
+        /*Name Set*/
+
+        Intent in = getActivity().getIntent();
+        Bundle b = in.getExtras();
+        String match = b.getString("1111");
+
+        /*Fetch Value From Dialog List*/
+
+        if (match.equals("dialog")) {
+            babyid = b.getLong("ID");
+            name = b.getString("NAME");
+            dateofbirth = b.getString("DATE");
+            nameET.setText(name);
+
+        } else if (match.equals("info")) {
+
+              /*Fetch Value From Database*/
+            List<BabyInfoTable> list = helper.babyDetail();
+            if (list != null && list.size() != 0) {
+                for (BabyInfoTable item : list) {
+                    babyid = item.getId();
+                    name = item.name;
+                    dateofbirth = item.dobbaby;
+                }
+            }
+            nameET.setText(name);
+
+
+        }
+//        dateET.setText("2015-08-12");
+        /*Date picker*/
+        dateET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                aDate = b;
+                if (b) {
+                    DateTimeFormatter formatter = DateTimeFormat.forPattern(Constant.datePattern);
+                    DateTime dt = formatter.parseDateTime(dateofbirth);
+
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.DAY_OF_MONTH, dt.getDayOfMonth());
+                    calendar.set(Calendar.MONTH, dt.getMonthOfYear() - 1);
+                    calendar.set(Calendar.YEAR, dt.getYear());
+
+                    Calendar now = Calendar.getInstance();
+                    DatePickerDialog dpd = DatePickerDialog.newInstance(
+                            BabyNotes.this,
+                            now.get(Calendar.YEAR),
+                            now.get(Calendar.MONTH),
+                            now.get(Calendar.DAY_OF_MONTH)
+                    );
+
+                    dpd.setMinDate(calendar);
+                    dpd.setMaxDate(now);
+                    dpd.show(getActivity().getFragmentManager(), "Datepickerdialog");
+                }
+            }
+        });
+//        SELECT * FROM BabyFoodIntakeRecord WHERE BabyId="1" AND DateFoodIntake >= "2015-08-15" ;
+
+
+        dateET.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                noteListtableLL.setVisibility(View.GONE);
+                notedetailLL.setVisibility(View.GONE);
+                aDate = true;
+                DateTimeFormatter formatter = DateTimeFormat.forPattern(Constant.datePattern);
+                DateTime dt = formatter.parseDateTime(dateofbirth);
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.DAY_OF_MONTH, dt.getDayOfMonth());
+                calendar.set(Calendar.MONTH, dt.getMonthOfYear() - 1);
+                calendar.set(Calendar.YEAR, dt.getYear());
+
+                Calendar now = Calendar.getInstance();
+                DatePickerDialog dpd = DatePickerDialog.newInstance(BabyNotes.this, now.get(Calendar.YEAR),
+                        now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH)
+                );
+
+                dpd.setMinDate(calendar);
+                dpd.setMaxDate(now);
+                dpd.show(getActivity().getFragmentManager(), "Datepickerdialog");
+            }
+        });
+
+        SimpleDateFormat sdf = new SimpleDateFormat(Constant.datePattern);
+        currentDateandTime = sdf.format(new Date());
+        Log.e("  ", currentDateandTime);
+
+
+        /*Category Spinner */
+        ArrayAdapter<String> intakeAdapter;
+        intakeAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, category);
+        categorySP.setAdapter(intakeAdapter);
+
+        categorySP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int arg2, long arg3) {
+
+                noteListtableLL.setVisibility(View.GONE);
+                notedetailLL.setVisibility(View.GONE);
+
+                if (arg2 == 0) {
+                    done = "food";
+                } else if (arg2 == 1 || arg2 == 2) {
+                    done = "heiwei";
+                } else if (arg2 == 3) {
+                    done = "sleep";
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+
+            }
+        });
+
+
+         /*Go Button*/
+        goBTTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                name = nameET.getText().toString();
+                datenote = dateET.getText().toString();
+                categorys = categorySP.getSelectedItem().toString();
+
+                addView = true;
+
+                if (name.trim().equals("") || datenote.trim().equals("")
+                        || categorys.trim().equals("")) {
+//                    babyGoAlert(getActivity(), "Insert All Fields.");
+                    Toast.makeText(getActivity(), "All Fields are Required. ", LENGTH_SHORT).show();
+
+                } else if (done.equals("food")) {
+                    noteListtableLL.setVisibility(View.VISIBLE);
+                    a = 1;
+                    foodlist = helper.babyfoodDetail(babyid, datenote);
+
+                    if (foodlist != null && foodlist.size() != 0) {
+                        /*BabyNoteAdapterList.FoodAdapter babyfoodNoteAdapter = new BabyNoteAdapterList.FoodAdapter(getActivity(), foodlist);
+                        noteLV.setAdapter(babyfoodNoteAdapter);*/
+                        /*noteListtableLL*/
+                        int size = foodlist.size();
+                        for (int i = 0; i < size; i++) {
+                            addFoodView(getActivity(), foodlist.get(i));
+                        }
+
+                    } else if (foodlist == null && foodlist.size() == 0) {
+                        Constant.babysaveAlert(getActivity(), "No Record Found.");
+                    }
+
+
+                } else if (done.equals("heiwei")) {
+                    noteListtableLL.setVisibility(View.VISIBLE);
+                    a = 2;
+                    heiWeilist = helper.babyHeiWeiDeta(babyid, datenote);
+
+                    if (heiWeilist != null && heiWeilist.size() != 0) {
+                       /* BabyNoteAdapterList.HeiWeiAdapter babyheiNoteAdapter = new BabyNoteAdapterList.HeiWeiAdapter(getActivity(), heiWeilist);
+                        noteLV.setAdapter(babyheiNoteAdapter);*/
+                        int size = heiWeilist.size();
+                        for (int i = 0; i < size; i++) {
+                            addFoodView(getActivity(), foodlist.get(i));
+                        }
+                    } else if (heiWeilist == null && heiWeilist.size() == 0) {
+
+                        Constant.babysaveAlert(getActivity(), "No Record Found.");
+                    }
+
+                } else if (done.equals("sleep")) {
+                    noteListtableLL.setVisibility(View.VISIBLE);
+
+                    sleeplist = helper.babySleepDeta(babyid, datenote);
+                    a = 3;
+                    if (sleeplist != null && sleeplist.size() != 0) {
+                        /*BabyNoteAdapterList.SleepAdapter babysleepNoteAdapter = new BabyNoteAdapterList.SleepAdapter(getActivity(), sleeplist);
+                        noteLV.setAdapter(babysleepNoteAdapter);*/
+                        int size = sleeplist.size();
+                        for (int i = 0; i < size; i++) {
+                            addFoodView(getActivity(), foodlist.get(i));
+                        }
+                    } else if (sleeplist == null && sleeplist.size() == 0) {
+
+                        Constant.babysaveAlert(getActivity(), "No Record Found.");
+                    }
+                }
+            }
+        });
+
+
+
+
+/*
+        noteLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                otherin = true;
+                if (a == 1) {
+                    notedetailLL.setVisibility(View.VISIBLE);
+                    BabyDBBean item = foodlist.get(i);
+                    babyid = item.getBabyid();
+                    dateFood = item.getDatefood();
+                    noteFoodDetail = item.getNotedetailfood();
+//                    notedetailTV.setText(noteFoodDetail);
+                } else if (a == 2) {
+                    notedetailLL.setVisibility(View.VISIBLE);
+                    BabyDBBean item = heiWeilist.get(i);
+                    babyid = item.getBabyid();
+                    dateHeiWei = item.getDateheiwei();
+                    noteheiweiDetail = item.getNotedetailheiwei();
+                } else if (a == 3) {
+                    notedetailLL.setVisibility(View.VISIBLE);
+                    BabyDBBean item = sleeplist.get(i);
+                    babyid = item.getBabyid();
+                    dateSleep = item.getDatesleep();
+                    noteSleepdetail = item.getNotedetailsleep();
+                }
+            }
+        });
+*/
+
+
+
+
+        /*Save Button*/
+        saveBTTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                validator.validate();
+            }
+        });
+        /*Cancle Button*/
+        cancelBTTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainFragmentActivity.fragmentManager.popBackStack();
+            }
+        });
+
+        return view;
+    }
+
+    void noteDialog(Context context, BabyDBBean item) {
+
+        final Dialog dialog = new Dialog(context, R.style.DialogSlideAnim);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.note_dialog);
+        dialog.getWindow().setLayout(Constant.width - 20, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        TextView title = (TextView) dialog.findViewById(R.id.title);
+        final TextView noteTxt = (TextView) dialog.findViewById(R.id.noteTxt);
+        TextView cancelTxt = (TextView) dialog.findViewById(R.id.cancelTxt);
+        final TextView updateTxt = (TextView) dialog.findViewById(R.id.updateTxt);
+        final EditText noteEdt = (EditText) dialog.findViewById(R.id.noteEdt);
+                switch (a) {
+            case 1:
+                title.setText(item.getNotetitlefood());
+                noteTxt.setText(item.getNotedetailfood());
+                noteEdt.setText(item.getNotedetailfood());
+                break;
+            case 2:
+                title.setText("");
+                noteTxt.setText(item.getNotedetailheiwei());
+                noteEdt.setText(item.getNotedetailheiwei());
+                break;
+            case 3:
+                title.setText(item.getNotetitlefood());
+                noteTxt.setText(item.getNotedetailsleep());
+                noteEdt.setText(item.getNotedetailsleep());
+                break;
+        }
+
+        title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                noteEdt.setVisibility(View.VISIBLE);
+                updateTxt.setVisibility(View.VISIBLE);
+                noteTxt.setVisibility(View.GONE);
+            }
+        });
+        updateTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                String note = noteEdt.getText().toString().trim();
+                if (a == 1) {
+                    helper.babyFoodUpdate(babyid, dateFood, note);
+                    noteListtableLL.setVisibility(View.GONE);
+                    notedetailLL.setVisibility(View.GONE);
+                } else if (a == 2) {
+                    helper.babyHeiWeiUpdate(babyid, dateHeiWei, note);
+                    noteListtableLL.setVisibility(View.GONE);
+                    notedetailLL.setVisibility(View.GONE);
+                } else if (a == 3) {
+                    helper.babyFoodUpdate(babyid, dateFood, note);
+                    noteListtableLL.setVisibility(View.GONE);
+                    notedetailLL.setVisibility(View.GONE);
+                }
+                babyGoAlert(getActivity(), "update Successfully.");
+            }
+        });
+        cancelTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    /*Date Set*/
+    @Override
+    public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
+        String mount = String.valueOf(month + 1);
+        String da = String.valueOf(day);
+
+        if (mount.length() < 2) {
+            mount = "0" + mount;
+        }
+        if (da.length() < 2) {
+            da = "0" + da;
+        }
+        String datesave = year + "-" + mount + "-" + da;
+        dateET.setText(datesave);
+    }
+
+    /*Validation Set*/
+    @Override
+    public void onValidationSucceeded() {
+        name = nameET.getText().toString().trim();
+        datenote = dateET.getText().toString().trim();
+        categorys = categorySP.getSelectedItem().toString().trim();
+
+        /*Condition To take Value Either from Spinner or from Edittext*/
+        if (otherin == true) {
+            notes = notedetailTV.getText().toString().trim();
+        } else {
+
+        }
+        if (a == 1) {
+            helper.babyFoodUpdate(babyid, dateFood, notes);
+            noteListtableLL.setVisibility(View.GONE);
+            notedetailLL.setVisibility(View.GONE);
+        } else if (a == 2) {
+            helper.babyHeiWeiUpdate(babyid, dateHeiWei, notes);
+            noteListtableLL.setVisibility(View.GONE);
+            notedetailLL.setVisibility(View.GONE);
+        } else if (a == 3) {
+            helper.babyFoodUpdate(babyid, dateFood, notes);
+            noteListtableLL.setVisibility(View.GONE);
+            notedetailLL.setVisibility(View.GONE);
+        }
+        Log.e("data of food", " " + babyid + " " + name + " " + datenote + " " + currentDateandTime + " " + categorys + " " + dateFood + "" + notes + " " + noteFoodDetail);
+
+
+        babyGoAlert(getActivity(), "Food Detail added Successfully.");
+//        MainFragmentActivity.fragmentManager.popBackStack();
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        Constant.setAlert(getActivity(), errors.get(0).getCollatedErrorMessage(getActivity()));
+    }
+
+
+    /*add view row for each item*/
+    void addFoodView(Context context, final BabyDBBean item) {
+        if (addView) {
+            noteListtableLL.removeAllViews();
+            addView = false;
+        }
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View rootView = inflater.inflate(R.layout.baby_note_list, null);
+        TextView categoryTxt = (TextView) rootView.findViewById(R.id.categoryTxt);
+        TextView dateTxt = (TextView) rootView.findViewById(R.id.dateTxt);
+        TextView descriptionTxt = (TextView) rootView.findViewById(R.id.descriptionTxt);
+        switch (a) {
+            case 1:
+                categoryTxt.setText(item.getCategoryfood());
+                dateTxt.setText(item.getDatefood());
+                descriptionTxt.setText(item.getNotetitlefood());
+                break;
+            case 2:
+                categoryTxt.setText("");
+                dateTxt.setText(item.getDateheiwei());
+                descriptionTxt.setText(item.getNotetitleheiwei());
+                break;
+            case 3:
+                categoryTxt.setText("");
+                dateTxt.setText(item.getDatesleep());
+                descriptionTxt.setText(item.getNotetitlesleep());
+                break;
+        }
+        rootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                otherin = true;
+                if (a == 1) {
+                   /* notedetailLL.setVisibility(View.VISIBLE);*/
+                    /*BabyDBBean item = foodlist.get(i);*/
+                    babyid = item.getBabyid();
+                    dateFood = item.getDatefood();
+                    noteFoodDetail = item.getNotedetailfood();
+                    /*notedetailTV.setText(noteFoodDetail);*/
+                    noteDialog(getActivity(), item);
+                } else if (a == 2) {
+                    noteDialog(getActivity(), item);
+                    /*notedetailLL.setVisibility(View.VISIBLE);*/
+                    /*BabyDBBean item = heiWeilist.get(i);*/
+                    babyid = item.getBabyid();
+                    dateHeiWei = item.getDateheiwei();
+                    noteheiweiDetail = item.getNotedetailheiwei();
+                   /* notedetailTV.setText(noteheiweiDetail);*/
+                } else if (a == 3) {
+                    noteDialog(getActivity(), item);
+                  /*  notedetailLL.setVisibility(View.VISIBLE);*/
+                    /*BabyDBBean item = sleeplist.get(i);*/
+                    babyid = item.getBabyid();
+                    dateSleep = item.getDatesleep();
+                    noteSleepdetail = item.getNotedetailsleep();
+                  /*  notedetailTV.setText(noteSleepdetail);*/
+                }
+            }
+        });
+        noteListtableLL.addView(rootView);
+    }
+
+
+    /*Baby Dialog*/
+    public static void babyGoAlert(final Activity activity, final String msg) {
+        final Dialog dialog = new Dialog(activity, R.style.DialogSlideAnim);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.alert_view);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        TextView message = (TextView) dialog.findViewById(R.id.dialog_message);
+        message.setText(msg);
+        TextView okBtn = (TextView) dialog.findViewById(R.id.dialog_ok);
+        if (msg.equals("No Record Found")) {
+            okBtn.setVisibility(View.GONE);
+        } else {
+            okBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.dismiss();
+                }
+            });
+        }
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        dialog.show();
+    }
+}
+

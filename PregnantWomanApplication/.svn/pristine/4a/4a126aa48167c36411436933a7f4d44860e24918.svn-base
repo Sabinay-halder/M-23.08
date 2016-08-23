@@ -1,0 +1,30 @@
+// Generated code from Butter Knife. Do not modify!
+package com.widevision.pregnantwoman.mother;
+
+import android.view.View;
+import butterknife.ButterKnife.Finder;
+import butterknife.ButterKnife.ViewBinder;
+
+public class WomanMainActivity$$ViewBinder<T extends com.widevision.pregnantwoman.mother.WomanMainActivity> implements ViewBinder<T> {
+  @Override public void bind(final Finder finder, final T target, Object source) {
+    View view;
+    view = finder.findRequiredView(source, 2131558861, "field 'mHelthBtn'");
+    target.mHelthBtn = finder.castView(view, 2131558861, "field 'mHelthBtn'");
+    view = finder.findRequiredView(source, 2131558864, "field 'mAddNote'");
+    target.mAddNote = finder.castView(view, 2131558864, "field 'mAddNote'");
+    view = finder.findRequiredView(source, 2131558863, "field 'mAppointmentBtn'");
+    target.mAppointmentBtn = finder.castView(view, 2131558863, "field 'mAppointmentBtn'");
+    view = finder.findRequiredView(source, 2131558862, "field 'mChartBtn'");
+    target.mChartBtn = finder.castView(view, 2131558862, "field 'mChartBtn'");
+    view = finder.findRequiredView(source, 2131558865, "field 'mTipsBtn'");
+    target.mTipsBtn = finder.castView(view, 2131558865, "field 'mTipsBtn'");
+  }
+
+  @Override public void unbind(T target) {
+    target.mHelthBtn = null;
+    target.mAddNote = null;
+    target.mAppointmentBtn = null;
+    target.mChartBtn = null;
+    target.mTipsBtn = null;
+  }
+}

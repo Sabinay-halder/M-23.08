@@ -1,0 +1,42 @@
+// Generated code from Butter Knife. Do not modify!
+package com.widevision.pregnantwoman.babby;
+
+import android.view.View;
+import butterknife.ButterKnife.Finder;
+import butterknife.ButterKnife.ViewBinder;
+
+public class BabyNotes$$ViewBinder<T extends com.widevision.pregnantwoman.babby.BabyNotes> implements ViewBinder<T> {
+  @Override public void bind(final Finder finder, final T target, Object source) {
+    View view;
+    view = finder.findRequiredView(source, 2131558621, "field 'nameET'");
+    target.nameET = finder.castView(view, 2131558621, "field 'nameET'");
+    view = finder.findRequiredView(source, 2131558622, "field 'dateET'");
+    target.dateET = finder.castView(view, 2131558622, "field 'dateET'");
+    view = finder.findRequiredView(source, 2131558623, "field 'categorySP'");
+    target.categorySP = finder.castView(view, 2131558623, "field 'categorySP'");
+    view = finder.findRequiredView(source, 2131558628, "field 'notedetailTV'");
+    target.notedetailTV = finder.castView(view, 2131558628, "field 'notedetailTV'");
+    view = finder.findRequiredView(source, 2131558625, "field 'goBTTN'");
+    target.goBTTN = finder.castView(view, 2131558625, "field 'goBTTN'");
+    view = finder.findRequiredView(source, 2131558626, "field 'noteListtableLL'");
+    target.noteListtableLL = finder.castView(view, 2131558626, "field 'noteListtableLL'");
+    view = finder.findRequiredView(source, 2131558627, "field 'notedetailLL'");
+    target.notedetailLL = finder.castView(view, 2131558627, "field 'notedetailLL'");
+    view = finder.findRequiredView(source, 2131558629, "field 'saveBTTN'");
+    target.saveBTTN = finder.castView(view, 2131558629, "field 'saveBTTN'");
+    view = finder.findRequiredView(source, 2131558556, "field 'cancelBTTN'");
+    target.cancelBTTN = finder.castView(view, 2131558556, "field 'cancelBTTN'");
+  }
+
+  @Override public void unbind(T target) {
+    target.nameET = null;
+    target.dateET = null;
+    target.categorySP = null;
+    target.notedetailTV = null;
+    target.goBTTN = null;
+    target.noteListtableLL = null;
+    target.notedetailLL = null;
+    target.saveBTTN = null;
+    target.cancelBTTN = null;
+  }
+}

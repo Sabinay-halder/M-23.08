@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#ffffff">
+
+    <TextView
+        android:id="@+id/noti_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Event Reminder"
+        android:textSize="18sp"
+        android:textColor="#000000"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <ImageView
+            android:id="@+id/notifiation_image"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="30"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="70"
+            android:gravity="center"
+            android:text="flashLightOn"
+            android:textColor="#000000"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="right"
+        android:id="@+id/btnLayout">
+
+        <Button
+            android:id="@+id/yesBtn"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:background="@color/blue"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="Done"
+            android:textColor="#000000" />
+
+        <Button
+            android:id="@+id/noBtn"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:background="@color/blue"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:text="Not Done"
+            android:textColor="#000000" />
+    </LinearLayout>
+</LinearLayout>

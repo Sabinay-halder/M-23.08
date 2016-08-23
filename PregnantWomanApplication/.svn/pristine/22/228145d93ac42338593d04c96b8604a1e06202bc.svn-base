@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:clickable="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:fillViewport="true"
+        android:layout_above="@+id/buttomLayout">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--Title-->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/top">
+
+                <com.widevision.pregnantwoman.model.CustomTextViewBold
+                    android:id="@+id/txtfoodintake"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/foodintake"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center" />
+
+
+                <ImageView
+                    android:id="@+id/bttnotefoodintake"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="10dp"
+                    android:src="@drawable/add"
+                    android:gravity="center"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/accent_material_light" />
+
+            <!---->
+            <!--Name-->
+
+            <LinearLayout
+                android:id="@+id/llname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:padding="5dp">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etnamefoodin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Name Of Baby"
+                    android:textColor="@color/text_color"
+                    android:editable="false"
+                    android:singleLine="true"
+                    android:inputType="textPersonName"
+                    app:met_floatingLabelTextColor="#8805ad"
+                    android:clickable="false"
+                    android:focusable="false"
+                    app:met_floatingLabel="highlight"
+                    android:layout_marginTop="5dp" />
+
+            </LinearLayout>
+
+            <!---->
+
+            <!--Date of birth-->
+
+            <LinearLayout
+                android:id="@+id/lldob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:padding="5dp">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etdateofbirthfoodin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Date "
+                    android:textColor="@color/text_color"
+                    android:editable="false"
+                    android:singleLine="true"
+                    android:inputType="date"
+                    app:met_floatingLabelTextColor="#8805ad"
+                    android:clickable="false"
+                    android:focusable="false"
+                    app:met_floatingLabel="highlight"
+                    android:layout_marginTop="5dp" />
+
+            </LinearLayout>
+
+            <!---->
+
+            <!--Start Time-->
+
+            <LinearLayout
+                android:id="@+id/llintaketime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:padding="5dp">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etintaketime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Intake Time"
+                    android:textColor="@color/text_color"
+                    android:editable="false"
+                    app:met_floatingLabelTextColor="#8805ad"
+                    android:singleLine="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:met_floatingLabel="highlight"
+                    android:layout_marginTop="5dp" />
+
+
+            </LinearLayout>
+            <!---->
+
+            <!--Intake-->
+
+            <LinearLayout
+                android:id="@+id/llintake"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:padding="5dp">
+
+                <!--<com.rengwuxian.materialedittext.MaterialEditText-->
+                    <!--android:id="@+id/etintakefoodin"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:hint="Intake"-->
+                    <!--android:textColor="@color/text_color"-->
+                    <!--android:editable="false"-->
+                    <!--app:met_floatingLabelTextColor="#8805ad"-->
+                    <!--android:clickable="true"-->
+                    <!--android:focusable="true"-->
+                    <!--app:met_floatingLabel="highlight"-->
+                    <!--android:layout_marginTop="10dp" />-->
+                <Spinner
+                    android:id="@+id/spintakefoodin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Intake"
+                    android:textColor="@color/text_color"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:prompt="@string/hello_world"
+                    android:drawableRight="@drawable/arrow_dialog"
+                    android:layout_marginTop="5dp" />
+
+            </LinearLayout>
+
+            <!---->
+            <!--Other Intake-->
+
+            <LinearLayout
+                android:id="@+id/llother"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:padding="5dp">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etotherintake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Other Intake"
+                    android:textColor="@color/text_color"
+                    android:editable="true"
+                    android:singleLine="true"
+                    android:inputType="textPersonName"
+                    app:met_floatingLabelTextColor="#8805ad"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:met_floatingLabel="highlight"
+                    android:layout_marginTop="5dp" />
+
+            </LinearLayout>
+
+            <!---->
+
+
+            <!--Quantity-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:padding="5dp"
+                android:weightSum="3.5">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etquantityfoodin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="Quantity"
+                    android:textColor="@color/text_color"
+                    android:singleLine="true"
+                    android:editable="true"
+                    app:met_floatingLabelTextColor="#8805ad"
+                    android:inputType="numberDecimal"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:met_floatingLabel="highlight"
+                    android:layout_marginTop="5dp" />
+
+                <Spinner
+                    android:id="@+id/spquantity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/abc_spinner_mtrl_am_alpha"></Spinner>
+
+
+            </LinearLayout>
+            <!---->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp"></LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/buttomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/accent_material_light"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="1"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center">
+
+                <com.widevision.pregnantwoman.model.CustomButton
+                    android:id="@+id/bttnsave"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/accent_material_light"
+                    android:text="SAVE"
+                    android:background="@drawable/button_buttom_selector"
+                     />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/accent_material_light"></View>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center">
+
+                <com.widevision.pregnantwoman.model.CustomButton
+                    android:id="@+id/bttncancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/accent_material_light"
+                    android:text="CANCEL"
+                    android:background="@drawable/button_buttom_selector" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

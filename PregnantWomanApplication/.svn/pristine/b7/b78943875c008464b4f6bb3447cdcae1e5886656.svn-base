@@ -1,0 +1,1718 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:clickable="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:fillViewport="true"
+        android:layout_above="@+id/buttomLayout">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--Title-->
+
+            <RelativeLayout
+                android:id="@+id/rltitlevaccin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical" >
+
+                <com.widevision.pregnantwoman.model.CustomTextViewBold
+                    android:id="@+id/txtvaccin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Vaccination Chart"
+                    android:gravity="center" />
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/views"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/accent_material_light" />
+
+            <!---->
+
+            <!--Name-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:padding="5dp">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etnamevaccin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Name Of Baby"
+                    android:textColor="@color/text_color"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:inputType="textPersonName"
+                    android:singleLine="true"
+                    app:met_floatingLabel="highlight"
+                    android:clickable="false"
+                    android:layout_marginTop="5dp" />
+
+                <View
+                    android:id="@+id/view0"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/accent_material_light" />
+
+
+            </LinearLayout>
+
+            <!---->
+            <!--Vaccin Table-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="20dp"
+                android:padding="5dp">
+
+                <TableLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittextborder">
+
+                    <!--Table Heading-->
+                    <TableRow
+                        android:id="@+id/tabletitlevaccin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtvaccinname"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Vaccination Name"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtduedate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Due Date"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdoneornot"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="@string/donenotdone"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+                    <View
+                        android:id="@+id/view1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+                    <!--First Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin1"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="21/22"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+                    <!--Second Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin2"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:hint="date"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view3"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+                    <!--Third Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin3"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="22/04"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view4"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+                    <!--Fourth Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin4"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text=""
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view5"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+                    <!---->
+
+                    <!--5 Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin5"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:hint="date"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view6"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+
+                    <!--6 Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin6"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin6"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate6"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:hint="date"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone6"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view7"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+                    <!--7 Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin7"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin7"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate7"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:hint="date"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone7"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view8"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+
+                    <!--8 Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin8"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin8"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate8"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:hint="date"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone8"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view9"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+
+                    <!--9 Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin9"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin9"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate9"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:hint="date"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone9"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view10"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+
+                    <!--10 Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin10"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin10"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate10"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:hint="date"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone10"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view11"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+
+                    <!--11 Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin11"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin11"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate11"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:hint="date"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone11"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view12"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+
+                    <!--12 Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin12"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin12"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate12"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:hint="date"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone12"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view13"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+
+                    <!--13 Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail13"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin13"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin13"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate13"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:hint="date"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone13"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view14"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+                    <!--14 Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail14"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin14"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin14"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate14"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:hint="date"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone14"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view15"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+
+                    <!--15 Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail15"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin15"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin15"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate15"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:hint="date"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone15"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view16"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+
+                    <!--16 Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin16"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin16"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate16"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:hint="date"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone16"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view17"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+
+                    <!--17 Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail17"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin17"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin17"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate17"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:hint="date"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone17"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view18"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+
+                    <!--18 Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail18"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin18"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin18"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate18"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:hint="date"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone18"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view19"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+
+                    <!--19 Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail19"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin19"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin19"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate19"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:hint="date"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone19"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view20"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+
+                    <!--20 Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail20"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin20"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin20"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate20"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:hint="date"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone20"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view21"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+
+                    <!--21 Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail21"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin21"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin21"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate21"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:hint="date"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone21"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view22"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+
+                    <!--22 Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail22"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin22"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin22"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate22"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:hint="date"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone22"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view23"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+
+                    <!--23 Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail23"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin23"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin23"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate23"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:hint="date"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone23"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view24"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+
+                    <!--24 Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail24"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin24"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin24"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate24"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:hint="date"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone24"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view25"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+
+                    <!--25 Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail25"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin25"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin25"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate25"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:hint="date"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone25"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view26"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+
+                    <!--26 Vaccin Detail-->
+
+                    <TableRow
+                        android:id="@+id/trVaccindetail26"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:layout_margin="3dp"
+                        android:padding="2dp"
+                        android:weightSum="5">
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtVaccin26"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Vaccin26"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdate26"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:hint="date"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center"/>
+
+                        <com.widevision.pregnantwoman.model.CustomTextViewBold
+                            android:id="@+id/txtdone26"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:textColor="@color/black"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Not Done"
+                            android:paddingTop="2dp"
+                            android:paddingBottom="2dp"
+                            android:gravity="left|center" />
+
+                    </TableRow>
+
+                    <View
+                        android:id="@+id/view27"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/accent_material_light" />
+
+                    <!---->
+
+
+
+                </TableLayout>
+                <!---->
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"></LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/buttomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/accent_material_light"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="1"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center">
+
+                <com.widevision.pregnantwoman.model.CustomButton
+                    android:id="@+id/bttnsavevaccin"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/accent_material_light"
+                    android:text="SAVE"
+                    android:background="@drawable/button_buttom_selector" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/accent_material_light"></View>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center">
+
+                <com.widevision.pregnantwoman.model.CustomButton
+                    android:id="@+id/bttncanclevaccin"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/accent_material_light"
+                    android:text="CANCEL"
+                    android:background="@drawable/button_buttom_selector" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

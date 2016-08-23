@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<io.codetail.widget.RevealLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:clickable="true"
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/accent_material_light"
+        android:weightSum="1"
+        android:clickable="true"
+        android:id="@+id/parent_addNote"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:weightSum="1"
+            android:clickable="true"
+            android:id="@+id/parentsecond_addNote"
+            >
+
+            <com.widevision.pregnantwoman.model.CustomTextViewBold
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Add Your Note"
+                android:gravity="center" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/accent_material_light"
+                android:layout_below="@+id/top"
+                android:id="@+id/view"></View>
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/titleEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Note Title"
+                app:met_floatingLabelTextColor="#8805ad"
+                android:textColor="@color/text_color"
+                app:met_floatingLabel="highlight"
+                android:singleLine="true"
+                android:imeOptions="actionNext" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.8"
+                android:background="@drawable/dialog_rounded_white_background"
+                android:layout_margin="10dp">
+
+                <com.widevision.pregnantwoman.model.LineEditText
+                    android:id="@+id/noteEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@null"
+                    android:inputType="textMultiLine|textNoSuggestions"
+                    android:singleLine="false"
+                    android:imeOptions="actionNone"
+                    android:hint="write here new note"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/calendar_header"
+                    android:textCursorDrawable="@null" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.2"
+                android:gravity="center"
+                android:weightSum="1"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".2"></LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".6">
+
+                    <com.widevision.pregnantwoman.model.CustomButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Save"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:background="@drawable/button_selector"
+                        android:textColor="@color/black"
+                        android:id="@+id/saveBt" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".2"></LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</io.codetail.widget.RevealLinearLayout>
+<!-- From: file:/Users/rocks/Documents/workspace%20android/PregnantWomanApplication/app/src/main/res/layout/add_note_activity.xml -->

@@ -1,0 +1,45 @@
+// Generated code from Butter Knife. Do not modify!
+package com.widevision.pregnantwoman.babby;
+
+import android.view.View;
+import butterknife.ButterKnife.Finder;
+import butterknife.ButterKnife.ViewBinder;
+
+public class BabyFoodIntake$$ViewBinder<T extends com.widevision.pregnantwoman.babby.BabyFoodIntake> implements ViewBinder<T> {
+  @Override public void bind(final Finder finder, final T target, Object source) {
+    View view;
+    view = finder.findRequiredView(source, 2131558533, "field 'noteBTTN'");
+    target.noteBTTN = finder.castView(view, 2131558533, "field 'noteBTTN'");
+    view = finder.findRequiredView(source, 2131558535, "field 'nameET'");
+    target.nameET = finder.castView(view, 2131558535, "field 'nameET'");
+    view = finder.findRequiredView(source, 2131558537, "field 'dateET'");
+    target.dateET = finder.castView(view, 2131558537, "field 'dateET'");
+    view = finder.findRequiredView(source, 2131558539, "field 'intakeTimeET'");
+    target.intakeTimeET = finder.castView(view, 2131558539, "field 'intakeTimeET'");
+    view = finder.findRequiredView(source, 2131558541, "field 'foodInSP'");
+    target.foodInSP = finder.castView(view, 2131558541, "field 'foodInSP'");
+    view = finder.findRequiredView(source, 2131558543, "field 'otherintake'");
+    target.otherintake = finder.castView(view, 2131558543, "field 'otherintake'");
+    view = finder.findRequiredView(source, 2131558544, "field 'quantityET'");
+    target.quantityET = finder.castView(view, 2131558544, "field 'quantityET'");
+    view = finder.findRequiredView(source, 2131558545, "field 'quantitySP'");
+    target.quantitySP = finder.castView(view, 2131558545, "field 'quantitySP'");
+    view = finder.findRequiredView(source, 2131558546, "field 'saveBTTN'");
+    target.saveBTTN = finder.castView(view, 2131558546, "field 'saveBTTN'");
+    view = finder.findRequiredView(source, 2131558547, "field 'cancelBTTN'");
+    target.cancelBTTN = finder.castView(view, 2131558547, "field 'cancelBTTN'");
+  }
+
+  @Override public void unbind(T target) {
+    target.noteBTTN = null;
+    target.nameET = null;
+    target.dateET = null;
+    target.intakeTimeET = null;
+    target.foodInSP = null;
+    target.otherintake = null;
+    target.quantityET = null;
+    target.quantitySP = null;
+    target.saveBTTN = null;
+    target.cancelBTTN = null;
+  }
+}

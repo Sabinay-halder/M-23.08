@@ -1,0 +1,346 @@
+package com.widevision.pregnantwoman.baby;
+
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
+import com.widevision.pregnantwoman.MainFragmentActivity;
+import com.widevision.pregnantwoman.R;
+import com.widevision.pregnantwoman.database.ActiveAndroidDBHelper;
+import com.widevision.pregnantwoman.database.BabyInfoTable;
+import com.widevision.pregnantwoman.model.HideKeyFragment;
+import com.widevision.pregnantwoman.util.Constant;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+/**
+ * Created by mercury-two on 18/8/15.
+ */
+public class BabySleepRecord extends HideKeyFragment implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener, Validator.ValidationListener {
+
+    @Bind(R.id.bttnotesleep)
+    ImageView noteBTTN;
+    @NotEmpty(message = "Name Required.")
+    @Bind(R.id.etnamesleep)
+    EditText nameET;
+    @NotEmpty(message = "Date Required.")
+    @Bind(R.id.etdateofbirthsleep)
+    EditText dateET;
+
+    @NotEmpty(message = "Enter Start Time.")
+    @Bind(R.id.etstarttimesleep)
+    EditText startTimeET;
+    @NotEmpty(message = "Enter End Time.")
+    @Bind(R.id.etendtimesleep)
+    EditText endTimeET;
+
+    @Bind(R.id.bttnsavesleep)
+    Button saveBTTN;
+    @Bind(R.id.bttncancelsleep)
+    Button cancelBTTN;
+
+    private ActiveAndroidDBHelper helper;
+    private Validator validator;
+
+    private boolean aDate = false, bDate = false;
+    private String startTime = null;
+    private String endTime = null;
+    private String name, date, startSlTime, endSlTime, notettitle, note;
+    private long babyid;
+
+    private int time = 0;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.baby_sleep_record, container, false);
+        ButterKnife.bind(this, view);
+        setupUI(view);
+
+        helper = ActiveAndroidDBHelper.getInstance();
+        validator = new Validator(this);
+        validator.setValidationListener(this);
+
+
+        Intent in = getActivity().getIntent();
+        Bundle b = in.getExtras();
+        String match = b.getString("1111");
+
+        /*Fetch Value From Dialog List*/
+
+        if (match.equals("dialog")) {
+            babyid = b.getLong("ID");
+            name = b.getString("NAME");
+            date = b.getString("DATE");
+            nameET.setText(name);
+
+        } else if (match.equals("info")) {
+
+              /*Fetch Value From Database*/
+            List<BabyInfoTable> list = helper.babyDetail();
+            if (list != null && list.size() != 0) {
+                for (BabyInfoTable item : list) {
+                    babyid = item.getId();
+                    name = item.name;
+                    date = item.dobbaby;
+                }
+            }
+            nameET.setText(name);
+
+
+        }
+
+
+        /*Note Button*/
+        noteBTTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                setNoteDialog(getActivity(), "");
+            }
+        });
+
+         /*Date picker*/
+        dateET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                aDate = b;
+                if (b) {
+                    DateTimeFormatter formatter = DateTimeFormat.forPattern(Constant.datePattern);
+                    DateTime dt = formatter.parseDateTime(date);
+
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.DAY_OF_MONTH, dt.getDayOfMonth());
+                    calendar.set(Calendar.MONTH, dt.getMonthOfYear() - 1);
+                    calendar.set(Calendar.YEAR, dt.getYear());
+
+                    Calendar now = Calendar.getInstance();
+                    DatePickerDialog dpd = DatePickerDialog.newInstance(
+                            BabySleepRecord.this,
+                            now.get(Calendar.YEAR),
+                            now.get(Calendar.MONTH),
+                            now.get(Calendar.DAY_OF_MONTH)
+                    );
+
+                    dpd.setMaxDate(now);
+                    dpd.setMinDate(calendar);
+
+                    dpd.show(getActivity().getFragmentManager(), "Datepickerdialog");
+                }
+            }
+        });
+
+        dateET.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                aDate = true;
+                DateTimeFormatter formatter = DateTimeFormat.forPattern(Constant.datePattern);
+                DateTime dt = formatter.parseDateTime(date);
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.DAY_OF_MONTH, dt.getDayOfMonth());
+                calendar.set(Calendar.MONTH, dt.getMonthOfYear() - 1);
+                calendar.set(Calendar.YEAR, dt.getYear());
+
+                Calendar now = Calendar.getInstance();
+                DatePickerDialog dpd = DatePickerDialog.newInstance(BabySleepRecord.this, now.get(Calendar.YEAR),
+                        now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH)
+                );
+                dpd.setMinDate(calendar);
+                dpd.setMaxDate(now);
+                dpd.show(getActivity().getFragmentManager(), "Datepickerdialog");
+            }
+        });
+
+        /*Start Time */
+
+        startTimeET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    time = 1;
+                    Calendar calendar = Calendar.getInstance();
+                    TimePickerDialog timePickerDialog = new TimePickerDialog().newInstance(BabySleepRecord.this, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
+                    timePickerDialog.show(getActivity().getFragmentManager(), "Timepickerdialog");
+                }
+            }
+        });
+
+        startTimeET.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                time = 1;
+                Calendar calendar = Calendar.getInstance();
+                TimePickerDialog timePickerDialog = new TimePickerDialog().newInstance(BabySleepRecord.this, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
+                timePickerDialog.show(getActivity().getFragmentManager(), "Timepickerdialog");
+            }
+        });
+
+        /*End Time*/
+        endTimeET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    time = 2;
+                    Calendar calendar = Calendar.getInstance();
+                    TimePickerDialog timePickerDialog = new TimePickerDialog().newInstance(BabySleepRecord.this, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
+                    timePickerDialog.show(getActivity().getFragmentManager(), "Timepickerdialog");
+                }
+            }
+        });
+
+        endTimeET.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                time = 2;
+                Calendar calendar = Calendar.getInstance();
+                TimePickerDialog timePickerDialog = new TimePickerDialog().newInstance(BabySleepRecord.this, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
+                timePickerDialog.show(getActivity().getFragmentManager(), "Timepickerdialog");
+            }
+        });
+
+        /*Save Button*/
+        saveBTTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validator.validate();
+            }
+        });
+
+        /*Cancle Button*/
+        cancelBTTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainFragmentActivity.fragmentManager.popBackStack();
+            }
+        });
+
+        return view;
+
+    }
+
+
+    /*Date Set*/
+    @Override
+    public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
+        String mount = String.valueOf(month + 1);
+        String da = String.valueOf(day);
+
+        if (mount.length() < 2) {
+            mount = "0" + mount;
+        }
+        if (da.length() < 2) {
+            da = "0" + da;
+        }
+        String datesave = year + "-" + mount + "-" + da;
+        dateET.setText(datesave);
+    }
+
+    /*Time Set*/
+    @Override
+    public void onTimeSet(RadialPickerLayout radialPickerLayout, int i, int i2) {
+
+
+        String h = "" + i;
+        String m = "" + i2;
+
+        if (!(h.length() > 1)) {
+            h = "0" + h;
+        }
+        if (!(m.length() > 1)) {
+            m = "0" + m;
+        }
+
+        if (time == 1) {
+            startTime = h + ":" + m;
+            startTimeET.setText(startTime);
+        } else if (time == 2) {
+            endTime = h + ":" + m;
+            endTimeET.setText(endTime);
+        }
+
+    }
+
+    /*Validation Set*/
+    @Override
+    public void onValidationSucceeded() {
+
+        name = nameET.getText().toString().trim();
+        date = dateET.getText().toString().trim();
+        startSlTime = startTimeET.getText().toString().trim();
+        endSlTime = endTimeET.getText().toString().trim();
+
+        Log.e("sleepbaby", babyid + " " + name + " " + date + " " + startSlTime + " " + endSlTime + " " + notettitle + " " + note);
+
+        helper.addBabySleepRecord(babyid, date, startSlTime, endSlTime, notettitle, note);
+        Constant.babysaveAlert(getActivity(), "Sleeping Time added Successfully.");
+
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+
+        Constant.setAlert(getActivity(), errors.get(0).getCollatedErrorMessage(getActivity()));
+    }
+
+    /*Dialog box for confirmation*/
+    public void setNoteDialog(final Activity activity, String msg) {
+
+
+
+        final Dialog dialog = new Dialog(activity, R.style.DialogSlideAnim);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.add_note_activity);
+        dialog.getWindow().setLayout(Constant.width - 10, ViewGroup.LayoutParams.FILL_PARENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        setupUI(getView());
+        Button savebttn = (Button) dialog.findViewById(R.id.saveBt);
+        final EditText title = (EditText) dialog.findViewById(R.id.titleEdt);
+        final EditText noteet = (EditText) dialog.findViewById(R.id.noteEdt);
+
+        /*Dialog Buttons*/
+        savebttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                note = noteet.getText().toString();
+                notettitle = title.getText().toString();
+
+                if (note.trim().equals("") || notettitle.trim().equals("")) {
+                    Toast.makeText(getActivity(), "All Fields are Required. ", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+
+                    dialog.dismiss();
+                }
+            }
+        });
+        dialog.show();
+    }
+
+}

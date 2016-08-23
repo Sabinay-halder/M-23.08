@@ -1,0 +1,605 @@
+package com.widevision.pregnantwoman.database;
+
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Delete;
+import com.activeandroid.query.Select;
+import com.widevision.pregnantwoman.Bean.BabyDBBean;
+import com.widevision.pregnantwoman.Bean.BabyHeightWeightBean;
+import com.widevision.pregnantwoman.Bean.BabyInfoBean;
+import com.widevision.pregnantwoman.Bean.BabySleepRequiredBean;
+import com.widevision.pregnantwoman.Bean.MotherHealthBean;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by Akhilesh on 08/04/15.
+ */
+public class ActiveAndroidDBHelper {
+
+    public static ActiveAndroidDBHelper mDBHelper;
+
+    private ActiveAndroidDBHelper() {
+
+    }
+
+    public static ActiveAndroidDBHelper getInstance() {
+        if (mDBHelper == null) {
+            if (mDBHelper == null) {
+                mDBHelper = new ActiveAndroidDBHelper();
+                return mDBHelper;
+            }
+        }
+        return mDBHelper;
+    }
+
+    public void addMotherDetail(String name, String currentdate, String dob, String age, String expectedDate, String expectedDeliveryDate, String babbyMonth) {
+        MotherRecordTable empTable = new MotherRecordTable(name, currentdate, dob, age, expectedDate, expectedDeliveryDate, babbyMonth);
+        empTable.save();
+    }
+
+    public List<MotherRecordTable> viewMother() {
+        Select select = new Select();
+        List<MotherRecordTable> list = select.all().from(MotherRecordTable.class).execute();
+        return list;
+    }
+
+    public void updateMotherDetail(long _id, String _name, String _dob, String _age, String _expectedDate, String _expectedDeliveryDate, String _babbyMonth) {
+        MotherRecordTable motherRecordTable = new Select().from(MotherRecordTable.class)
+                .where("Id" + " = ?", _id).executeSingle();
+        motherRecordTable.name = _name;
+        motherRecordTable.dob = _dob;
+        motherRecordTable.age = _age;
+        motherRecordTable.expecteConceiveDate = _expectedDate;
+        motherRecordTable.expecteDeliveryDate = _expectedDeliveryDate;
+        motherRecordTable.babbyMonth = _babbyMonth;
+        motherRecordTable.save();
+    }
+
+    //start note
+
+    public void addNote(String name, String note, String title, String dateTime) {
+        NoteRecordTable noteRecordTable = new NoteRecordTable(name, note, title, dateTime);
+        noteRecordTable.save();
+    }
+
+    public List<NoteRecordTable> viewAllNote() {
+        Select select = new Select();
+        List<NoteRecordTable> noteList = select.all().from(NoteRecordTable.class).execute();
+        return noteList;
+    }
+
+    public void updateNote(String name, String note, String title, String dateTime, long id) {
+        NoteRecordTable model = selectField("Id", id);
+        model.dateTime = dateTime;
+        model.note = note;
+        model.title = title;
+        model.name = name;
+        model.save();
+    }
+
+    public void deleteNote(long id) {
+        new Delete().from(NoteRecordTable.class).where("Id" + " = ?", id).executeSingle();
+
+    }
+
+
+    public NoteRecordTable selectField(String id, long fieldValue) {
+        return new Select().from(NoteRecordTable.class)
+                .where(id + " = ?", fieldValue).executeSingle();
+    }
+
+    // end note
+    //start appointment table
+    public void addAppointment(String name, String doctorName, String date, String time, String mobileTime) {
+        AppointmentRecordTable appointmentRecordTable = new AppointmentRecordTable(name, doctorName, date, time, mobileTime);
+        appointmentRecordTable.save();
+    }
+
+    public List<AppointmentRecordTable> viewAllAppointment() {
+        try {
+            Select select = new Select();
+            List<AppointmentRecordTable> appointmentList = select.all().from(AppointmentRecordTable.class).execute();
+            return appointmentList;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void deleteAppointment(long id) {
+        new Delete().from(AppointmentRecordTable.class).where(id + " = ?", id).executeSingle();
+    }
+
+    public AppointmentRecordTable selectAppointment(String id, long fieldValue) {
+        return new Select().from(AppointmentRecordTable.class)
+                .where(id + " = ?", fieldValue).executeSingle();
+    }
+
+    //end appointment table
+    //start HelthParameter table
+    public void addHelthParameter(long id, String date, String weight, String systolicBloodPressure, String diastolicBloodPressure, float beforeMeal, float afterMeal, boolean preExistingDiabetes) {
+        MotherHelthParameterTable helthParameterTable = new MotherHelthParameterTable(id, date, weight, systolicBloodPressure, diastolicBloodPressure, beforeMeal, afterMeal, preExistingDiabetes);
+        helthParameterTable.save();
+    }
+
+    public void updateHelthParameter(long id, long motherId, String date, String weight, String systolicBloodPressure, String diastolicBloodPressure, float beforeMeal, float afterMeal, boolean preExistingDiabetes) {
+        MotherHelthParameterTable item = new Select().from(MotherHelthParameterTable.class)
+                .where("Id" + " = ?", id).executeSingle();
+        item._Id = motherId;
+        item._Date = date;
+        item._Weight = weight;
+        item._SystolicBloodPressure = systolicBloodPressure;
+        item._DiastolicBloodPressure = diastolicBloodPressure;
+        item._BloodSugarBeforeMeal = beforeMeal;
+        item._BloodSugarAfterMeal = afterMeal;
+        item._PreExistingDiabetes = preExistingDiabetes;
+        item.save();
+    }
+
+    public List<MotherHelthParameterTable> viewAllHealthRecord() {
+        return new Select().all().from(MotherHelthParameterTable.class).execute();
+    }
+
+
+    //end HelthParameter table
+
+    public Cursor viewAll() {
+        SQLiteDatabase db = ActiveAndroid.getDatabase();
+
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery("select * from  woman_weight_table", null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return cursor;
+    }
+
+
+    public List<MotherHealthBean> orderByDate() {
+
+        List<MotherHealthBean> list = new ArrayList<MotherHealthBean>();
+        SQLiteDatabase db = ActiveAndroid.getDatabase();
+        Cursor cursor = null;
+        try {
+            cursor = db.query(false, "MotherHealthRecordTable", null, null
+                    , null, null, null, "Date", null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                MotherHealthBean bean = new MotherHealthBean();
+                bean.set_Id(cursor.getLong(cursor.getColumnIndex("_Id")));
+                bean.set_Date(cursor.getString(cursor.getColumnIndex("Date")));
+                bean.set_Weight(cursor.getString(cursor.getColumnIndex("Weight")));
+                bean.set_SystolicBloodPressure(cursor.getString(cursor.getColumnIndex("SystolicBloodPressure")));
+                bean.set_DiastolicBloodPressure(cursor.getString(cursor.getColumnIndex("DiastolicBloodPressure")));
+                bean.set_BloodSugarBeforeMeal(cursor.getFloat(cursor.getColumnIndex("BloodSugarBeforeMeal")));
+                bean.set_BloodSugarAfterMeal(cursor.getFloat(cursor.getColumnIndex("BloodSugarAfterMeal")));
+                bean.set_PreExistingDiabetes(cursor.getInt(cursor.getColumnIndex("PreExistingDiabetes")) > 0);
+                list.add(bean);
+            } while (cursor.moveToNext());
+        }
+        return list;
+    }
+
+
+    public ArrayList<BabyHeightWeightBean> getBabyHeightWeightData() {
+        SQLiteDatabase db = ActiveAndroid.getDatabase();
+        Cursor cursor = null;
+        ArrayList<BabyHeightWeightBean> list = new ArrayList<>();
+        try {
+            cursor = db.rawQuery("select * from BabyHeightWeightTable", null);
+
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    BabyHeightWeightBean bean = new BabyHeightWeightBean();
+                    bean.setStage(cursor.getString(cursor.getColumnIndex("Stage")));
+                    bean.setAge(cursor.getString(cursor.getColumnIndex("Age")));
+                    bean.setBoys_Height(cursor.getFloat(cursor.getColumnIndex("Boys_Height")));
+                    bean.setBoys_Weight(cursor.getFloat(cursor.getColumnIndex("Boys_Weight")));
+                    bean.setGirls_Height(cursor.getFloat(cursor.getColumnIndex("Girls_Height")));
+                    bean.setGirls_Weight(cursor.getFloat(cursor.getColumnIndex("Girls_Weight")));
+                    list.add(bean);
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return list;
+    }
+
+
+   /* public List<EmployeeTable> viewEmpList() {
+
+        Select select = new Select();
+
+        List<EmployeeTable> empList = select.all().from(EmployeeTable.class)
+                .execute();
+
+        return empList;
+
+    }*/
+
+   /* public List<EmployeePayrollMasterRecordTable> viewEmpTaxInfoList() {
+
+        Select select = new Select();
+
+        List<EmployeePayrollMasterRecordTable> empList = select.all().from(EmployeePayrollMasterRecordTable.class)
+                .execute();
+
+        return empList;
+
+    }*/
+
+    /*public List<EmployeeTable> getSingleEmployeeRecord(String empID) {
+
+        Select select = new Select();
+
+        List<EmployeeTable> all = select.from(EmployeeTable.class)
+                .where("empID = ?", empID).execute();
+
+        return all;
+    }*/
+
+    /*public List<EmployeePayrollMasterRecordTable> getSingleEmployeeTaxInfoRecord(String empID) {
+
+        Select select = new Select();
+
+        List<EmployeePayrollMasterRecordTable> all = select.from(EmployeePayrollMasterRecordTable.class)
+                .where("empID = ?", empID).execute();
+
+        return all;
+    }*/
+
+   /* public void deleteEmp(String empID) {
+
+        new Delete().from(EmployeeTable.class).where("empID = ?", empID)
+                .executeSingle();
+
+    }
+
+    public void deleteEmpTaxInfoRecord(String empID) {
+
+        new Delete().from(EmployeePayrollMasterRecordTable.class).where("empID = ?", empID)
+                .executeSingle();
+
+    }*/
+
+
+    //Baby DataBase Start
+    //start Baby Info table
+    public void addBabyInfo(String name, String date, String gender, float weight, int height, int circumference) {
+        BabyInfoTable babyInfoTable = new BabyInfoTable(name, date, gender, weight, height, circumference);
+        babyInfoTable.save();
+    }
+
+    //fetch all data from babyinfo
+
+    public List<BabyInfoTable> babyDetail() {
+        Select select = new Select();
+        List<BabyInfoTable> nameDateList = select.all().from(BabyInfoTable.class).execute();
+
+        nameDateList.get(0).getId();
+        String dobbaby = nameDateList.get(0).dobbaby;
+
+        return nameDateList;
+    }
+
+
+    //Update record In BabyinfoTable
+
+    public void babyInfoUpdate(long babyid, String name, String date, String gender, float weight, int height, int circumference) {
+
+        long i = babyid;
+        String babid = "id";
+        BabyInfoTable babyupdate = new Select().from(BabyInfoTable.class).where(babid + " = ?", i).executeSingle();
+        babyupdate.name = name;
+        babyupdate.dobbaby = date;
+        babyupdate.genderbaby = gender;
+        babyupdate.weightbaby = weight;
+        babyupdate.heightbaby = height;
+        babyupdate.circumbaby = circumference;
+        babyupdate.save();
+    }
+
+
+//    public List<BabyNameBean> getAllContacts() {
+//        List<BabyNameBean> babyList = new ArrayList<BabyNameBean>();
+//        // Select All Query
+//        String selectQuery = "SELECT NameOfBaby,DateOfBirthBaby FROM BabyInfoRecord";
+//
+//        SQLiteDatabase db = ActiveAndroid.getDatabase();
+//        Cursor cursor = db.rawQuery(selectQuery, null);
+//
+//        // looping through all rows and adding to list
+//        if (cursor.moveToFirst()) {
+//            do {
+//                BabyNameBean contact = new BabyNameBean();
+//                contact.setName(cursor.getString(0));
+//                contact.setDate(cursor.getString(1));
+//                // Adding contact to list
+//                babyList.add(contact);
+//            } while (cursor.moveToNext());
+//        }
+//        // return contact list
+//        return babyList;
+//    }
+
+
+    //end Baby Info table
+
+//------------------------------------------------------
+
+    /*start Baby FoodIntake table*/
+    public void addBabyFoodIntake(long babyid, String date, String intakeTime, String food, int quantity, String unit, String notetitlefood, String notefood) {
+        BabyFoodTable babyFoodTable = new BabyFoodTable(babyid, date, intakeTime, food, quantity, unit, notetitlefood, notefood);
+        babyFoodTable.save();
+    }
+
+    //Fetch Values Food Intake
+
+    public List<BabyFoodTable> babyfoodDetail(long babyid) {
+        long i = babyid;
+        String babid = "BabyId";
+        Select select = new Select();
+        List<BabyFoodTable> foodList = select.from(BabyFoodTable.class).where(babid + " = ?", i).execute();
+        SQLiteDatabase db = ActiveAndroid.getDatabase();
+        return foodList;
+    }
+
+    //fetch all data from babyfood by datefrom
+    public List<BabyDBBean> babyfoodDetail(long babyid, String datefrom) {
+
+        long i = babyid;
+        List<BabyDBBean> foodList = new ArrayList<BabyDBBean>();
+
+//        String selectQuery = "Select * from  BabyFoodIntakeRecord Where BabyId = "+ i +" And DateFoodIntake >= "+ datefrom ;
+        String selectQuery = "Select * from  BabyFoodIntakeRecord Where BabyId = '" + i + "' And DateFoodIntake >= '" + datefrom + "'";
+
+        SQLiteDatabase no = ActiveAndroid.getDatabase();
+        Cursor cursor = no.rawQuery(selectQuery, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                BabyDBBean babyfood = new BabyDBBean();
+                babyfood.setBabyid(cursor.getInt(cursor.getColumnIndex("BabyId")));
+                babyfood.setDatefood(cursor.getString(cursor.getColumnIndex("DateFoodIntake")));
+                babyfood.setCategoryfood(cursor.getString(cursor.getColumnIndex("FoodIntake")));
+                babyfood.setNotetitlefood(cursor.getString(cursor.getColumnIndex("NoteFoodTitle")));
+                babyfood.setNotedetailfood(cursor.getString(cursor.getColumnIndex("NoteDetailFood")));
+                foodList.add(babyfood);
+            } while (cursor.moveToNext());
+        }
+
+        return foodList;
+    }
+
+//    update Notelist Food
+
+    public void babyFoodUpdate(long babyid, String datefood, String notedetailfood) {
+        List<BabyFoodTable> foodListav = new ArrayList<BabyFoodTable>();
+        long i = babyid;
+        BabyFoodTable babyfoodupdate = new Select().from(BabyFoodTable.class).where("BabyId = ?", i).where("DateFoodIntake = ?", datefood).executeSingle();
+
+        babyfoodupdate.notefood = notedetailfood;
+
+        babyfoodupdate.save();
+    }
+
+
+//    -----------------------------------------------------
+
+    //Insert Food Intake Catecory
+
+    public void addIntakeCategory(String category) {
+        String tablename = "FoodIntakeCategoryTable";
+
+        SQLiteDatabase db = ActiveAndroid.getDatabase();
+
+        ContentValues contentValue = new ContentValues();
+        contentValue.put("Category", category);
+        db.insert(tablename, null, contentValue);
+    }
+
+
+    //Fetch Food Intake Catecory
+    public List<String> foodIntakeCategList() {
+
+        // Select All Query
+        String selectQuery = "Select * from  FoodIntakeCategoryTable";
+        SQLiteDatabase db = ActiveAndroid.getDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        List<String> IntakeCategoryList = new ArrayList<String>();
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                IntakeCategoryList.add(cursor.getString(cursor.getColumnIndex("category")));
+                // Adding contact to list
+            } while (cursor.moveToNext());
+        }
+        // return contact list
+        return IntakeCategoryList;
+    }
+
+    /*end Baby FoodIntake table*/
+
+//------------------------------------------------------
+
+    /*start Baby Height Weight table*/
+    public void addBabyHeiWei(long babyid, String date, String gender, float weight, int height, String notetitleheiwei, String noteheiwei) {
+        BabyHeiWeiTable babyHeiWeiTable = new BabyHeiWeiTable(babyid, date, gender, weight, height, notetitleheiwei, noteheiwei);
+        babyHeiWeiTable.save();
+    }
+    //fetch all data from babyheiwei
+
+    public List<BabyDBBean> babyHeiWeiDeta(long babyid, String datefrom) {
+        long i = babyid;
+
+        List<BabyDBBean> heiweiList = new ArrayList<BabyDBBean>();
+        String selectQuery = "Select * from  BabyHeightWeightRecord Where BabyId = '" + i + "' And DateOfMeasure >= '" + datefrom + "'";
+
+        SQLiteDatabase no = ActiveAndroid.getDatabase();
+        Cursor cursor = no.rawQuery(selectQuery, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                BabyDBBean babyheiwei = new BabyDBBean();
+                babyheiwei.setBabyid(cursor.getInt(cursor.getColumnIndex("BabyId")));
+                babyheiwei.setDateheiwei(cursor.getString(cursor.getColumnIndex("DateOfMeasure")));
+                babyheiwei.setWeight(cursor.getFloat(cursor.getColumnIndex("WeightBaby")));
+                babyheiwei.setHeight(cursor.getInt(cursor.getColumnIndex("HeightBaby")));
+                babyheiwei.setNotetitleheiwei(cursor.getString(cursor.getColumnIndex("NoteTitleHeiWei")));
+                babyheiwei.setNotedetailheiwei(cursor.getString(cursor.getColumnIndex("NoteDetailHeiWei")));
+                heiweiList.add(babyheiwei);
+            } while (cursor.moveToNext());
+        }
+        return heiweiList;
+    }
+
+    public List<BabyInfoBean> babyHeightInfo(long id) {
+        ArrayList<BabyInfoBean> list = new ArrayList<>();
+        SQLiteDatabase db = ActiveAndroid.getDatabase();
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery("select * from BabyHeightWeightRecord Where BabyId = " + id, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                BabyInfoBean item = new BabyInfoBean();
+                item.setBabyHeight(cursor.getString(cursor.getInt(cursor.getColumnIndex("HeightBaby"))));
+                item.setBabyWeight(cursor.getString(cursor.getInt(cursor.getColumnIndex("WeightBaby"))));
+                item.setDate(cursor.getString(cursor.getInt(cursor.getColumnIndex("DateOfMeasure"))));
+                list.add(item);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<String> babyWeightInfo(long id) {
+        ArrayList<String> list = new ArrayList<>();
+        SQLiteDatabase db = ActiveAndroid.getDatabase();
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery("select * from BabyHeightWeightRecord Where BabyId = " + id, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                do {
+                    list.add(cursor.getString(cursor.getColumnIndex("WeightBaby")));
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+
+    //    update Notelist Food
+
+    public void babyHeiWeiUpdate(long babyid, String dateHeiWei, String notedetailHeiWei) {
+        List<BabyHeiWeiTable> heiWeiListav = new ArrayList<BabyHeiWeiTable>();
+        long i = babyid;
+        BabyHeiWeiTable babyHeiWeiupdate = new Select().from(BabyHeiWeiTable.class).where("BabyId = ?", i).where("DateOfMeasure = ?", dateHeiWei).executeSingle();
+
+        babyHeiWeiupdate.noteheiwei = notedetailHeiWei;
+
+        babyHeiWeiupdate.save();
+    }
+
+
+    //    public List<BabyHeiWeiTable> babyHeiWeiDetail(long babyid) {
+//        long i = babyid;
+////        String babid = "BabyId";
+//        Select select = new Select();
+//        List<BabyHeiWeiTable> heiWeiList = select.all().from(BabyHeiWeiTable.class).where(" BabyId = '"+ i +"'").execute();
+//        return heiWeiList;
+//    }
+    /*end Baby Height Weight table*
+
+//------------------------------------------------------
+
+    /*start Baby Height Weight table*/
+    public void addBabySleepRecord(long babyid, String sleepdate, String starttimebaby, String endtimebaby, String notetitlesleepbaby, String notesleepbaby) {
+        BabySleepRecordTable babySleepRecordTable = new BabySleepRecordTable(babyid, sleepdate, starttimebaby, endtimebaby, notetitlesleepbaby, notesleepbaby);
+        babySleepRecordTable.save();
+    }
+    //fetch all data from babysleep
+
+    public List<BabySleepRecordTable> babySleepDetail(long babyid) {
+        long i = babyid;
+        String babid = "BabyId";
+        Select select = new Select();
+        List<BabySleepRecordTable> sleepList = select.all().from(BabySleepRecordTable.class).where(babid + " = ?", i).execute();
+        return sleepList;
+    }
+
+    //fetch all data from babysleep by datefrom
+    public List<BabyDBBean> babySleepDeta(long babyid, String datefrom) {
+        long i = babyid;
+
+        List<BabyDBBean> sleepList = new ArrayList<BabyDBBean>();
+        String selectQuery = "Select * from  BabySleepRecord Where BabyId = " + i + " And DateOfSleepBaby >= " + datefrom ;
+
+        SQLiteDatabase no = ActiveAndroid.getDatabase();
+        Cursor cursor = no.rawQuery(selectQuery, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                BabyDBBean babysleep = new BabyDBBean();
+
+                babysleep.setBabyid(cursor.getInt(cursor.getColumnIndex("BabyId")));
+                babysleep.setDatesleep(cursor.getString(cursor.getColumnIndex("DateOfSleepBaby")));
+                babysleep.setNotetitlesleep(cursor.getString(cursor.getColumnIndex("TitleNoteSleepBaby")));
+                babysleep.setNotedetailsleep(cursor.getString(cursor.getColumnIndex("NoteSleepBaby")));
+
+                sleepList.add(babysleep);
+            } while (cursor.moveToNext());
+        }
+
+        return sleepList;
+    }
+
+
+    public ArrayList<BabySleepRequiredBean> babySleepRequiredData() {
+        SQLiteDatabase db = ActiveAndroid.getDatabase();
+
+        ArrayList<BabySleepRequiredBean> list = new ArrayList<>();
+
+        Cursor cursor = null;
+        cursor = db.rawQuery("select * from BabySleepRecordTable", null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                BabySleepRequiredBean item = new BabySleepRequiredBean();
+                item.setAge(cursor.getString(cursor.getColumnIndex("Age")));
+                item.setHour(cursor.getString(cursor.getColumnIndex("TotalHours")));
+                list.add(item);
+            } while (cursor.moveToNext());
+        }
+        return list;
+    }
+
+
+//    update Notelist Food
+
+    public void babySleepUpdate(long babyid, String dateSleep, String notedetailSleep) {
+        List<BabySleepRecordTable> heiWeiListav = new ArrayList<BabySleepRecordTable>();
+        long i = babyid;
+        BabySleepRecordTable babySleepupdate = new Select().from(BabySleepRecordTable.class).where("BabyId = ?", i).where("DateOfSleepBaby = ?", dateSleep).executeSingle();
+
+        babySleepupdate.notesleepbaby = notedetailSleep;
+
+        babySleepupdate.save();
+    }
+
+
+}

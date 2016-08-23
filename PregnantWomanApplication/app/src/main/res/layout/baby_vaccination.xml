@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/baby_vaccination"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/baby_background"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+
+
+    <com.widevision.pregnantwoman.model.CustomTextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="Vaccination Chart For"
+        android:textColor="@color/heading"
+        android:textSize="20sp" />
+
+    <com.widevision.pregnantwoman.model.CustomTextViewBold
+        android:id="@+id/babyName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="baby name"
+        android:textColor="@color/baby_name"
+        android:textSize="15sp" />
+
+
+    <ListView
+        android:id="@+id/vaccinationList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/babyName"
+        android:layout_marginTop="10dp"
+        android:cacheColorHint="#00000000"
+
+        android:fadingEdge="none"
+        android:dividerHeight="10dp"
+        android:divider="@null"></ListView>
+
+</RelativeLayout>

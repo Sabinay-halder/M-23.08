@@ -1,0 +1,208 @@
+package com.widevision.pregnantwoman.mother;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
+import com.widevision.pregnantwoman.MainFragmentActivity;
+import com.widevision.pregnantwoman.R;
+import com.widevision.pregnantwoman.database.ActiveAndroidDBHelper;
+import com.widevision.pregnantwoman.model.HideKeyFragment;
+import com.widevision.pregnantwoman.util.Constant;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+/**
+ * Created by newtrainee on 4/8/15.
+ */
+public class AppointmentRequestActivity extends HideKeyFragment implements TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener, Validator.ValidationListener {
+
+    @NotEmpty(message = "Name is required.")
+    @Bind(R.id.nameEdt)
+    EditText mNameEdt;
+    @NotEmpty(message = "Doctor Name is required.")
+    @Bind(R.id.doctorNameEdt)
+    EditText mDoctorNameEdt;
+    @NotEmpty(message = "enter appointment Time.")
+    @Bind(R.id.timeEdt)
+    EditText mTimeEdt;
+    @NotEmpty(message = "enter appointment Date.")
+    @Bind(R.id.dateEdt)
+    EditText mDateEdt;
+    @Bind(R.id.saveBtn)
+    Button mSaveBtn;
+    @Bind(R.id.cancelBtn)
+    Button mCancelBtn;
+
+    private ActiveAndroidDBHelper helper;
+    private Validator validator;
+    int tag = 0;
+    private Animation fadeInAnimation;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.appointment_activity, container, false);
+        ButterKnife.bind(this, view);
+        setupUI(view);
+        final View myView = view.findViewById(R.id.appointment_parent);
+        final View myViewSecond = view.findViewById(R.id.appointment_parent_second);
+        final ViewTreeObserver obs = myView.getViewTreeObserver();
+        obs.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                if (tag == 0) {
+                    fadeInAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
+                    float finalRadius = Constant.hypo(myView.getWidth(), myView.getHeight());
+                    Constant.animateReavel(getActivity(), fadeInAnimation, myView.getWidth() / 2, myView.getHeight() / 2, myView, myViewSecond, finalRadius);
+                    tag = 1;
+                }
+                return true;
+            }
+        });
+        helper = ActiveAndroidDBHelper.getInstance();
+        validator = new Validator(this);
+        validator.setValidationListener(this);
+
+        mTimeEdt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    Calendar calendar = Calendar.getInstance();
+                    TimePickerDialog timePickerDialog = new TimePickerDialog().newInstance(AppointmentRequestActivity.this, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
+                    timePickerDialog.show(getActivity().getFragmentManager(), "Timepickerdialog");
+                }
+            }
+        });
+        mTimeEdt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar calendar = Calendar.getInstance();
+                TimePickerDialog timePickerDialog = new TimePickerDialog().newInstance(AppointmentRequestActivity.this, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
+                timePickerDialog.show(getActivity().getFragmentManager(), "Timepickerdialog");
+            }
+        });
+        mDateEdt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar now = Calendar.getInstance();
+                DatePickerDialog dpd = DatePickerDialog.newInstance(
+                        AppointmentRequestActivity.this,
+                        now.get(Calendar.YEAR),
+                        now.get(Calendar.MONTH),
+                        now.get(Calendar.DAY_OF_MONTH)
+                );
+                dpd.setMinDate(now);
+                dpd.show(getActivity().getFragmentManager(), "Datepickerdialog");
+            }
+        });
+        mDateEdt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    Calendar now = Calendar.getInstance();
+                    DatePickerDialog dpd = DatePickerDialog.newInstance(
+                            AppointmentRequestActivity.this,
+                            now.get(Calendar.YEAR),
+                            now.get(Calendar.MONTH),
+                            now.get(Calendar.DAY_OF_MONTH)
+                    );
+                    dpd.setMinDate(now);
+                    dpd.show(getActivity().getFragmentManager(), "Datepickerdialog");
+                }
+            }
+        });
+
+        mSaveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validator.validate();
+            }
+        });
+        mCancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainFragmentActivity.fragmentManager.popBackStack();
+            }
+        });
+
+        return view;
+    }
+
+    @Override
+    public void onTimeSet(RadialPickerLayout radialPickerLayout, int i, int i2) {
+        String a = "" + i2;
+        String c = "" + i;
+
+        if (a.length() == 1) {
+            a = "0" + a;
+        }
+        if (c.length() == 1) {
+            c = "0" + c;
+        }
+
+        try {
+            DateTimeFormatter formatter = DateTimeFormat.forPattern(Constant.dateTimePattern);
+            DateTime dt = formatter.parseDateTime(Constant.getDate() + " " + c + ":" + a);
+            if (dt.isBeforeNow()) {
+                Constant.setAlert(getActivity(), "please select valid time.");
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        mTimeEdt.setText("" + c + ":" + a);
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog datePickerDialog, int i, int i2, int i3) {
+        i2++;
+        String dd = "" + i3;
+        String mm = "" + i2;
+        if (dd.length() == 1) {
+            dd = "0" + dd;
+        }
+        if (mm.length() == 1) {
+            mm = "0" + mm;
+        }
+        mDateEdt.setText(i + "-" + mm + "-" + dd);
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        Constant.setAlert(getActivity(), errors.get(0).getCollatedErrorMessage(getActivity()));
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+        String name = mNameEdt.getText().toString().trim();
+        String doctorName = mDoctorNameEdt.getText().toString().trim();
+        String time = mTimeEdt.getText().toString().trim();
+        String date = mDateEdt.getText().toString().trim();
+        helper.addAppointment(name, doctorName, date, time, Constant.getCurrentTime());
+        Constant.setAlert(getActivity(), "Appointment added Successfully.");
+        MainFragmentActivity.fragmentManager.popBackStack();
+    }
+}

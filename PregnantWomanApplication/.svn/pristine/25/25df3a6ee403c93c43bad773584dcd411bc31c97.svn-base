@@ -1,0 +1,18 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/menu_item_background"
+    android:clickable="true">
+
+    <include layout="@layout/toolbar" />
+
+    <com.desarrollodroide.libraryfragmenttransactionextended.SlidingRelativeLayout
+        android:id="@+id/container"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </com.desarrollodroide.libraryfragmenttransactionextended.SlidingRelativeLayout>
+
+</LinearLayout>
+<!-- From: file:/Users/rocks/Documents/workspace%20android/PregnantWomanApplication/app/src/main/res/layout/activity_main.xml -->

@@ -1,0 +1,33 @@
+// Generated code from Butter Knife. Do not modify!
+package com.widevision.pregnantwoman.babby;
+
+import android.view.View;
+import butterknife.ButterKnife.Finder;
+import butterknife.ButterKnife.ViewBinder;
+
+public class BabyAppointmentRequest$$ViewBinder<T extends com.widevision.pregnantwoman.babby.BabyAppointmentRequest> implements ViewBinder<T> {
+  @Override public void bind(final Finder finder, final T target, Object source) {
+    View view;
+    view = finder.findRequiredView(source, 2131558526, "field 'nameET'");
+    target.nameET = finder.castView(view, 2131558526, "field 'nameET'");
+    view = finder.findRequiredView(source, 2131558527, "field 'mDoctorNameEdt'");
+    target.mDoctorNameEdt = finder.castView(view, 2131558527, "field 'mDoctorNameEdt'");
+    view = finder.findRequiredView(source, 2131558529, "field 'mTimeEdt'");
+    target.mTimeEdt = finder.castView(view, 2131558529, "field 'mTimeEdt'");
+    view = finder.findRequiredView(source, 2131558528, "field 'dateET'");
+    target.dateET = finder.castView(view, 2131558528, "field 'dateET'");
+    view = finder.findRequiredView(source, 2131558530, "field 'mSaveBtn'");
+    target.mSaveBtn = finder.castView(view, 2131558530, "field 'mSaveBtn'");
+    view = finder.findRequiredView(source, 2131558531, "field 'mCancelBtn'");
+    target.mCancelBtn = finder.castView(view, 2131558531, "field 'mCancelBtn'");
+  }
+
+  @Override public void unbind(T target) {
+    target.nameET = null;
+    target.mDoctorNameEdt = null;
+    target.mTimeEdt = null;
+    target.dateET = null;
+    target.mSaveBtn = null;
+    target.mCancelBtn = null;
+  }
+}

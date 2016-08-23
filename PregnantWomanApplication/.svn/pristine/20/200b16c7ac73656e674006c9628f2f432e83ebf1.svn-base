@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="39ae02ce40c3ac828abbf780ce0ff5d7a28b7d6a">
+        <dex dex="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/pre-dexed/debug/classes-d3be72963a4432e7b38d9b793f6591057485d05b.jar" />
+    </item>
+    <item
+        jar="/Users/rocks/.gradle/caches/modules-2/files-2.1/com.mobsandgeeks/android-saripaar/2.0-SNAPSHOT/ea64b751e3ff20afe9ce549538e7654d3fa551e9/android-saripaar-2.0-SNAPSHOT.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="ea64b751e3ff20afe9ce549538e7654d3fa551e9">
+        <dex dex="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/pre-dexed/debug/android-saripaar-2.0-SNAPSHOT-f01ba172e7dc93f9415d09991747164a811b43ca.jar" />
+    </item>
+    <item
+        jar="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/exploded-aar/org.adw.library/discrete-seekbar/1.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="3e2965bae48affdd6dcd3f87cd525a988ade1250">
+        <dex dex="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/pre-dexed/debug/classes-efdc064fe1ec89acd52017de17c355e469c83ae9.jar" />
+    </item>
+    <item
+        jar="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/libs/joda-time-2.0.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="752c0fe8a5b2d6704c9d9d6f06d9abdcacf4045d">
+        <dex dex="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/pre-dexed/debug/joda-time-2.0-2f491476b90efb07e3ea0221285723dce78ed028.jar" />
+    </item>
+    <item
+        jar="/Users/rocks/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.0.1/support-annotations-23.0.1.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
+        <dex dex="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.1-d1d4a477193aa72553248eceeb9db45da57f367c.jar" />
+    </item>
+    <item
+        jar="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/exploded-aar/com.baoyz.swipemenulistview/library/1.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="73784bc5c6aaa8c48746c80a8d238a0cfd74ef6c">
+        <dex dex="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/pre-dexed/debug/classes-339fc0fa59ca9d0aa514f637317a677f93927cb7.jar" />
+    </item>
+    <item
+        jar="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/exploded-aar/com.wdullaer/materialdatetimepicker/1.4.2/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="10f66556026320088327e814108d0a8e80111130">
+        <dex dex="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/pre-dexed/debug/classes-3c4ba56d21f91be450f8deb3e34df7281e289cf6.jar" />
+    </item>
+    <item
+        jar="/Users/rocks/.gradle/caches/modules-2/files-2.1/com.nineoldandroids/library/2.4.0/e9b63380f3a242dbdbf103a2355ad7e43bad17cb/library-2.4.0.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="e9b63380f3a242dbdbf103a2355ad7e43bad17cb">
+        <dex dex="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/pre-dexed/debug/library-2.4.0-1b6dc4b0c6f5b041a66c5754bbcf555e73b301a4.jar" />
+    </item>
+    <item
+        jar="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/exploded-aar/com.diogobernardino/williamchart/2.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="e209ebfa37d4dd762092a8fc4b68c4a93b07b17f">
+        <dex dex="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/pre-dexed/debug/classes-0c7b4358549155f029bd56200ab9cc7e88941fe2.jar" />
+    </item>
+    <item
+        jar="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/exploded-aar/com.daimajia.slider/library/1.1.5/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="08962e03b6a954c65d4944e092879b7f5ee1208d">
+        <dex dex="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/pre-dexed/debug/classes-39ded0e3fb3433a2d2698329c1171818a181494f.jar" />
+    </item>
+    <item
+        jar="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/libs/ActiveAndroid.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="431fe90d3bc1b39cedc770d286dd0f74d70802f1">
+        <dex dex="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/pre-dexed/debug/ActiveAndroid-97ebca320bcf0ef25b277071d6cb4e0d54a6eabf.jar" />
+    </item>
+    <item
+        jar="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
+        <dex dex="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/pre-dexed/debug/classes-c96bbe86429fa14d4b84b05c9e88efd5cf60bb22.jar" />
+    </item>
+    <item
+        jar="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.0.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="4356e230a981d1bbf047d848b91bc0d9b7c5bacc">
+        <dex dex="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/pre-dexed/debug/classes-39455adbdf41cf8a22ffe709b499545aae03baf6.jar" />
+    </item>
+    <item
+        jar="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/libs/achartengine-1.1.0.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="9932e3fb9fbe54e80873e77f72a99f79e33b3250">
+        <dex dex="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/pre-dexed/debug/achartengine-1.1.0-a82e7c5d472f392aa73cb7bae870c7d1d0427127.jar" />
+    </item>
+    <item
+        jar="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/exploded-aar/com.github.ozodrukh/CircularReveal/1.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="496c21d40e14fd6405fd54d79dbf9984e9c49031">
+        <dex dex="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/pre-dexed/debug/classes-b1751133cb914d2e9e4f724cdc3cf4a5056d242a.jar" />
+    </item>
+    <item
+        jar="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/exploded-aar/com.balysv/material-ripple/1.0.2/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="c733e9d1b065d940a08f2fca0ff920dfc08d94cc">
+        <dex dex="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/pre-dexed/debug/classes-0b5f1126050b0b780499224336a9a21d8a86b5cc.jar" />
+    </item>
+    <item
+        jar="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/exploded-aar/com.desarrollodroide/fragmenttransactionextended/1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="87b1bbcbb7ed73dfc5c1e4a2908e3d053d005f67">
+        <dex dex="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/pre-dexed/debug/classes-7d9213b3fc4a16570874460a59c4faec3a0f87ab.jar" />
+    </item>
+    <item
+        jar="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="4486e953d1f35f8ccab098b1dd67146366d5f731">
+        <dex dex="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/pre-dexed/debug/classes-363a92fba63a8eb53932571690cb4c4e65834aa8.jar" />
+    </item>
+    <item
+        jar="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/exploded-aar/com.yalantis/contextmenu/1.0.4/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="4812670dcffa70f6e3b2dc5f191837a2db7d4cd9">
+        <dex dex="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/pre-dexed/debug/classes-b090c3a817bd362f54cffd099b95b85cd183e823.jar" />
+    </item>
+    <item
+        jar="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/exploded-aar/com.rengwuxian.materialedittext/library/2.1.4/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="288913b440a3c61c30aa171095453a605432277a">
+        <dex dex="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/pre-dexed/debug/classes-c82f01c5600575a18f0f93eeb0e4c126b5bc12bf.jar" />
+    </item>
+    <item
+        jar="/Users/rocks/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.3.2/d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27/picasso-2.3.2.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="d6b7f0093cec6c9faf65dbfd6a6a345d0ed25e27">
+        <dex dex="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/pre-dexed/debug/picasso-2.3.2-daebd4a56039da331d2aa91abc2164f8e42f2675.jar" />
+    </item>
+    <item
+        jar="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.1/jars/libs/internal_impl-23.0.1.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
+        <dex dex="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.1-da66557e13b4ba789ece71d8b729373579af6912.jar" />
+    </item>
+    <item
+        jar="/Users/rocks/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/7.0.1/d5d13ea991eab0252e3710e5df3d6a9d4b21d461/butterknife-7.0.1.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="d5d13ea991eab0252e3710e5df3d6a9d4b21d461">
+        <dex dex="/Users/rocks/Documents/workspace android/PregnantWomanApplication/app/build/intermediates/pre-dexed/debug/butterknife-7.0.1-9294cb5a17e10d35e6a9bd343c5c4ab338e4310c.jar" />
+    </item>
+
+</items>

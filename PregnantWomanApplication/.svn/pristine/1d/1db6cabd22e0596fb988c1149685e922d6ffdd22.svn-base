@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+    <LinearLayout
+        android:id="@+id/LLbaby1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left|center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/llimgbaby1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left|center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imgbaby1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icn_4"
+                android:layout_alignParentRight="true"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llbaby1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left|center"
+            android:orientation="vertical">
+
+            <com.widevision.pregnantwoman.model.CustomTextViewBold
+                android:id="@+id/txtbaby1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="baby1"
+                android:gravity="center"
+                android:textColor="@color/abc_search_url_text"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:padding="10dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout><!-- From: file:/Users/rocks/Documents/workspace%20android/PregnantWomanApplication/app/src/main/res/layout/baby_listdata.xml -->

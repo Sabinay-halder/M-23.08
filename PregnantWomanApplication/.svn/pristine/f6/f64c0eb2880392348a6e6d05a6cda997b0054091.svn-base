@@ -1,0 +1,45 @@
+// Generated code from Butter Knife. Do not modify!
+package com.widevision.pregnantwoman.babby;
+
+import android.view.View;
+import butterknife.ButterKnife.Finder;
+import butterknife.ButterKnife.ViewBinder;
+
+public class BabyMainFragment$$ViewBinder<T extends com.widevision.pregnantwoman.babby.BabyMainFragment> implements ViewBinder<T> {
+  @Override public void bind(final Finder finder, final T target, Object source) {
+    View view;
+    view = finder.findRequiredView(source, 2131558598, "field 'babyProfileBttn'");
+    target.babyProfileBttn = finder.castView(view, 2131558598, "field 'babyProfileBttn'");
+    view = finder.findRequiredView(source, 2131558600, "field 'foodIntakeBttn'");
+    target.foodIntakeBttn = finder.castView(view, 2131558600, "field 'foodIntakeBttn'");
+    view = finder.findRequiredView(source, 2131558601, "field 'heiWeiBttn'");
+    target.heiWeiBttn = finder.castView(view, 2131558601, "field 'heiWeiBttn'");
+    view = finder.findRequiredView(source, 2131558602, "field 'sleepRecordBttn'");
+    target.sleepRecordBttn = finder.castView(view, 2131558602, "field 'sleepRecordBttn'");
+    view = finder.findRequiredView(source, 2131558603, "field 'chartBttn'");
+    target.chartBttn = finder.castView(view, 2131558603, "field 'chartBttn'");
+    view = finder.findRequiredView(source, 2131558604, "field 'noteBttn'");
+    target.noteBttn = finder.castView(view, 2131558604, "field 'noteBttn'");
+    view = finder.findRequiredView(source, 2131558605, "field 'vaccinBttn'");
+    target.vaccinBttn = finder.castView(view, 2131558605, "field 'vaccinBttn'");
+    view = finder.findRequiredView(source, 2131558606, "field 'appointBttn'");
+    target.appointBttn = finder.castView(view, 2131558606, "field 'appointBttn'");
+    view = finder.findRequiredView(source, 2131558607, "field 'tipsBttn'");
+    target.tipsBttn = finder.castView(view, 2131558607, "field 'tipsBttn'");
+    view = finder.findRequiredView(source, 2131558599, "field 'fragLL'");
+    target.fragLL = finder.castView(view, 2131558599, "field 'fragLL'");
+  }
+
+  @Override public void unbind(T target) {
+    target.babyProfileBttn = null;
+    target.foodIntakeBttn = null;
+    target.heiWeiBttn = null;
+    target.sleepRecordBttn = null;
+    target.chartBttn = null;
+    target.noteBttn = null;
+    target.vaccinBttn = null;
+    target.appointBttn = null;
+    target.tipsBttn = null;
+    target.fragLL = null;
+  }
+}

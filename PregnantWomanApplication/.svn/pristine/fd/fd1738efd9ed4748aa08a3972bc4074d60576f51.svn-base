@@ -1,0 +1,263 @@
+package com.widevision.pregnantwoman.baby;
+
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.widevision.pregnantwoman.MainFragmentActivity;
+import com.widevision.pregnantwoman.R;
+import com.widevision.pregnantwoman.util.Constant;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+/**
+ * Created by mercury-two on 13/8/15.
+ */
+public class BabyMainFragment extends Fragment {
+
+    @Bind(R.id.bttnbabyprofile)
+    ImageView babyProfileBttn;
+    @Bind(R.id.bttnfood)
+    Button foodIntakeBttn;
+    @Bind(R.id.bttnheightweight)
+    Button heiWeiBttn;
+    @Bind(R.id.bttnsleep)
+    Button sleepRecordBttn;
+    @Bind(R.id.bttnchart)
+    Button chartBttn;
+    @Bind(R.id.bttnnote)
+    Button noteBttn;
+    @Bind(R.id.bttnvaccin)
+    Button vaccinBttn;
+    @Bind(R.id.bttnappoint)
+    Button appointBttn;
+    @Bind(R.id.bttntips)
+    Button tipsBttn;
+    @Bind(R.id.fragmant)
+    LinearLayout fragLL;
+    long babyid;
+    String name, date, gender;
+    float weigh;
+    int heigh, circu;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.baby_mainfragmentactivity, container, false);
+        ButterKnife.bind(this, view);
+
+
+//        fragLL.startAnimation(animRotate);
+        babyProfileBttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Constant.buttonEnable) {
+                    Constant.setButtonEnable();
+                    Intent get = getActivity().getIntent();
+                    Bundle b = get.getExtras();
+                    final String match = b.getString("1111");
+
+                    if (match.equals("dialog") || match.equals("info")) {
+                        babyid = b.getLong("ID");
+                        name = b.getString("NAME");
+                        date = b.getString("DATE");
+                        gender = b.getString("GENDER");
+                        weigh = b.getFloat("WEIGHT");
+                        heigh = b.getInt("HEIGHT");
+                        circu = b.getInt("CIRCUM");
+                    }
+                    Intent in = new Intent(getActivity(), BabyProfileUpdate.class);
+                    in.putExtra("1111", match);
+                    in.putExtra("ID", babyid);
+                    in.putExtra("NAME", name);
+                    in.putExtra("DATE", date);
+                    in.putExtra("GENDER", gender);
+                    in.putExtra("WEIGHT", weigh);
+                    in.putExtra("HEIGHT", heigh);
+                    in.putExtra("CIRCUM", circu);
+                    startActivity(in);
+                }
+            }
+        });
+        foodIntakeBttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Constant.buttonEnable) {
+                    Constant.setButtonEnable();
+                    BabyFoodIntake food = new BabyFoodIntake();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.add(R.id.framebaby, food);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+
+                }
+            }
+        });
+        heiWeiBttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Constant.buttonEnable) {
+                    Constant.setButtonEnable();
+                    BabyHeightWeight heiwei = new BabyHeightWeight();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.add(R.id.framebaby, heiwei);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            }
+        });
+
+        sleepRecordBttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Constant.buttonEnable) {
+                    Constant.setButtonEnable();
+                    BabySleepRecord sleepR = new BabySleepRecord();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.replace(R.id.framebaby, sleepR);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            }
+        });
+
+        chartBttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Constant.buttonEnable) {
+                    selectChartDialog();
+                }
+            }
+        });
+
+        noteBttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Constant.buttonEnable) {
+                    Constant.setButtonEnable();
+                    BabyNotes note = new BabyNotes();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.add(R.id.framebaby, note);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            }
+        });
+        vaccinBttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Constant.buttonEnable) {
+                    Constant.setButtonEnable();
+                    BabyVaccination vaccin = new BabyVaccination();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.replace(R.id.framebaby, vaccin);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            }
+        });
+        appointBttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Constant.buttonEnable) {
+                    Constant.setButtonEnable();
+                    BabyAppointmentRequest babyapoint = new BabyAppointmentRequest();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.replace(R.id.framebaby, babyapoint);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            }
+        });
+        tipsBttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Constant.buttonEnable) {
+                    Constant.setButtonEnable();
+                    BabyHealthTips health = new BabyHealthTips();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.replace(R.id.framebaby, health);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            }
+        });
+        return view;
+    }
+
+    void selectChartDialog() {
+        final Dialog dialog = new Dialog(getActivity(), R.style.DialogFadeAnim);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.char_selection_popup);
+        dialog.getWindow().setLayout(Constant.width - 10, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        TextView cancel = (TextView) dialog.findViewById(R.id.dialog_cancel);
+        TextView heightWeightChart = (TextView) dialog.findViewById(R.id.weight);
+        TextView sleepRecordChart = (TextView) dialog.findViewById(R.id.blood_pressure);
+        TextView foodIntakeChart = (TextView) dialog.findViewById(R.id.blood_sugar);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        heightWeightChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Constant.buttonEnable) {
+                    dialog.dismiss();
+                    Constant.setButtonEnable();
+                    BabyHeightWeightChart myf = new BabyHeightWeightChart();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.replace(R.id.framebaby, myf);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            }
+        });
+        sleepRecordChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Constant.buttonEnable) {
+                    dialog.dismiss();
+                    Constant.setButtonEnable();
+                    BabySleepChart myf = new BabySleepChart();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.replace(R.id.framebaby, myf);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            }
+        });
+        foodIntakeChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Constant.buttonEnable) {
+                    dialog.dismiss();
+                    Constant.setButtonEnable();
+                    BabyHeightWeightChart myf = new BabyHeightWeightChart();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.replace(R.id.framebaby, myf);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            }
+        });
+        dialog.show();
+    }
+
+}

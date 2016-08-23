@@ -1,0 +1,42 @@
+// Generated code from Butter Knife. Do not modify!
+package com.widevision.pregnantwoman.mother;
+
+import android.view.View;
+import butterknife.ButterKnife.Finder;
+import butterknife.ButterKnife.ViewBinder;
+
+public class EditNoteFragment$$ViewBinder<T extends com.widevision.pregnantwoman.mother.EditNoteFragment> implements ViewBinder<T> {
+  @Override public void bind(final Finder finder, final T target, Object source) {
+    View view;
+    view = finder.findRequiredView(source, 2131558930, "field 'editBtn'");
+    target.editBtn = finder.castView(view, 2131558930, "field 'editBtn'");
+    view = finder.findRequiredView(source, 2131558931, "field 'deleteBtn'");
+    target.deleteBtn = finder.castView(view, 2131558931, "field 'deleteBtn'");
+    view = finder.findRequiredView(source, 2131558518, "field 'saveBtn'");
+    target.saveBtn = finder.castView(view, 2131558518, "field 'saveBtn'");
+    view = finder.findRequiredView(source, 2131558584, "field 'cancelBtn'");
+    target.cancelBtn = finder.castView(view, 2131558584, "field 'cancelBtn'");
+    view = finder.findRequiredView(source, 2131558929, "field 'titleTxt'");
+    target.titleTxt = finder.castView(view, 2131558929, "field 'titleTxt'");
+    view = finder.findRequiredView(source, 2131558517, "field 'noteEdt'");
+    target.noteEdt = finder.castView(view, 2131558517, "field 'noteEdt'");
+    view = finder.findRequiredView(source, 2131558516, "field 'noteTitleEdt'");
+    target.noteTitleEdt = finder.castView(view, 2131558516, "field 'noteTitleEdt'");
+    view = finder.findRequiredView(source, 2131558883, "field 'noteTxt'");
+    target.noteTxt = finder.castView(view, 2131558883, "field 'noteTxt'");
+    view = finder.findRequiredView(source, 2131558932, "field 'noteTitleTxt'");
+    target.noteTitleTxt = finder.castView(view, 2131558932, "field 'noteTitleTxt'");
+  }
+
+  @Override public void unbind(T target) {
+    target.editBtn = null;
+    target.deleteBtn = null;
+    target.saveBtn = null;
+    target.cancelBtn = null;
+    target.titleTxt = null;
+    target.noteEdt = null;
+    target.noteTitleEdt = null;
+    target.noteTxt = null;
+    target.noteTitleTxt = null;
+  }
+}

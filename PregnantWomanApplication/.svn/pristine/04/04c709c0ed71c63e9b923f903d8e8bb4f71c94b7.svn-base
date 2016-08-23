@@ -1,0 +1,718 @@
+package com.widevision.pregnantwoman.baby;
+
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TableRow;
+import android.widget.TextView;
+
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.widevision.pregnantwoman.MainFragmentActivity;
+import com.widevision.pregnantwoman.R;
+import com.widevision.pregnantwoman.database.ActiveAndroidDBHelper;
+import com.widevision.pregnantwoman.database.BabyInfoTable;
+import com.widevision.pregnantwoman.model.HideKeyFragment;
+import com.widevision.pregnantwoman.util.Constant;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+/**
+ * Created by mercury-two on 18/8/15.
+ */
+public class BabyVaccination extends HideKeyFragment implements Validator.ValidationListener, View.OnClickListener {
+
+    @NotEmpty(message = "Name Required.")
+    @Bind(R.id.etnamevaccin)
+    EditText nameET;
+
+    /*Table Row*/
+
+    @Bind(R.id.trVaccindetail1)
+    TableRow firstvaccin;
+    @Bind(R.id.trVaccindetail2)
+    TableRow secondvaccin;
+    @Bind(R.id.trVaccindetail3)
+    TableRow thirdvaccin;
+    @Bind(R.id.trVaccindetail4)
+    TableRow fourthvaccin;
+    @Bind(R.id.trVaccindetail5)
+    TableRow fifthvaccin;
+    @Bind(R.id.trVaccindetail6)
+    TableRow sixthvaccin;
+    @Bind(R.id.trVaccindetail7)
+    TableRow seventhvaccin;
+    @Bind(R.id.trVaccindetail8)
+    TableRow eightvaccin;
+    @Bind(R.id.trVaccindetail9)
+    TableRow ninevaccin;
+    @Bind(R.id.trVaccindetail10)
+    TableRow tenvaccin;
+    @Bind(R.id.trVaccindetail11)
+    TableRow elevenvaccin;
+    @Bind(R.id.trVaccindetail12)
+    TableRow twelvevaccin;
+    @Bind(R.id.trVaccindetail13)
+    TableRow thirteenvaccin;
+    @Bind(R.id.trVaccindetail14)
+    TableRow fourteenvaccin;
+    @Bind(R.id.trVaccindetail15)
+    TableRow fifteenvaccin;
+    @Bind(R.id.trVaccindetail16)
+    TableRow sixteenvaccin;
+    @Bind(R.id.trVaccindetail17)
+    TableRow seveteenvaccin;
+    @Bind(R.id.trVaccindetail18)
+    TableRow eighteenvaccin;
+    @Bind(R.id.trVaccindetail19)
+    TableRow nineteenvaccin;
+    @Bind(R.id.trVaccindetail20)
+    TableRow twentyvaccin;
+    @Bind(R.id.trVaccindetail21)
+    TableRow twentyOnevaccin;
+    @Bind(R.id.trVaccindetail22)
+    TableRow twentyTwovaccin;
+    @Bind(R.id.trVaccindetail23)
+    TableRow twentyThreevaccin;
+    @Bind(R.id.trVaccindetail24)
+    TableRow twentyFourvaccin;
+    @Bind(R.id.trVaccindetail25)
+    TableRow twentyFivevaccin;
+    @Bind(R.id.trVaccindetail26)
+    TableRow twentySixvaccin;
+
+
+    /*TextView*/
+
+    @Bind(R.id.txtdone1)
+    TextView firstvaccindone;
+    @Bind(R.id.txtdone2)
+    TextView secondvaccindone;
+    @Bind(R.id.txtdone3)
+    TextView thirdvaccindone;
+    @Bind(R.id.txtdone4)
+    TextView fourthvaccindone;
+    @Bind(R.id.txtdone5)
+    TextView fifthvaccindone;
+    @Bind(R.id.txtdone6)
+    TextView sixthvaccindone;
+    @Bind(R.id.txtdone7)
+    TextView seventhvaccindone;
+    @Bind(R.id.txtdone8)
+    TextView eightvaccindone;
+    @Bind(R.id.txtdone9)
+    TextView ninevaccindone;
+    @Bind(R.id.txtdone10)
+    TextView tenvaccindone;
+    @Bind(R.id.txtdone11)
+    TextView elevenvaccindone;
+    @Bind(R.id.txtdone12)
+    TextView twelvevaccindone;
+    @Bind(R.id.txtdone13)
+    TextView thirteenvaccindone;
+    @Bind(R.id.txtdone14)
+    TextView fourteenvaccindone;
+    @Bind(R.id.txtdone15)
+    TextView fifteenvaccindone;
+    @Bind(R.id.txtdone16)
+    TextView sixteenvaccindone;
+    @Bind(R.id.txtdone17)
+    TextView seveteenvaccindone;
+    @Bind(R.id.txtdone18)
+    TextView eighteenvaccindone;
+    @Bind(R.id.txtdone19)
+    TextView nineteenvaccindone;
+    @Bind(R.id.txtdone20)
+    TextView twentyvaccindone;
+    @Bind(R.id.txtdone21)
+    TextView twentyOnevaccindone;
+    @Bind(R.id.txtdone22)
+    TextView twentyTwovaccindone;
+    @Bind(R.id.txtdone23)
+    TextView twentyThreevaccindone;
+    @Bind(R.id.txtdone24)
+    TextView twentyFourvaccindone;
+    @Bind(R.id.txtdone25)
+    TextView twentyFivevaccindone;
+    @Bind(R.id.txtdone26)
+    TextView twentySixvaccindone;
+
+
+    /*Textview Date*/
+    @Bind(R.id.txtdate1)
+    TextView txtdate1;
+    @Bind(R.id.txtdate2)
+    TextView txtdate2;
+    @Bind(R.id.txtdate3)
+    TextView txtdate3;
+    @Bind(R.id.txtdate4)
+    TextView txtdate4;
+    @Bind(R.id.txtdate5)
+    TextView txtdate5;
+
+    @Bind(R.id.bttnsavevaccin)
+    Button saveBTTN;
+    @Bind(R.id.bttncanclevaccin)
+    Button cancelBTTN;
+
+    private String name, date, nameofbaby;
+    private String notdone = "Not Done";
+    private String done = "Done";
+    private long babyid;
+    String vaccin = null;
+    String title = "Want To Update";
+
+    private ActiveAndroidDBHelper helper;
+    private Validator validator;
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.baby_vaccination, container, false);
+        ButterKnife.bind(this, view);
+
+        helper = ActiveAndroidDBHelper.getInstance();
+        validator = new Validator(this);
+        validator.setValidationListener(this);
+
+//        helper = ActiveAndroidDBHelper.getInstance();
+
+//             /*Fetch Value From Database*/
+//        List<BabyInfoTable> list = helper.babyDetail();
+
+//        if (list != null && list.size() != 0) {
+//            for (BabyInfoTable item : list) {
+//                nameofbaby = item.name;
+//                dob = item.dobbaby;
+//            }
+//
+//        }
+
+        Intent in = getActivity().getIntent();
+        Bundle b = in.getExtras();
+        String match = b.getString("1111");
+
+        /*Fetch Value From Dialog List*/
+
+        if(match.equals("dialog")){
+            babyid = b.getLong("ID");
+            String namee = b.getString("NAME");
+            date = b.getString("DATE");
+            nameET.setText(namee);
+            Log.i("Dialog>>>>>>>>>>>>>>>>>>>_------" , "    "+babyid+"     "+namee+"   "+date);
+
+        } else if(match.equals("info")){
+
+              /*Fetch Value From Database*/
+            List<BabyInfoTable> list = helper.babyDetail();
+            if (list != null && list.size() != 0) {
+                for (BabyInfoTable item : list) {
+                    babyid = item.getId();
+                    nameofbaby = item.name ;
+                    date = item.dobbaby;
+                }
+            }
+            nameET.setText(nameofbaby);
+
+            Log.i("Info Detail>>>>>>>>>>>>>>>>>>>" , ""+babyid+""+nameofbaby+""+date);
+
+        }
+
+        txtdate1.setText(date);
+
+        /*Add days in date*/
+
+        SimpleDateFormat sdf = new SimpleDateFormat(Constant.datePattern);
+        Calendar c = Calendar.getInstance();
+        try {
+            c.setTime(sdf.parse(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        c.add(Calendar.DATE, 10);  // number of days to add, can also use Calendar.DAY_OF_MONTH in place of Calendar.DATE
+        SimpleDateFormat sdf1 = new SimpleDateFormat(Constant.datePattern);
+        String output = sdf1.format(c.getTime());
+        Log.e("date+++++++++++", output);
+
+        txtdate3.setText(output);
+
+        txtdate5.setText(sdf1.format(c.getTime()));
+
+        /**/
+
+        /*Table row click*/
+        firstvaccin.setOnClickListener(this);
+        secondvaccin.setOnClickListener(this);
+        thirdvaccin.setOnClickListener(this);
+        fourthvaccin.setOnClickListener(this);
+        fifthvaccin.setOnClickListener(this);
+        sixthvaccin.setOnClickListener(this);
+        seventhvaccin.setOnClickListener(this);
+        eightvaccin.setOnClickListener(this);
+        ninevaccin.setOnClickListener(this);
+        tenvaccin.setOnClickListener(this);
+        elevenvaccin.setOnClickListener(this);
+        twelvevaccin.setOnClickListener(this);
+        thirteenvaccin.setOnClickListener(this);
+        fourteenvaccin.setOnClickListener(this);
+        fifteenvaccin.setOnClickListener(this);
+        sixteenvaccin.setOnClickListener(this);
+        seveteenvaccin.setOnClickListener(this);
+        eighteenvaccin.setOnClickListener(this);
+        nineteenvaccin.setOnClickListener(this);
+        twentyvaccin.setOnClickListener(this);
+        twentyOnevaccin.setOnClickListener(this);
+        twentyTwovaccin.setOnClickListener(this);
+        twentyThreevaccin.setOnClickListener(this);
+        twentyFourvaccin.setOnClickListener(this);
+        twentyFivevaccin.setOnClickListener(this);
+        twentySixvaccin.setOnClickListener(this);
+
+        /**/
+
+        /*Save Button*/
+        saveBTTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validator.validate();
+
+            }
+        });
+        /*Cancle Button*/
+        cancelBTTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainFragmentActivity.fragmentManager.popBackStack();
+            }
+        });
+        return view;
+    }
+
+
+    @Override
+    public void onValidationSucceeded() {
+        name = nameET.getText().toString().trim();
+        Constant.babysaveAlert(getActivity(), " Added Successfully.");
+//        MainFragmentActivity.fragmentManager.popBackStack();
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        Constant.setAlert(getActivity(), errors.get(0).getCollatedErrorMessage(getActivity()));
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        if (v == firstvaccin) {
+
+            if (firstvaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), firstvaccindone);
+
+            } else if (firstvaccindone.getText().toString().contentEquals(done)) {
+                firstvaccin.setClickable(false);
+
+            }
+        } else if (v == secondvaccin) {
+
+            if (secondvaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), secondvaccindone);
+
+            } else if (secondvaccindone.getText().toString().contentEquals(done)) {
+                secondvaccin.setClickable(false);
+
+            }
+        } else if (v == thirdvaccin) {
+
+            if (thirdvaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), thirdvaccindone);
+
+            } else if (thirdvaccindone.getText().toString().contentEquals(done)) {
+                thirdvaccin.setClickable(false);
+
+            }
+        } else if (v == fourthvaccin) {
+
+            if (fourthvaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), fourthvaccindone);
+
+            } else if (fourthvaccindone.getText().toString().contentEquals(done)) {
+                fourthvaccin.setClickable(false);
+
+            }
+        } else if (v == fifthvaccin) {
+
+            if (fifthvaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), fifthvaccindone);
+
+            } else if (fifthvaccindone.getText().toString().contentEquals(done)) {
+                fifthvaccin.setClickable(false);
+
+            }
+        } else if (v == sixthvaccin) {
+
+            if (sixthvaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), sixthvaccindone);
+
+            } else if (fourthvaccindone.getText().toString().contentEquals(done)) {
+                sixthvaccin.setClickable(false);
+
+            }
+        } else if (v == seventhvaccin) {
+            if (seventhvaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), seventhvaccindone);
+
+            } else if (seventhvaccindone.getText().toString().contentEquals(done)) {
+                seventhvaccin.setClickable(false);
+
+            }
+        } else if (v == eightvaccin) {
+
+            if (eightvaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), eightvaccindone);
+
+            } else if (eightvaccindone.getText().toString().contentEquals(done)) {
+                eightvaccin.setClickable(false);
+
+            }
+        } else if (v == ninevaccin) {
+
+            if (ninevaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), ninevaccindone);
+
+            } else if (ninevaccindone.getText().toString().contentEquals(done)) {
+                ninevaccin.setClickable(false);
+
+            }
+        } else if (v == tenvaccin) {
+
+            if (tenvaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), tenvaccindone);
+
+            } else if (tenvaccindone.getText().toString().contentEquals(done)) {
+                tenvaccin.setClickable(false);
+
+            }
+        } else if (v == elevenvaccin) {
+
+            if (elevenvaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), elevenvaccindone);
+
+            } else if (elevenvaccindone.getText().toString().contentEquals(done)) {
+                elevenvaccin.setClickable(false);
+
+            }
+        } else if (v == twelvevaccin) {
+
+            if (twelvevaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), twelvevaccindone);
+
+            } else if (twelvevaccindone.getText().toString().contentEquals(done)) {
+                twelvevaccin.setClickable(false);
+
+            }
+        } else if (v == thirteenvaccin) {
+
+            if (thirteenvaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), thirteenvaccindone);
+
+            } else if (thirteenvaccindone.getText().toString().contentEquals(done)) {
+                thirteenvaccin.setClickable(false);
+
+            }
+        } else if (v == fourteenvaccin) {
+
+            if (fourteenvaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), fourteenvaccindone);
+
+            } else if (fourteenvaccindone.getText().toString().contentEquals(done)) {
+                fourteenvaccin.setClickable(false);
+
+            }
+        } else if (v == fifteenvaccin) {
+
+            if (fifteenvaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), fifteenvaccindone);
+
+            } else if (fifteenvaccindone.getText().toString().contentEquals(done)) {
+                fifteenvaccin.setClickable(false);
+
+            }
+
+        } else if (v == sixteenvaccin) {
+
+            if (sixteenvaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), sixteenvaccindone);
+
+            } else if (sixteenvaccindone.getText().toString().contentEquals(done)) {
+                sixteenvaccin.setClickable(false);
+
+            }
+
+        } else if (v == seveteenvaccin) {
+
+            if (seveteenvaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), seveteenvaccindone);
+
+            } else if (seveteenvaccindone.getText().toString().contentEquals(done)) {
+                seveteenvaccin.setClickable(false);
+
+            }
+
+        } else if (v == eighteenvaccin) {
+
+            if (eighteenvaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), eighteenvaccindone);
+
+            } else if (eighteenvaccindone.getText().toString().contentEquals(done)) {
+                eighteenvaccin.setClickable(false);
+
+            }
+
+        } else if (v == nineteenvaccin) {
+
+            if (nineteenvaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), nineteenvaccindone);
+
+            } else if (nineteenvaccindone.getText().toString().contentEquals(done)) {
+                nineteenvaccin.setClickable(false);
+
+            }
+
+        } else if (v == twentyvaccin) {
+
+            if (twentyvaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), twentyvaccindone);
+
+            } else if (twentyvaccindone.getText().toString().contentEquals(done)) {
+                twentyvaccin.setClickable(false);
+
+            }
+
+        } else if (v == twentyOnevaccin) {
+
+            if (twentyOnevaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), twentyOnevaccindone);
+
+            } else if (twentyOnevaccindone.getText().toString().contentEquals(done)) {
+                twentyOnevaccin.setClickable(false);
+
+            }
+
+        } else if (v == twentyTwovaccin) {
+
+            if (twentyTwovaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), twentyTwovaccindone);
+
+            } else if (twentyTwovaccindone.getText().toString().contentEquals(done)) {
+                twentyTwovaccin.setClickable(false);
+
+            }
+
+        } else if (v == twentyThreevaccin) {
+
+            if (twentyThreevaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), twentyThreevaccindone);
+
+            } else if (twentyThreevaccindone.getText().toString().contentEquals(done)) {
+                twentyThreevaccin.setClickable(false);
+
+            }
+
+        } else if (v == twentyFourvaccin) {
+
+
+            if (twentyFourvaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), twentyFourvaccindone);
+
+            } else if (twentyFourvaccindone.getText().toString().contentEquals(done)) {
+                twentyFourvaccin.setClickable(false);
+
+            }
+
+        } else if (v == twentyFivevaccin) {
+
+            if (twentyFivevaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), twentyFivevaccindone);
+
+            } else if (twentyFivevaccindone.getText().toString().contentEquals(done)) {
+                twentyFivevaccin.setClickable(false);
+
+            }
+
+        } else if (v == twentySixvaccin) {
+
+            if (twentySixvaccindone.getText().toString().equals(notdone)) {
+                setAlert(getActivity(), twentySixvaccindone);
+
+            } else if (twentySixvaccindone.getText().toString().contentEquals(done)) {
+                twentySixvaccin.setClickable(false);
+
+            }
+        }
+//        else if (v == ){
+//
+//        }
+    }
+
+
+    public void setAlert(final Activity activity, final View vie) {
+        final Dialog dialog = new Dialog(activity, R.style.DialogSlideAnim);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.baby_vaccin_alert_view);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        TextView message = (TextView) dialog.findViewById(R.id.dialog_message);
+        message.setText(title);
+        TextView okBtn = (TextView) dialog.findViewById(R.id.dialog_ok);
+        final TextView noBtn = (TextView) dialog.findViewById(R.id.dialog_no);
+
+
+        okBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+
+                switch (vie.getId()) {
+
+                    case R.id.txtdone1:
+                        firstvaccindone.setText(done);
+                        firstvaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone2:
+                        secondvaccindone.setText(done);
+                        secondvaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone3:
+                        thirdvaccindone.setText(done);
+                        thirdvaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone4:
+                        fourthvaccindone.setText(done);
+                        fourthvaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone5:
+                        fifthvaccindone.setText(done);
+                        fifthvaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone6:
+                        sixthvaccindone.setText(done);
+                        sixthvaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone7:
+                        seventhvaccindone.setText(done);
+                        seventhvaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone8:
+                        eightvaccindone.setText(done);
+                        eightvaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone9:
+                        ninevaccindone.setText(done);
+                        ninevaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone10:
+                        tenvaccindone.setText(done);
+                        tenvaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone11:
+                        elevenvaccindone.setText(done);
+                        elevenvaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone12:
+                        twelvevaccindone.setText(done);
+                        twelvevaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone13:
+                        thirteenvaccindone.setText(done);
+                        thirteenvaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone14:
+                        fourteenvaccindone.setText(done);
+                        fourteenvaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone15:
+                        fifteenvaccindone.setText(done);
+                        fifteenvaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone16:
+                        sixteenvaccindone.setText(done);
+                        sixteenvaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone17:
+                        seveteenvaccindone.setText(done);
+                        seveteenvaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone18:
+                        eighteenvaccindone.setText(done);
+                        eighteenvaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone19:
+                        nineteenvaccindone.setText(done);
+                        nineteenvaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone20:
+                        twentyvaccindone.setText(done);
+                        twentyvaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone21:
+                        twentyOnevaccindone.setText(done);
+                        twentyOnevaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone22:
+                        twentyTwovaccindone.setText(done);
+                        twentyTwovaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone23:
+                        twentyThreevaccindone.setText(done);
+                        twentyThreevaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone24:
+                        twentyFourvaccindone.setText(done);
+                        twentyFourvaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone25:
+                        twentyFivevaccindone.setText(done);
+                        twentyFivevaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                    case R.id.txtdone26:
+                        twentySixvaccindone.setText(done);
+                        twentySixvaccin.setBackgroundColor(Color.CYAN);
+                        break;
+                }
+//                if (title.trim().equalsIgnoreCase(activity.getResources().getString(R.string.close_permission))) {
+//                    activity.finish();
+//                }
+            }
+        });
+        noBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+
+            }
+        });
+
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        dialog.show();
+    }
+}

@@ -1,0 +1,81 @@
+package com.widevision.pregnantwoman.util;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+
+import java.util.ArrayList;
+
+public class PreferenceConnector {
+    public static final String PREF_NAME = "Mother";
+    public static final int MODE = Context.MODE_PRIVATE;
+    public static final String IS_FIRSTTIME_MOTHER = "isFirstTimeMother";
+    public static final String IS_FIRSTTIME_BABY = "isFirstTimeBaby";
+    public static final String MOTHER_NAME = "MOTHER_NAME";
+    public static final String MOTHER_DOB = "MOTHER_DOB";
+    public static final String MOTHER_AGE = "MOTHER_AGE";
+    public static final String EXPECTED_DATE = "EXPECTED_DATE";
+    public static final String EXPECTED_DELIVERY_DATE = "EXPECTED_DELIVERY_DATE";
+    public static final String START_DATE = "START_DATE";
+    public static final String WEEK = "week";
+    public static final String WEIGHT_LIST = "weight_list";
+    public static final String TWINS = "TWINS";
+
+
+    public static void writeInteger(Context context, String key, int value) {
+        getEditor(context).putInt(key, value).commit();
+
+    }
+
+    public static int readInteger(Context context, String key, int defValue) {
+        return getPreferences(context).getInt(key, defValue);
+    }
+
+    public static void writeString(Context context, String key, String value) {
+        getEditor(context).putString(key, value).commit();
+
+    }
+
+    public static String readString(Context context, String key, String defValue) {
+        return getPreferences(context).getString(key, defValue);
+    }
+
+    public static void writeBoolean(Context context, String key, Boolean value) {
+        getEditor(context).putBoolean(key, value).commit();
+
+    }
+
+    public static Boolean readBoolean(Context context, String key,
+                                      Boolean defValue) {
+        return getPreferences(context).getBoolean(key, defValue);
+    }
+
+    public static SharedPreferences getPreferences(Context context) {
+        return context.getSharedPreferences(PREF_NAME, MODE);
+    }
+
+    public static Editor getEditor(Context context) {
+        return getPreferences(context).edit();
+    }
+
+    public static void clear(Context context) {
+        getEditor(context).clear().commit();
+    }
+
+    public static void writeList(Context context, String key, ArrayList<Integer> list) {
+        try {
+            getEditor(context).putString(key, ObjectSerializer.serialize(list));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static ArrayList<Integer> readList(Context context, String key, ArrayList<Integer> list) {
+        try {
+            return (ArrayList<Integer>) ObjectSerializer.deserialize(getPreferences(context).getString(key, ObjectSerializer.serialize(new ArrayList<Integer>())));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+}

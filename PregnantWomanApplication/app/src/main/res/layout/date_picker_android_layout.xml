@@ -1,0 +1,89 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/first"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#5d62ba"
+        android:gravity="right">
+
+        <ImageButton
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/dropcircle"
+
+            />
+
+
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="3dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#ffffff" />
+
+
+        <ImageButton
+            android:id="@+id/doneButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/markedcircle" />
+
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/first"
+        android:background="#CFCFCF"></View>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view">
+
+        <LinearLayout
+            android:id="@+id/cityWheelLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+
+            <com.widevision.pregnantwoman.kankan.wheel.widget.view.WheelView
+                android:id="@+id/monthWheel"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_weight="4" />
+
+            <com.widevision.pregnantwoman.kankan.wheel.widget.view.WheelView
+                android:id="@+id/cityWheel"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_weight="3" />
+
+            <com.widevision.pregnantwoman.kankan.wheel.widget.view.WheelView
+                android:id="@+id/yearWheel"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_weight="3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/wheel_val_wheel"></LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

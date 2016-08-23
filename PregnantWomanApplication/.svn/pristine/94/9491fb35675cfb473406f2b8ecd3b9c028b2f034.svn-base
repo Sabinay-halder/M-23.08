@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:clickable="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadingEdge="none"
+        android:fillViewport="true"
+        android:layout_above="@+id/buttomLayout">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--Title HeightWeight -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/top">
+
+                <com.widevision.pregnantwoman.model.CustomTextViewBold
+                    android:id="@+id/txtheightweight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/height_weight"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:gravity="center" />
+
+
+                <ImageView
+                    android:id="@+id/bttnoteheiwei"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="10dp"
+                    android:src="@drawable/add"
+                    android:gravity="center"/>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/accent_material_light" />
+
+            <!---->
+
+            <!--Name-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:padding="5dp">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etnameheiwei"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Name Of Baby"
+                    android:textColor="@color/text_color"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:inputType="textPersonName"
+                    android:singleLine="true"
+                    app:met_floatingLabel="highlight"
+                    android:clickable="false"
+                    android:layout_marginTop="5dp" />
+
+
+            </LinearLayout>
+
+            <!---->
+
+            <!--DATE OF BIRTH-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:padding="5dp">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etDOBheiwei"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Date Of Birth"
+                    android:textColor="@color/text_color"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:inputType="textPersonName"
+                    android:singleLine="true"
+                    app:met_floatingLabel="highlight"
+                    android:clickable="false"
+                    android:layout_marginTop="5dp" />
+
+
+            </LinearLayout>
+
+            <!---->
+
+            <!--Gender-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:padding="5dp">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etgenderheiwei"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Gender Of Baby"
+                    android:textColor="@color/text_color"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:inputType="textPersonName"
+                    android:singleLine="true"
+                    app:met_floatingLabel="highlight"
+                    android:clickable="false"
+                    android:layout_marginTop="5dp" />
+
+
+            </LinearLayout>
+
+            <!---->
+
+            <!--Date of birth-->
+
+            <LinearLayout
+                android:id="@+id/lldob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:padding="5dp">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etdatemeasureheiwei"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Date"
+                    android:textColor="@color/text_color"
+                    android:editable="false"
+                    app:met_floatingLabelTextColor="#8805ad"
+                    android:clickable="false"
+                    android:inputType="date"
+                    android:singleLine="true"
+                    android:focusable="false"
+                    app:met_floatingLabel="highlight"
+                    android:layout_marginTop="5dp" />
+
+            </LinearLayout>
+
+            <!---->
+            <!--Height Weight -->
+
+            <LinearLayout
+                android:id="@+id/lldetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:weightSum="3"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/dialog_rounded_white_background">
+
+                <!--Weight-->
+
+                <LinearLayout
+                    android:id="@+id/llweight"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    android:layout_weight="1.5"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:id="@+id/lltxtweight"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:orientation="horizontal"
+                        android:layout_weight="1"
+                        android:weightSum="2"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:padding="10dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_weight="0.7"
+                            android:layout_gravity="center"
+                            android:gravity="left|center"
+                            android:layout_marginLeft="20dp">
+
+                            <com.widevision.pregnantwoman.model.CustomTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Weight* : "
+                                android:textSize="20sp"
+                                android:textColor="@color/text_color" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_weight="1.3"
+                            android:weightSum="1.5"
+                            android:layout_gravity="center"
+                            android:gravity="center">
+
+                            <com.rengwuxian.materialedittext.MaterialEditText
+                                android:id="@+id/etweightheiwei"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.7"
+                                android:editable="false"
+                                android:clickable="false"
+                                android:focusable="true"
+                                app:met_floatingLabel="highlight"
+                                android:hint="weight"
+                                android:gravity="center"
+                                android:textSize="15sp"
+                                android:textColor="#000000"
+                                android:background="@drawable/edittextborder" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.8"
+                                android:gravity="center"
+                                android:text="kgs"
+                                android:textSize="15sp"
+                                android:textColor="#000000" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llseekbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:orientation="horizontal"
+                        android:layout_weight="1">
+
+                        <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+                            android:id="@+id/sbweightheiwei"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="9.5dp"
+                            android:paddingRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            app:dsb_min="0"
+                            app:dsb_max="20"
+                            app:dsb_value="4"
+                            app:dsb_progressColor="@color/blue_color"
+                            app:dsb_trackColor="@color/orange_text"
+                            app:dsb_indicatorColor="@color/blue_color"
+                            app:dsb_rippleColor="@color/red" />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:orientation="horizontal"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:text="0"
+                                android:textColor="#000000" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:text="10"
+                                android:textColor="#000000" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_alignParentRight="true">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:text="20"
+                                android:textColor="#000000" />
+                        </LinearLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <!---->
+                <!--Height-->
+
+                <LinearLayout
+                    android:id="@+id/llheight"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    android:layout_weight="1.5"
+                    android:weightSum="3">
+
+                    <LinearLayout
+                        android:id="@+id/lltxtheight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_below="@+id/lldob"
+                        android:weightSum="2"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:padding="10dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_weight="0.7"
+                            android:layout_gravity="center"
+                            android:gravity="left|center"
+                            android:layout_marginLeft="20dp">
+
+                            <com.widevision.pregnantwoman.model.CustomTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Height* : "
+                                android:textSize="20sp"
+                                android:textColor="@color/text_color" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_weight="1.3"
+                            android:weightSum="1.5"
+                            android:layout_gravity="center"
+                            android:gravity="center">
+
+                            <com.rengwuxian.materialedittext.MaterialEditText
+                                android:id="@+id/etheightheiwei"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.7"
+                                android:editable="false"
+                                android:clickable="false"
+                                android:focusable="true"
+                                app:met_floatingLabel="highlight"
+                                android:hint="height"
+                                android:gravity="center"
+                                android:textSize="15sp"
+                                android:textColor="#000000"
+                                android:background="@drawable/edittextborder" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.8"
+                                android:gravity="center"
+                                android:text="cms"
+                                android:textSize="15sp"
+                                android:textColor="#000000" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llseekbarheight"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:orientation="horizontal"
+                        android:layout_weight="1">
+
+                        <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+                            android:id="@+id/sbheightheiwei"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="9.5dp"
+                            android:paddingRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            app:dsb_min="0"
+                            app:dsb_max="150"
+                            app:dsb_value="58"
+                            app:dsb_progressColor="@color/blue_color"
+                            app:dsb_trackColor="@color/orange_text"
+                            app:dsb_indicatorColor="@color/blue_color"
+                            app:dsb_rippleColor="@color/red" />
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:text="0"
+                                android:textColor="#000000" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:text="75"
+                                android:textColor="#000000" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_alignParentRight="true">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:text="150"
+                                android:textColor="#000000" />
+                        </LinearLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <!---->
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"></LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/buttomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/accent_material_light"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="1"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center">
+
+                <com.widevision.pregnantwoman.model.CustomButton
+                    android:id="@+id/bttnsaveheiwei"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/accent_material_light"
+                    android:text="SAVE"
+                    android:background="@drawable/button_buttom_selector"
+                   />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/accent_material_light"></View>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center">
+
+                <com.widevision.pregnantwoman.model.CustomButton
+                    android:id="@+id/bttncancleheiwei"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/accent_material_light"
+                    android:text="CANCEL"
+                    android:background="@drawable/button_buttom_selector" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

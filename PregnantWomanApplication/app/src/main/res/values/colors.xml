@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#ffffffff</color>
+    <color name="white_click">#C7C7C7</color>
+    <color name="hint_color">#D8D8D8</color>
+    <color name="circle_background">#fff2f2f2</color>
+    <color name="line_background">#ffcccccc</color>
+    <color name="done_text_color_normal">#ff333333</color>
+    <color name="gray_light">#ffcccccc</color>
+    <color name="blue">#ff33b5e5</color>
+    <color name="darker_blue">#ff0099cc</color>
+    <color name="date_picker_text_normal">#ff999999</color>
+    <color name="calendar_header">#ff999999</color>
+    <color name="date_picker_view_animator">#fff2f2f2</color>
+    <color name="text">#051a37</color>
+    <color name="ampm_text_color">#8c8c8c</color>
+    <color name="numbers_text_color">#8c8c8c</color>
+
+    <color name="transparent_black">#7F000000</color>
+    <color name="transparent_">#CCFF0000</color>
+    <color name="orange">#ff8900</color>
+    <color name="orange_text">#FF6A0C</color>
+    <color name="light_orange">#FF971F</color>
+    <color name="black">#000000</color>
+
+    <color name="red_dark">#ff0000</color>
+    <color name="blue_dark">#093759</color>
+    <color name="blue_color">#1471ac</color>
+    <color name="green">#00a01a</color>
+    <color name="red">#e84e33</color>
+    <color name="tc">#2E2EFE</color>
+    <color name="red_light">#ff6145</color>
+    <color name="track_color">#839daa</color>
+    <color name="progress_color">#fd7400</color>
+    <color name="title_color">#0fc6cc</color>
+    <color name="heading">#5d62ba</color>
+    <color name="baby_heading">#ff769f</color>
+    <color name="baby_name">#ff3399</color>
+    <color name="mother_name">#00cccc</color>
+    <color name="cancel_color">#fcb100</color>
+    <color name="save_color">#17C6CC</color>
+
+
+    <color name="indigo_500">#3f51b5</color>
+    <color name="h">#5323AA</color>
+    <color name="indigo_700">#303f9f</color>
+    <color name="cyan_500">#00bcd4</color>
+</resources>

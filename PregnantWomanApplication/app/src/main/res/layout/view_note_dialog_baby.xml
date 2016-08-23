@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/baby_background"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <com.widevision.pregnantwoman.model.CustomScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/buttomLayout"
+        android:fadingEdge="none"
+        android:fillViewport="true">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:weightSum="1">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/titleEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:hint="Note Title"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:textColor="@color/heading"
+                    android:visibility="gone"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelTextColor="@color/heading" />
+
+                <com.widevision.pregnantwoman.model.CustomTextView
+                    android:id="@+id/titleTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/heading"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/box">
+
+                <com.widevision.pregnantwoman.model.LineEditText
+                    android:id="@+id/noteEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:background="@null"
+                    android:fadeScrollbars="false"
+                    android:gravity="top|left"
+                    android:hint="write here new note"
+                    android:imeOptions="actionNone"
+                    android:inputType="textMultiLine|textNoSuggestions"
+                    android:singleLine="false"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/calendar_header"
+                    android:textCursorDrawable="@null"
+                    android:visibility="gone" />
+
+                <com.widevision.pregnantwoman.model.CustomTextView
+                    android:id="@+id/noteTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:background="@null"
+                    android:fadeScrollbars="false"
+                    android:gravity="left|top"
+                    android:imeOptions="actionNone"
+                    android:inputType="textMultiLine|textNoSuggestions"
+                    android:scrollbars="vertical"
+                    android:singleLine="false"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/calendar_header"
+                    android:textCursorDrawable="@null" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center"
+                    android:padding="20dp">
+
+                    <ImageView
+                        android:id="@+id/edit_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/edit" />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </com.widevision.pregnantwoman.model.CustomScrollView>
+
+    <LinearLayout
+        android:id="@+id/buttomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+
+        android:gravity="center">
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:mrl_rippleAlpha="0.2"
+            app:mrl_rippleColor="#7F000000"
+            app:mrl_rippleDelayClick="true"
+            app:mrl_rippleHover="true"
+            app:mrl_rippleOverlay="true">
+
+            <ImageView
+                android:id="@+id/cancleBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/cancel" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+        <com.balysv.materialripple.MaterialRippleLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            app:mrl_rippleAlpha="0.2"
+            app:mrl_rippleColor="#7F000000"
+            app:mrl_rippleDelayClick="true"
+            app:mrl_rippleHover="true"
+            app:mrl_rippleOverlay="true">
+
+            <ImageView
+                android:id="@+id/saveBt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/baby_save" />
+        </com.balysv.materialripple.MaterialRippleLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
+

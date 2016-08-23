@@ -1,0 +1,341 @@
+package com.widevision.pregnantwoman.baby;
+
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.rengwuxian.materialedittext.MaterialEditText;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.widevision.pregnantwoman.HomeActivity;
+import com.widevision.pregnantwoman.MainFragmentActivity;
+import com.widevision.pregnantwoman.R;
+import com.widevision.pregnantwoman.database.ActiveAndroidDBHelper;
+import com.widevision.pregnantwoman.database.BabyInfoTable;
+import com.widevision.pregnantwoman.model.HideKeyActivity;
+import com.widevision.pregnantwoman.util.Constant;
+
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
+
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+/**
+ * Created by mercury-two on 8/9/15.
+ */
+public class BabyProfileUpdate extends HideKeyActivity implements DatePickerDialog.OnDateSetListener, Validator.ValidationListener {
+
+    @Bind(R.id.backimage)
+    ImageView backBttn;
+    @NotEmpty(message = "Enter Name Of Baby.")
+    @Bind(R.id.etfirstnamebaby)
+    EditText firstnameET;
+    @Bind(R.id.etlastnamebaby)
+    EditText lastnameET;
+    @NotEmpty(message = "Please Select Date of birth.")
+    @Bind(R.id.etdateofbirthbaby)
+    MaterialEditText dobET;
+    @Bind(R.id.rggender)
+    RadioGroup genderRG;
+    @Bind(R.id.radiobtnboy)
+    RadioButton boyRB;
+    @Bind(R.id.radiobtngirl)
+    RadioButton girlRB;
+
+    @Bind(R.id.sbweightinfo)
+    DiscreteSeekBar weightSB;
+    @Bind(R.id.sbheightinfo)
+    DiscreteSeekBar heightSB;
+    @Bind(R.id.sbcircuminfo)
+    DiscreteSeekBar circumSB;
+    @Bind(R.id.etweightinfo)
+    EditText weightET;
+    @Bind(R.id.etheightinfo)
+    EditText heightET;
+    @Bind(R.id.etcircuminfo)
+    EditText circumET;
+
+    @Bind(R.id.btnsavehomebaby)
+    Button savebttn;
+    @Bind(R.id.btncanclehomebaby)
+    Button canclebttn;
+
+    private RadioButton genderbttn;
+    private String name, firstname, lastname, date, weight, height, circum, gender;
+    private float weigh;
+    private int heigh, circu;
+    private boolean aDate = false, bDate = false;
+    private long babyid;
+
+    private ActiveAndroidDBHelper helper;
+
+    private Validator validator;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.home_activity_baby);
+        ButterKnife.bind(this);
+        setupUI(findViewById(R.id.babyhomeactivity));
+
+        backBttn.setVisibility(View.GONE);
+        savebttn.setText("UPDATE");
+
+        helper = ActiveAndroidDBHelper.getInstance();
+        validator = new Validator(this);
+        validator.setValidationListener(this);
+
+        Intent in = getIntent();
+        Bundle b = in.getExtras();
+        String match = b.getString("1111");
+
+        /*Fetch Value From Dialog List*/
+
+        if (match.equals("dialog")) {
+            babyid = b.getLong("ID");
+            name = b.getString("NAME");
+            date = b.getString("DATE");
+            gender = b.getString("GENDER");
+            weigh = b.getFloat("WEIGHT");
+            heigh = b.getInt("HEIGHT");
+            circu = b.getInt("CIRCUM");
+
+            firstnameET.setText(name);
+            dobET.setText(date);
+            weightET.setText(String.valueOf(weigh));
+            heightET.setText(String.valueOf(heigh));
+            circumET.setText(String.valueOf(circu));
+
+            Log.i("Dialog>>>>>>>>>>>>>>>>>>>_------", "    " + babyid + "     " + name + "   " + date + " " + gender + " " + weigh + " " + heigh + " " + circu);
+
+        } else if (match.equals("info")) {
+
+              /*Fetch Value From Database*/
+            List<BabyInfoTable> list = helper.babyDetail();
+            if (list != null && list.size() != 0) {
+                for (BabyInfoTable item : list) {
+                    babyid = item.getId();
+                    name = item.name;
+                    date = item.dobbaby;
+                    gender = item.genderbaby;
+                    weigh = item.weightbaby;
+                    heigh = item.heightbaby;
+                    circu = item.circumbaby;
+                }
+            }
+
+            firstnameET.setText(name);
+            dobET.setText(date);
+            weightET.setText(String.valueOf(weigh));
+            heightET.setText(String.valueOf(heigh));
+            circumET.setText(String.valueOf(circu));
+
+
+            Log.i("Info Detail>>>>>>>>>>>>>>>>>>>", "" + babyid + "" + name + "" + date + " " + gender + " " + weigh + " " + heigh + " " + circu);
+        }
+
+        weightSB.setProgress((int) weigh);
+        heightSB.setProgress(heigh);
+        circumSB.setProgress(circu);
+
+        if (gender.equals("Boy")) {
+            boyRB.setChecked(true);
+        } else if (gender.equals("Girl")) {
+            girlRB.setChecked(true);
+        } else {
+
+        }
+
+
+
+        /*Date picker*/
+
+        dobET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                aDate = b;
+                if (b) {
+                    Calendar now = Calendar.getInstance();
+                    DatePickerDialog dpd = DatePickerDialog.newInstance(
+                            BabyProfileUpdate.this,
+                            now.get(Calendar.YEAR),
+                            now.get(Calendar.MONTH),
+                            now.get(Calendar.DAY_OF_MONTH)
+                    );
+                    dpd.setMaxDate(now);
+                    dpd.show(getFragmentManager(), "Datepickerdialog");
+                }
+            }
+        });
+
+        dobET.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                aDate = true;
+                Calendar now = Calendar.getInstance();
+                DatePickerDialog dpd = DatePickerDialog.newInstance(BabyProfileUpdate.this, now.get(Calendar.YEAR),
+                        now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH)
+                );
+                dpd.setMaxDate(now);
+                dpd.show(getFragmentManager(), "Datepickerdialog");
+            }
+        });
+
+        /*SeekBars*/
+
+        weightSB.setNumericTransformer(new DiscreteSeekBar.NumericTransformer() {
+            @Override
+            public int transform(int i) {
+                weightET.setText("" + i);
+                return i;
+            }
+        });
+
+        heightSB.setNumericTransformer(new DiscreteSeekBar.NumericTransformer() {
+            @Override
+            public int transform(int i) {
+                heightET.setText("" + i);
+                return i;
+            }
+        });
+
+        circumSB.setNumericTransformer(new DiscreteSeekBar.NumericTransformer() {
+            @Override
+            public int transform(int i) {
+                circumET.setText("" + i);
+                return i;
+            }
+        });
+        /*Save Button onClick*/
+        savebttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                validator.validate();
+
+            }
+        });
+
+        /*Cancle Button onClick*/
+        canclebttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent in = new Intent(BabyProfileUpdate.this, MainFragmentActivity.class);
+                startActivity(in);
+                finish();
+            }
+
+        });
+    }
+
+
+    @Override
+    public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
+
+        String mount = String.valueOf(month + 1);
+        String da = String.valueOf(day);
+
+        if (mount.length() < 2) {
+            mount = "0" + mount;
+        }
+        if (da.length() < 2) {
+            da = "0" + mount;
+        }
+        String datesave = year + "-" + mount + "-" + da;
+        dobET.setText(datesave);
+    }
+
+
+    @Override
+    public void onValidationSucceeded() {
+        int selctid = genderRG.getCheckedRadioButtonId();
+        genderbttn = (RadioButton) findViewById(selctid);
+
+        firstname = firstnameET.getText().toString().trim();
+        lastname = lastnameET.getText().toString();
+        date = dobET.getText().toString().trim();
+        gender = genderbttn.getText().toString().trim();
+        weight = weightET.getText().toString().trim();
+        height = heightET.getText().toString().trim();
+        circum = circumET.getText().toString().trim();
+        name = firstname + " " + lastname;
+
+
+        weigh = Float.parseFloat(weight);
+        heigh = Integer.parseInt(height);
+        circu = Integer.parseInt(circum);
+
+        setConfirmDialog(BabyProfileUpdate.this, "\nBabyid : " + babyid + "\nName : " + name + "\nDate Of Birth :" + date + "\nGender :" + gender + "\nWeight :" + weight + "\nHeight :" + height + "\nCircum :" + circum);
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+
+    }
+
+    /*Dialog box for confirmation*/
+    public void setConfirmDialog(final Activity activity, String msg) {
+        final Dialog dialog = new Dialog(activity, R.style.DialogSlideAnim);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.baby_infoconfirmation_dialog);
+        dialog.getWindow().setLayout(Constant.width - 10, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        LinearLayout linearLayout = (LinearLayout) dialog.findViewById(R.id.dialog_no_layout);
+        TextView title = (TextView) dialog.findViewById(R.id.dialog_title);
+        TextView message = (TextView) dialog.findViewById(R.id.action);
+
+        TextView okBttn = (TextView) dialog.findViewById(R.id.confirm_yes);
+        TextView cancleBttn = (TextView) dialog.findViewById(R.id.confirm_no);
+
+        cancleBttn.setVisibility(View.VISIBLE);
+        linearLayout.setVisibility(View.VISIBLE);
+
+
+        title.setText("UPDATE CONFIRMTION");
+        message.setText("Are you sure?\n\n" + msg);
+        /*Dialog Buttons*/
+        okBttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+
+                      /*Update Data in database*/
+                helper.babyInfoUpdate(babyid, name, date, gender, weigh, heigh, circu);
+
+                Intent ok = new Intent(activity, HomeActivity.class);
+                startActivity(ok);
+                finish();
+
+            }
+        });
+        cancleBttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+
+}

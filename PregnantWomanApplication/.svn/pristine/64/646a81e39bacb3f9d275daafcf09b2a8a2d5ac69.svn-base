@@ -1,0 +1,60 @@
+// Generated code from Butter Knife. Do not modify!
+package com.widevision.pregnantwoman.mother;
+
+import android.view.View;
+import butterknife.ButterKnife.Finder;
+import butterknife.ButterKnife.ViewBinder;
+
+public class HelthParameterActivityWomen$$ViewBinder<T extends com.widevision.pregnantwoman.mother.HelthParameterActivityWomen> implements ViewBinder<T> {
+  @Override public void bind(final Finder finder, final T target, Object source) {
+    View view;
+    view = finder.findRequiredView(source, 2131558805, "field 'nameEdt'");
+    target.nameEdt = finder.castView(view, 2131558805, "field 'nameEdt'");
+    view = finder.findRequiredView(source, 2131558528, "field 'dateEdt'");
+    target.dateEdt = finder.castView(view, 2131558528, "field 'dateEdt'");
+    view = finder.findRequiredView(source, 2131558518, "field 'mSaveBtn'");
+    target.mSaveBtn = finder.castView(view, 2131558518, "field 'mSaveBtn'");
+    view = finder.findRequiredView(source, 2131558584, "field 'mCancelBtn'");
+    target.mCancelBtn = finder.castView(view, 2131558584, "field 'mCancelBtn'");
+    view = finder.findRequiredView(source, 2131558579, "field 'weightSeek'");
+    target.weightSeek = finder.castView(view, 2131558579, "field 'weightSeek'");
+    view = finder.findRequiredView(source, 2131558807, "field 'systolicSeek'");
+    target.systolicSeek = finder.castView(view, 2131558807, "field 'systolicSeek'");
+    view = finder.findRequiredView(source, 2131558809, "field 'diastolicSeek'");
+    target.diastolicSeek = finder.castView(view, 2131558809, "field 'diastolicSeek'");
+    view = finder.findRequiredView(source, 2131558806, "field 'systolicTxt'");
+    target.systolicTxt = finder.castView(view, 2131558806, "field 'systolicTxt'");
+    view = finder.findRequiredView(source, 2131558808, "field 'diastolicTxt'");
+    target.diastolicTxt = finder.castView(view, 2131558808, "field 'diastolicTxt'");
+    view = finder.findRequiredView(source, 2131558578, "field 'weightTxt'");
+    target.weightTxt = finder.castView(view, 2131558578, "field 'weightTxt'");
+    view = finder.findRequiredView(source, 2131558813, "field 'mFastingBeforeMealTxt'");
+    target.mFastingBeforeMealTxt = finder.castView(view, 2131558813, "field 'mFastingBeforeMealTxt'");
+    view = finder.findRequiredView(source, 2131558815, "field 'mAfterMealTxt'");
+    target.mAfterMealTxt = finder.castView(view, 2131558815, "field 'mAfterMealTxt'");
+    view = finder.findRequiredView(source, 2131558814, "field 'mFastingBeforeMealSeek'");
+    target.mFastingBeforeMealSeek = finder.castView(view, 2131558814, "field 'mFastingBeforeMealSeek'");
+    view = finder.findRequiredView(source, 2131558816, "field 'mAfterMealSeek'");
+    target.mAfterMealSeek = finder.castView(view, 2131558816, "field 'mAfterMealSeek'");
+    view = finder.findRequiredView(source, 2131558810, "field 'radioGroup'");
+    target.radioGroup = finder.castView(view, 2131558810, "field 'radioGroup'");
+  }
+
+  @Override public void unbind(T target) {
+    target.nameEdt = null;
+    target.dateEdt = null;
+    target.mSaveBtn = null;
+    target.mCancelBtn = null;
+    target.weightSeek = null;
+    target.systolicSeek = null;
+    target.diastolicSeek = null;
+    target.systolicTxt = null;
+    target.diastolicTxt = null;
+    target.weightTxt = null;
+    target.mFastingBeforeMealTxt = null;
+    target.mAfterMealTxt = null;
+    target.mFastingBeforeMealSeek = null;
+    target.mAfterMealSeek = null;
+    target.radioGroup = null;
+  }
+}

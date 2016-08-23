@@ -1,0 +1,96 @@
+package com.widevision.pregnantwoman.mother;
+
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.content.Intent;
+import android.os.IBinder;
+
+import com.widevision.pregnantwoman.R;
+import com.widevision.pregnantwoman.database.ActiveAndroidDBHelper;
+import com.widevision.pregnantwoman.database.AppointmentRecordTable;
+import com.widevision.pregnantwoman.util.Constant;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+/**
+ * Created by newtrainee on 7/8/15.
+ */
+public class ReminderService extends Service {
+
+    private Timer t;
+    private ActiveAndroidDBHelper helper;
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+
+        t = new Timer();
+        helper = ActiveAndroidDBHelper.getInstance();
+        StartTimer();
+        return START_STICKY;
+    }
+
+    public void StartTimer() {
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                test();
+            }
+        };
+        t.scheduleAtFixedRate(task, 0, Constant.serviceDelay);
+    }
+
+    void test() {
+        List<AppointmentRecordTable> list = helper.viewAllAppointment();
+        if (list != null && list.size() != 0) {
+            for (AppointmentRecordTable item : list) {
+                DateTimeFormatter formatter = DateTimeFormat.forPattern(Constant.dateTimePattern);
+                DateTime dt = formatter.parseDateTime(item.date + " " + item.time);
+                DateTime current = formatter.parseDateTime(Constant.getCurrentTime());
+                if (!dt.isBeforeNow()) {
+                    if (dt.minusDays(1).equals(current)) {
+                        //show notification
+                        Notify("Appointment Reminder", "you have your appointment with " + item.doctorName + " tomorrow at " + item.time, "Doctor Appointment Notification");
+                    } else {
+                        DateTime dateTime = formatter.parseDateTime(item.date + " " + item.time);
+                        DateTime currentDateTime = formatter.parseDateTime(Constant.getCurrentTime());
+                        DateTime dateTime1 = dateTime.minusHours(2);
+                        if (currentDateTime.equals(dateTime1)) {
+                            Notify("Appointment Reminder", "you have your appointment with " + item.doctorName + " today at " + item.time, "Doctor Appointment Notification");
+                        }
+                    }
+                } else {
+                    helper.deleteAppointment(item.getId());
+                }
+            }
+        }
+
+    }
+
+    private void Notify(String notificationTitle, String notificationMessage, String title) {
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Notification notification = new Notification(R.drawable.ic_launcher,
+                title, System.currentTimeMillis());
+
+        Intent notificationIntent = new Intent(this, WomanMainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
+                notificationIntent, 0);
+
+        notification.setLatestEventInfo(getApplicationContext(), notificationTitle,
+                notificationMessage, pendingIntent);
+        notificationManager.notify(9999, notification);
+    }
+
+}

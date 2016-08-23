@@ -1,0 +1,36 @@
+// Generated code from Butter Knife. Do not modify!
+package com.widevision.pregnantwoman.babby;
+
+import android.view.View;
+import butterknife.ButterKnife.Finder;
+import butterknife.ButterKnife.ViewBinder;
+
+public class BabySleepRecord$$ViewBinder<T extends com.widevision.pregnantwoman.babby.BabySleepRecord> implements ViewBinder<T> {
+  @Override public void bind(final Finder finder, final T target, Object source) {
+    View view;
+    view = finder.findRequiredView(source, 2131558636, "field 'noteBTTN'");
+    target.noteBTTN = finder.castView(view, 2131558636, "field 'noteBTTN'");
+    view = finder.findRequiredView(source, 2131558637, "field 'nameET'");
+    target.nameET = finder.castView(view, 2131558637, "field 'nameET'");
+    view = finder.findRequiredView(source, 2131558638, "field 'dateET'");
+    target.dateET = finder.castView(view, 2131558638, "field 'dateET'");
+    view = finder.findRequiredView(source, 2131558640, "field 'startTimeET'");
+    target.startTimeET = finder.castView(view, 2131558640, "field 'startTimeET'");
+    view = finder.findRequiredView(source, 2131558642, "field 'endTimeET'");
+    target.endTimeET = finder.castView(view, 2131558642, "field 'endTimeET'");
+    view = finder.findRequiredView(source, 2131558643, "field 'saveBTTN'");
+    target.saveBTTN = finder.castView(view, 2131558643, "field 'saveBTTN'");
+    view = finder.findRequiredView(source, 2131558644, "field 'cancelBTTN'");
+    target.cancelBTTN = finder.castView(view, 2131558644, "field 'cancelBTTN'");
+  }
+
+  @Override public void unbind(T target) {
+    target.noteBTTN = null;
+    target.nameET = null;
+    target.dateET = null;
+    target.startTimeET = null;
+    target.endTimeET = null;
+    target.saveBTTN = null;
+    target.cancelBTTN = null;
+  }
+}

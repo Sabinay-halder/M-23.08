@@ -1,0 +1,63 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/pickerTitleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/cityWheellayout"
+        android:background="@color/baby_heading"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+
+        <ImageView
+            android:id="@+id/pickerClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/dropcircle" />
+
+        <com.widevision.pregnantwoman.model.CustomTextViewBold
+            android:id="@+id/selectedTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:text="Done"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
+
+        <ImageView
+            android:id="@+id/pickerDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/markedcircle" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/cityWheellayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <com.widevision.pregnantwoman.kankan.wheel.widget.view.WheelView
+            android:id="@+id/cityWheel"
+            android:layout_width="match_parent"
+            android:layout_height="150dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/wheel_val_wheel"></LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

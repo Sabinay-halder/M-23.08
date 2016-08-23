@@ -1,0 +1,91 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/TimeWheelLayout"
+        android:background="#ffffff"
+        android:gravity="right">
+
+        <ImageButton
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+
+            android:background="@drawable/dropcircle"
+
+            />
+
+
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#242E76" />
+
+
+        <ImageButton
+            android:id="@+id/doneButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+
+            android:background="@drawable/markedcircle"
+
+            />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/TimeWheelLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+
+        <com.widevision.pregnantwoman.kankan.wheel.widget.view.WheelView
+            android:id="@+id/hourWheel"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_weight="3" />
+
+        <com.widevision.pregnantwoman.kankan.wheel.widget.view.WheelView
+            android:id="@+id/minuteWheel"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_weight="3" />
+
+        <LinearLayout
+            android:id="@+id/AmPmWheel"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/AmPm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#0EABD5"
+                android:padding="5dp"
+                android:text="AM"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#FFFFFF" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

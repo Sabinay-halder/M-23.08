@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/baby_notes"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/baby_background"
+    android:clickable="true"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/buttomLayout"
+        android:fadingEdge="none"
+        android:fillViewport="true">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <!--Title-->
+
+            <RelativeLayout
+                android:id="@+id/rltitlenote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <com.widevision.pregnantwoman.model.CustomTextView
+                    android:id="@+id/txtnote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:text="Notes For"
+                    android:textColor="@color/heading"
+                    android:textSize="20sp" />
+
+                <com.widevision.pregnantwoman.model.CustomTextViewBold
+                    android:id="@+id/etnamenote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txtnote"
+                    android:gravity="center"
+                    android:text="Notes For"
+                    android:textColor="@color/baby_name"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+
+            <!---->
+
+            <!--Name-->
+
+
+            <!---->
+
+            <!--Date of birth-->
+
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/etdatefromnote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:editable="false"
+                android:focusable="false"
+                android:hint="Date From"
+                android:inputType="date"
+                android:singleLine="true"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/text_size"
+                app:met_accentTypeface="fonts/Raleway-Regular.ttf"
+                app:met_floatingLabel="highlight"
+                app:met_floatingLabelTextColor="@color/text"
+                app:met_floatingLabelTextSize="@dimen/text_size"
+                app:met_typeface="fonts/Raleway-Regular.ttf" />
+
+
+            <!---->
+
+            <!--Category-->
+
+
+            <com.widevision.pregnantwoman.model.CustomTextView
+                android:id="@+id/spcategorynote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:drawableRight="@drawable/arrow_dialog"
+                android:editable="false"
+                android:focusable="true"
+                android:hint="Category"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="@color/text_color"
+                android:textSize="15sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#000000"></View>
+
+
+            <!---->
+
+            <!--Go Button-->
+
+            <com.balysv.materialripple.MaterialRippleLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                app:mrl_rippleAlpha="0.2"
+                app:mrl_rippleColor="#7F000000"
+                app:mrl_rippleDelayClick="true"
+                app:mrl_rippleHover="true"
+                app:mrl_rippleOverlay="true"
+                app:mrl_rippleRoundedCorners="@dimen/ripple_corner">
+
+
+                <ImageView
+                    android:id="@+id/bttngonote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+
+                    android:background="@drawable/go" />
+            </com.balysv.materialripple.MaterialRippleLayout>
+
+            <!---->
+            <!--Note Details-->
+
+
+            <LinearLayout
+
+                android:id="@+id/llnotetablelist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                android:padding="5dp">
+                <!--
+
+                                <ListView
+                                    android:id="@+id/lvnotebaby"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@+id/title"
+                                    android:fadingEdge="none"
+                                    android:cacheColorHint="#00000000"
+                                    android:layout_alignParentLeft="true"
+                                    android:gravity="left|center" ></ListView>
+                -->
+
+
+            </LinearLayout>
+
+
+            <!---->
+            <!--Note Details-->
+
+
+            <!---->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"></LinearLayout>
+        </LinearLayout>
+        <!--</LinearLayout>-->
+    </ScrollView>
+
+
+    <LinearLayout
+        android:id="@+id/buttomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/accent_material_light"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center">
+
+                <com.widevision.pregnantwoman.model.CustomButton
+                    android:id="@+id/bttnsavenote"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/button_buttom_selector"
+                    android:text="SAVE"
+                    android:textColor="@color/accent_material_light" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/accent_material_light"></View>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:gravity="center">
+
+                <com.widevision.pregnantwoman.model.CustomButton
+                    android:id="@+id/bttncanclenote"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/button_buttom_selector"
+                    android:text="CANCEL"
+                    android:textColor="@color/accent_material_light" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</RelativeLayout><!--Note Table-->
+
+    <!--<LinearLayout--><!--android:id="@+id/notetable"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:orientation="vertical"--><!--android:layout_marginLeft="10dp"--><!--android:layout_marginRight="10dp"--><!--android:padding="5dp">-->
+
+    <!--<TableLayout--><!--android:layout_width="fill_parent"--><!--android:layout_height="wrap_content"--><!--android:background="@drawable/edittextborder">-->
+
+    <!--Table Heading--><!--<TableRow--><!--android:id="@+id/tabletitlevaccin"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_gravity="center"--><!--android:gravity="center"--><!--android:layout_margin="3dp"--><!--android:padding="2dp"--><!--android:weightSum="5">-->
+
+    <!--<com.widevision.pregnantwoman.model.CustomTextViewBold--><!--android:id="@+id/txtcategory"--><!--android:layout_width="0dp"--><!--android:layout_height="wrap_content"--><!--android:layout_weight="2"--><!--android:textColor="@color/black"--><!--android:textAppearance="?android:attr/textAppearanceMedium"--><!--android:text="Category"--><!--android:gravity="left|center" />-->
+
+    <!--<com.widevision.pregnantwoman.model.CustomTextViewBold--><!--android:id="@+id/txtdate"--><!--android:layout_width="0dp"--><!--android:layout_height="wrap_content"--><!--android:layout_weight="1"--><!--android:textColor="@color/black"--><!--android:textAppearance="?android:attr/textAppearanceMedium"--><!--android:text="Date"--><!--android:gravity="left|center" />-->
+
+    <!--<com.widevision.pregnantwoman.model.CustomTextViewBold--><!--android:id="@+id/txtshortdescri"--><!--android:layout_width="0dp"--><!--android:layout_height="wrap_content"--><!--android:layout_weight="2"--><!--android:textColor="@color/black"--><!--android:textAppearance="?android:attr/textAppearanceMedium"--><!--android:text="Short Description"--><!--android:gravity="left|center" />-->
+
+    <!--</TableRow>-->
+
+    <!--<View--><!--android:id="@+id/view2"--><!--android:layout_width="match_parent"--><!--android:layout_height="1dp"--><!--android:background="@color/accent_material_light" />-->
+
+    <!----><!--First Category Food Detail-->
+
+    <!--<TableRow--><!--android:id="@+id/firstrowfood"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_gravity="center"--><!--android:gravity="center"--><!--android:layout_margin="3dp"--><!--android:padding="2dp"--><!--android:weightSum="5">-->
+
+    <!--<com.widevision.pregnantwoman.model.CustomTextViewBold--><!--android:id="@+id/txtfood"--><!--android:layout_width="0dp"--><!--android:layout_height="wrap_content"--><!--android:layout_weight="2"--><!--android:textColor="@color/black"--><!--android:textAppearance="?android:attr/textAppearanceSmall"--><!--android:text="food"--><!--android:paddingTop="2dp"--><!--android:paddingBottom="2dp"--><!--android:gravity="left|center" />-->
+
+    <!--<com.widevision.pregnantwoman.model.CustomTextViewBold--><!--android:id="@+id/txtfooddate"--><!--android:layout_width="0dp"--><!--android:layout_height="wrap_content"--><!--android:layout_weight="1"--><!--android:textColor="@color/black"--><!--android:textAppearance="?android:attr/textAppearanceSmall"--><!--android:hint="21/22"--><!--android:paddingTop="2dp"--><!--android:paddingBottom="2dp"--><!--android:gravity="left|center" />-->
+
+    <!--<com.widevision.pregnantwoman.model.CustomTextViewBold--><!--android:id="@+id/txtfooddescrib"--><!--android:layout_width="0dp"--><!--android:layout_height="wrap_content"--><!--android:layout_weight="2"--><!--android:textColor="@color/black"--><!--android:textAppearance="?android:attr/textAppearanceSmall"--><!--android:text=""--><!--android:paddingTop="2dp"--><!--android:paddingBottom="2dp"--><!--android:gravity="left|center" />-->
+
+    <!--</TableRow>-->
+
+    <!--<View--><!--android:id="@+id/view3"--><!--android:layout_width="match_parent"--><!--android:layout_height="1dp"--><!--android:background="@color/accent_material_light" />-->
+
+    <!----><!--Second Category HeiWei Detail-->
+
+    <!--<TableRow--><!--android:id="@+id/secondrow"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_gravity="center"--><!--android:gravity="center"--><!--android:layout_margin="3dp"--><!--android:padding="2dp"--><!--android:weightSum="5">-->
+
+    <!--<com.widevision.pregnantwoman.model.CustomTextViewBold--><!--android:id="@+id/txtVaccin2"--><!--android:layout_width="0dp"--><!--android:layout_height="wrap_content"--><!--android:layout_weight="2"--><!--android:textColor="@color/black"--><!--android:textAppearance="?android:attr/textAppearanceSmall"--><!--android:text="Sleep"--><!--android:paddingTop="2dp"--><!--android:paddingBottom="2dp"--><!--android:gravity="left|center" />-->
+
+    <!--<com.widevision.pregnantwoman.model.CustomTextViewBold--><!--android:id="@+id/txtdate2"--><!--android:layout_width="0dp"--><!--android:layout_height="wrap_content"--><!--android:layout_weight="1"--><!--android:textColor="@color/black"--><!--android:textAppearance="?android:attr/textAppearanceSmall"--><!--android:hint="date"--><!--android:paddingTop="2dp"--><!--android:paddingBottom="2dp"--><!--android:gravity="left|center" />-->
+
+    <!--<com.widevision.pregnantwoman.model.CustomTextViewBold--><!--android:id="@+id/txtdone2"--><!--android:layout_width="0dp"--><!--android:layout_height="wrap_content"--><!--android:layout_weight="2"--><!--android:textColor="@color/black"--><!--android:textAppearance="?android:attr/textAppearanceSmall"--><!--android:text=""--><!--android:paddingTop="2dp"--><!--android:paddingBottom="2dp"--><!--android:gravity="left|center" />-->
+
+    <!--</TableRow>-->
+
+    <!--<View--><!--android:id="@+id/view4"--><!--android:layout_width="match_parent"--><!--android:layout_height="1dp"--><!--android:background="@color/accent_material_light" />-->
+
+    <!----><!--Third Category Sleep Detail-->
+
+    <!--<TableRow--><!--android:id="@+id/thirdrowheight"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_gravity="center"--><!--android:gravity="center"--><!--android:layout_margin="3dp"--><!--android:padding="2dp"--><!--android:weightSum="5">-->
+
+    <!--<com.widevision.pregnantwoman.model.CustomTextViewBold--><!--android:id="@+id/txtsleep"--><!--android:layout_width="0dp"--><!--android:layout_height="wrap_content"--><!--android:layout_weight="2"--><!--android:textColor="@color/black"--><!--android:textAppearance="?android:attr/textAppearanceSmall"--><!--android:text="Height"--><!--android:paddingTop="2dp"--><!--android:paddingBottom="2dp"--><!--android:gravity="left|center" />-->
+
+    <!--<com.widevision.pregnantwoman.model.CustomTextViewBold--><!--android:id="@+id/txtsleepdate"--><!--android:layout_width="0dp"--><!--android:layout_height="wrap_content"--><!--android:layout_weight="1"--><!--android:textColor="@color/black"--><!--android:textAppearance="?android:attr/textAppearanceSmall"--><!--android:hint="date"--><!--android:paddingTop="2dp"--><!--android:paddingBottom="2dp"--><!--android:gravity="left|center" />-->
+
+    <!--<com.widevision.pregnantwoman.model.CustomTextViewBold--><!--android:id="@+id/txtsleepdescrib"--><!--android:layout_width="0dp"--><!--android:layout_height="wrap_content"--><!--android:layout_weight="2"--><!--android:textColor="@color/black"--><!--android:textAppearance="?android:attr/textAppearanceSmall"--><!--android:text=""--><!--android:paddingTop="2dp"--><!--android:paddingBottom="2dp"--><!--android:gravity="left|center" />-->
+
+    <!--</TableRow>-->
+
+    <!--<View--><!--android:id="@+id/view5"--><!--android:layout_width="match_parent"--><!--android:layout_height="1dp"--><!--android:background="@color/accent_material_light" />-->
+
+    <!----><!--Fourth Vaccin Detail-->
+
+    <!--<TableRow--><!--android:id="@+id/fourthrowweight"--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--android:layout_gravity="center"--><!--android:gravity="center"--><!--android:layout_margin="3dp"--><!--android:padding="2dp"--><!--android:weightSum="5">-->
+
+    <!--<com.widevision.pregnantwoman.model.CustomTextViewBold--><!--android:id="@+id/txt4"--><!--android:layout_width="0dp"--><!--android:layout_height="wrap_content"--><!--android:layout_weight="2"--><!--android:textColor="@color/black"--><!--android:textAppearance="?android:attr/textAppearanceSmall"--><!--android:text="Weight"--><!--android:paddingTop="2dp"--><!--android:paddingBottom="2dp"--><!--android:gravity="left|center" />-->
+
+    <!--<com.widevision.pregnantwoman.model.CustomTextViewBold--><!--android:id="@+id/txtdate4"--><!--android:layout_width="0dp"--><!--android:layout_height="wrap_content"--><!--android:layout_weight="1"--><!--android:textColor="@color/black"--><!--android:textAppearance="?android:attr/textAppearanceSmall"--><!--android:hint="date"--><!--android:paddingTop="2dp"--><!--android:paddingBottom="2dp"--><!--android:gravity="left|center" />-->
+
+    <!--<com.widevision.pregnantwoman.model.CustomTextViewBold--><!--android:id="@+id/txtdescrib"--><!--android:layout_width="0dp"--><!--android:layout_height="wrap_content"--><!--android:layout_weight="2"--><!--android:textColor="@color/black"--><!--android:textAppearance="?android:attr/textAppearanceSmall"--><!--android:text=""--><!--android:paddingTop="2dp"--><!--android:paddingBottom="2dp"--><!--android:gravity="left|center" />-->
+
+    <!--</TableRow>-->
+
+
+    <!--</TableLayout>--><!---->

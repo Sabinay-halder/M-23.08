@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<io.codetail.widget.RevealLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:clickable="true">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/accent_material_dark"
+        android:id="@+id/tips_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:clickable="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:id="@+id/tips_parent_second"
+            android:clickable="true"
+            android:visibility="invisible">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                android:fadingEdge="none"
+                android:layout_above="@+id/buttomLayout">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@color/white">
+
+                    <com.widevision.pregnantwoman.model.CustomTextViewBold
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:textColor="@color/black"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Tips"
+                        android:gravity="center" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/accent_material_light"></View>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:background="@color/white"
+                        android:paddingLeft="@dimen/edit_text_padding10dp"
+                        android:paddingRight="@dimen/edit_text_padding10dp">
+
+                        <com.rengwuxian.materialedittext.MaterialEditText
+                            android:id="@+id/nameEdt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Name"
+                            app:met_floatingLabelTextColor="#8805ad"
+                            android:textColor="@color/text_color"
+                            app:met_floatingLabel="highlight"
+                            android:singleLine="true"
+                            android:imeOptions="actionNext"
+                            android:layout_marginTop="20dp" />
+
+                        <com.widevision.pregnantwoman.spinner.NiceSpinner
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:text="hint"
+                            android:id="@+id/nice_spinner" />
+                        />
+
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+        </RelativeLayout>
+    </RelativeLayout>
+</io.codetail.widget.RevealLinearLayout>

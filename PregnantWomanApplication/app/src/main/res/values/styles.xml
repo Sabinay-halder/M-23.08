@@ -1,0 +1,163 @@
+<resources>
+
+
+    <style name="BoyRadio" parent="@android:style/Widget.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/radio_button_selector_boy</item>
+    </style>
+
+    <style name="GirlRadio" parent="@android:style/Widget.CompoundButton.RadioButton">
+        <item name="android:button">@drawable/radio_button_selector_girl</item>
+    </style>
+
+
+    <!-- Base application theme. -->
+    <!-- inherit from the material theme -->
+
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_up_dialog</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_dialog</item>
+    </style>
+
+    <style name="DialogAnimationRightToLeft">
+        <item name="android:windowEnterAnimation">@anim/slide_in_from_right</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_to_right</item>
+    </style>
+
+    <style name="PopUpAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_out_activity</item>
+        <item name="android:windowExitAnimation">@anim/slide_in_activity</item>
+    </style>
+
+    <style name="FadeINOUT">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
+
+
+    <!-- Animation for dialog box -->
+    <style name="DialogSlideAnim" parent="@android:style/Theme.Dialog">
+        <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
+    </style>
+
+    <style name="DialogSlide" parent="@android:style/Theme.Dialog">
+        <item name="android:windowAnimationStyle">@style/DialogAnimationRightToLeft</item>
+    </style>
+
+
+    <style name="DialogSlideAnimSecond" parent="@android:style/Theme.Dialog">
+        <item name="android:windowAnimationStyle">@style/PopUpAnimation</item>
+    </style>
+
+    <style name="DialogFadeAnim" parent="@android:style/Theme.Dialog">
+        <item name="android:windowAnimationStyle">@style/FadeINOUT</item>
+    </style>
+    <!--for menu-->
+    <!-- Base application theme. -->
+    <style name="AppThememenu" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@android:color/white</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+
+    <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
+
+    </style>
+
+    <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/accent_material_dark</item>
+        <item name="colorPrimaryDark">@color/accent_material_dark</item>
+        <item name="colorAccent">@color/accent_material_dark</item>
+    </style>
+
+
+    <declare-styleable name="NiceSpinner">
+        <attr name="arrowTint" format="color" />
+        <attr name="hideArrow" format="boolean" />
+    </declare-styleable>
+
+
+    <!--
+      ~ Copyright 2014 Alex Curran
+      ~
+      ~ Licensed under the Apache License, Version 2.0 (the "License");
+      ~ you may not use this file except in compliance with the License.
+      ~ You may obtain a copy of the License at
+      ~
+      ~     http://www.apache.org/licenses/LICENSE-2.0
+      ~
+      ~ Unless required by applicable law or agreed to in writing, software
+      ~ distributed under the License is distributed on an "AS IS" BASIS,
+      ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+      ~ See the License for the specific language governing permissions and
+      ~ limitations under the License.
+      -->
+
+
+
+        <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+            <item name="colorPrimary">#3973cf</item>
+            <item name="colorPrimaryDark">#3365b5</item>
+        </style>
+
+        <style name="Toolbar">
+            <item name="android:background">?attr/colorPrimary</item>
+            <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        </style>
+
+        <style name="CustomShowcaseTheme" parent="ShowcaseView.Light">
+            <item name="sv_backgroundColor">#be00cccc</item>
+            <item name="sv_showcaseColor">#ffffff</item>
+            <item name="sv_buttonText">Hide</item>
+            <item name="sv_tintButtonColor">false</item>
+            <item name="sv_titleTextAppearance">@style/CustomTitle</item>
+            <item name="sv_detailTextAppearance">@style/CustomText2</item>
+        </style>
+
+        <style name="CustomShowcaseTheme2" parent="ShowcaseView">
+            <item name="sv_backgroundColor">#c8ff769f</item>
+            <item name="sv_showcaseColor">#25467A</item>
+            <item name="sv_buttonText">Close</item>
+            <item name="sv_titleTextAppearance">@style/CustomTitle2</item>
+            <item name="sv_detailTextAppearance">@style/CustomText2</item>
+        </style>
+
+        <style name="CustomShowcaseTheme3" parent="ShowcaseView.Light">
+            <item name="sv_backgroundColor">#c8ed680f</item>
+            <item name="sv_showcaseColor">#ed680f</item>
+            <item name="sv_buttonText">Hide</item>
+            <item name="sv_tintButtonColor">false</item>
+            <item name="sv_titleTextAppearance">@style/CustomTitle2</item>
+            <item name="sv_detailTextAppearance">@style/CustomText2</item>
+        </style>
+
+        <style name="CustomTitle" parent="TextAppearance.ShowcaseView.Title">
+            <item name="android:textColor">#ffffff</item>
+            <item name="android:textSize">40sp</item>
+        </style>
+
+        <style name="CustomTitle2" parent="TextAppearance.ShowcaseView.Title.Light">
+            <item name="android:textColor">#ffffff</item>
+        </style>
+
+        <style name="CustomText2" parent="TextAppearance.ShowcaseView.Detail.Light">
+            <item name="android:textColor">#ffffff</item>
+            <item name="android:textSize">30sp</item>
+        </style>
+
+        <style name="ListItemBigtext">
+            <item name="android:textColor">#25467A</item>
+            <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+            <item name="android:textStyle">italic</item>
+        </style>
+
+        <style name="ListItemSubtext">
+            <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+            <item name="android:textColor">?android:attr/textColorSecondary</item>
+        </style>
+
+    </resources>
+
+

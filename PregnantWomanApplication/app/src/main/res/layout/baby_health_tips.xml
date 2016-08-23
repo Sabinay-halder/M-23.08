@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/baby_healthTips"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/baby_background"
+    android:clickable="true"
+    android:orientation="vertical"
+    >
+
+
+    <com.widevision.pregnantwoman.model.CustomTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="Tips for"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/heading" />
+
+    <com.widevision.pregnantwoman.model.CustomTextViewBold
+        android:id="@+id/nameEdt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="name"
+        android:textColor="@color/mother_name"
+        android:textSize="20sp" />
+
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/tipsEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        android:editable="false"
+        android:focusable="true"
+        android:hint="SelectedTips"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/text_size"
+        app:met_floatingLabel="highlight"
+        app:met_floatingLabelTextColor="@color/text"
+        app:met_floatingLabelTextSize="@dimen/text_size" />
+
+    <WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:id="@+id/web"
+        android:background="#00000000"
+        ></WebView>
+
+</LinearLayout>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:clickable="true">
+
+    <FrameLayout
+        android:id="@+id/framebaby"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:weightSum="3"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_gravity="top|left"
+                android:gravity="left"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/bttnbabyprofile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:src="@drawable/ic_launcher"
+                        android:layout_gravity="center"
+                        android:gravity="center" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fadingEdge="none">
+
+
+                    <LinearLayout
+                        android:id="@+id/fragmant"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"></LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <com.widevision.pregnantwoman.model.CustomButton
+                                android:id="@+id/bttnfood"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/button_selector"
+                                android:textColor="@color/accent_material_light"
+                                android:text="@string/food_button"
+                                android:padding="5dp"
+                                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+                            <com.widevision.pregnantwoman.model.CustomButton
+                                android:id="@+id/bttnheightweight"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/button_selector"
+                                android:textColor="@color/accent_material_light"
+                                android:layout_marginTop="10dp"
+                                android:padding="5dp"
+                                android:text="@string/height_weight"
+                                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                            <com.widevision.pregnantwoman.model.CustomButton
+                                android:id="@+id/bttnsleep"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/button_selector"
+                                android:textColor="@color/accent_material_light"
+                                android:layout_marginTop="10dp"
+                                android:padding="5dp"
+                                android:text="@string/sleep_button"
+                                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                            <com.widevision.pregnantwoman.model.CustomButton
+                                android:id="@+id/bttnchart"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/button_selector"
+                                android:textColor="@color/accent_material_light"
+                                android:layout_marginTop="10dp"
+                                android:padding="5dp"
+                                android:textAppearance="?android:attr/textAppearanceMedium"
+                                android:text="@string/chart_bttn" />
+
+                            <com.widevision.pregnantwoman.model.CustomButton
+                                android:id="@+id/bttnnote"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/button_selector"
+                                android:textColor="@color/accent_material_light"
+                                android:layout_marginTop="10dp"
+                                android:padding="5dp"
+                                android:text="@string/note_bttn"
+                                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                            <com.widevision.pregnantwoman.model.CustomButton
+                                android:id="@+id/bttnvaccin"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/button_selector"
+                                android:textColor="@color/accent_material_light"
+                                android:layout_marginTop="10dp"
+                                android:padding="5dp"
+                                android:text="@string/vaccin_button"
+                                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                            <com.widevision.pregnantwoman.model.CustomButton
+                                android:id="@+id/bttnappoint"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/button_selector"
+                                android:textColor="@color/accent_material_light"
+                                android:layout_marginTop="10dp"
+                                android:padding="5dp"
+                                android:text="@string/appoint_button"
+                                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                            <com.widevision.pregnantwoman.model.CustomButton
+                                android:id="@+id/bttntips"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/button_selector"
+                                android:textColor="@color/accent_material_light"
+                                android:layout_marginTop="10dp"
+                                android:padding="5dp"
+                                android:text="@string/tip_button"
+                                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"></LinearLayout>
+
+                    </LinearLayout>
+                </ScrollView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"></LinearLayout>
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+</LinearLayout>
+<!-- From: file:/Users/rocks/Documents/workspace%20android/PregnantWomanApplication/app/src/main/res/layout/baby_mainfragmentactivity.xml -->

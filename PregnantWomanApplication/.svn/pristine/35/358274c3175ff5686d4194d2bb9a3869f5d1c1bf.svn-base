@@ -1,0 +1,123 @@
+package com.widevision.pregnantwoman.baby;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
+
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.widevision.pregnantwoman.R;
+import com.widevision.pregnantwoman.model.HideKeyFragment;
+import com.widevision.pregnantwoman.util.Constant;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+/**
+ * Created by mercury-two on 27/8/15.
+ */
+public class BabyHealthTips extends HideKeyFragment implements Validator.ValidationListener  {
+
+    @NotEmpty(message = "Name Required.")
+    @Bind(R.id.etnamehealth)
+    EditText nameET;
+    @Bind(R.id.etcategoryhealth)
+    Spinner categoryET;
+    @Bind(R.id.tvnotedetailtips)
+    TextView notedetailTV;
+
+
+    @Bind(R.id.bttncanclenote)
+    Button cancelBTTN;
+    private String name, categorya , note;
+    private String category[] = { "Food", "Sleep", "Height", "Weight"  };
+    private Validator validator;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.baby_health_tips, container, false);
+        ButterKnife.bind(this, view);
+        setupUI(view);
+
+        /*Name Set*/
+
+        Intent in = getActivity().getIntent();
+        Bundle b = in.getExtras();
+        String nameb = b.getString("NAME");
+        String dateb = b.getString("DATE");
+        nameET.setText(nameb);
+
+        /**/
+        /**/
+        /*Category Spinner */
+        ArrayAdapter<String> tipsCategoryAdapter;
+        tipsCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, category);
+        categoryET.setAdapter(tipsCategoryAdapter);
+
+        categoryET.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int arg2, long arg3) {
+                if (arg2 == 0) {
+                    notedetailTV.setText("Taking Food is good for health");
+                } else if (arg2 == 1){
+                    notedetailTV.setText("Take proper sleep");
+                } else if (arg2 == 2){
+
+                }else if (arg2 == 3){
+
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+
+
+            }});
+
+        /*.Note Detail*/
+
+        notedetailTV.getText();
+
+        /*Cancle Button*/
+        cancelBTTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validator.validate();
+            }
+        });
+
+
+
+        return view;
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+        name = nameET.getText().toString().trim();
+
+//        category = categoryET.getText().toString().trim();
+
+        Constant.babysaveAlert(getActivity(), "WellCome Again.");
+
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        Constant.setAlert(getActivity(), errors.get(0).getCollatedErrorMessage(getActivity()));
+
+    }
+}

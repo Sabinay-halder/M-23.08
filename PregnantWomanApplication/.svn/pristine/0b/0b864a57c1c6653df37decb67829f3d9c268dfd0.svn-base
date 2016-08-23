@@ -1,0 +1,329 @@
+package com.widevision.pregnantwoman.baby;
+
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.rengwuxian.materialedittext.MaterialEditText;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.widevision.pregnantwoman.HomeActivity;
+import com.widevision.pregnantwoman.MainFragmentActivity;
+import com.widevision.pregnantwoman.R;
+import com.widevision.pregnantwoman.database.ActiveAndroidDBHelper;
+import com.widevision.pregnantwoman.model.HideKeyActivity;
+import com.widevision.pregnantwoman.util.Constant;
+import com.widevision.pregnantwoman.util.PreferenceConnector;
+
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
+
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+/**
+ * Created by mercury-two on 13/8/15.
+ */
+public class BabyHomeActivity extends HideKeyActivity implements DatePickerDialog.OnDateSetListener, Validator.ValidationListener {
+
+
+    @Bind(R.id.backimage)
+    ImageView backBttn;
+    @NotEmpty(message = "Enter Name Of Baby.")
+    @Bind(R.id.etfirstnamebaby)
+    EditText firstnameET;
+    @Bind(R.id.etlastnamebaby)
+    EditText lastnameET;
+    @NotEmpty(message = "Please Select Date of birth.")
+    @Bind(R.id.etdateofbirthbaby)
+    MaterialEditText dobET;
+    @Bind(R.id.rggender)
+    RadioGroup genderRG;
+
+    @Bind(R.id.sbweightinfo)
+    DiscreteSeekBar weightSB;
+    @Bind(R.id.sbheightinfo)
+    DiscreteSeekBar heightSB;
+    @Bind(R.id.sbcircuminfo)
+    DiscreteSeekBar circumSB;
+    @Bind(R.id.etweightinfo)
+    EditText weightET;
+    @Bind(R.id.etheightinfo)
+    EditText heightET;
+    @Bind(R.id.etcircuminfo)
+    EditText circumET;
+
+    @Bind(R.id.btnsavehomebaby)
+    Button savebttn;
+    @Bind(R.id.btncanclehomebaby)
+    Button canclebttn;
+
+    private RadioButton genderbttn;
+    private String name, firstname, lastname, date, weight, height, circum, gender;
+    private float weigh;
+    private int heigh, circu;
+    private boolean aDate = false, bDate = false;
+
+    private ActiveAndroidDBHelper helper;
+
+    private Validator validator;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.home_activity_baby);
+        ButterKnife.bind(this);
+        setupUI(findViewById(R.id.babyhomeactivity));
+
+        helper = ActiveAndroidDBHelper.getInstance();
+        validator = new Validator(this);
+        validator.setValidationListener(this);
+
+        /*back button*/
+        backBttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(BabyHomeActivity.this, HomeActivity.class));
+                finish();
+            }
+        });
+
+        /*Date picker*/
+
+        dobET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                aDate = b;
+                if (b) {
+                    Calendar now = Calendar.getInstance();
+                    DatePickerDialog dpd = DatePickerDialog.newInstance(
+                            BabyHomeActivity.this,
+                            now.get(Calendar.YEAR),
+                            now.get(Calendar.MONTH),
+                            now.get(Calendar.DAY_OF_MONTH)
+                    );
+                    dpd.setMaxDate(now);
+                    dpd.show(getFragmentManager(), "Datepickerdialog");
+                }
+            }
+        });
+
+        dobET.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                aDate = true;
+                Calendar now = Calendar.getInstance();
+                DatePickerDialog dpd = DatePickerDialog.newInstance(BabyHomeActivity.this, now.get(Calendar.YEAR),
+                        now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH)
+                );
+                dpd.setMaxDate(now);
+
+                dpd.show(getFragmentManager(), "Datepickerdialog");
+            }
+        });
+
+        /*SeekBars*/
+
+        weightSB.setNumericTransformer(new DiscreteSeekBar.NumericTransformer() {
+            @Override
+            public int transform(int i) {
+                weightET.setText("" + i);
+                return i;
+            }
+        });
+
+        heightSB.setNumericTransformer(new DiscreteSeekBar.NumericTransformer() {
+            @Override
+            public int transform(int i) {
+                heightET.setText("" + i);
+                return i;
+            }
+        });
+
+        circumSB.setNumericTransformer(new DiscreteSeekBar.NumericTransformer() {
+            @Override
+            public int transform(int i) {
+                circumET.setText("" + i);
+                return i;
+            }
+        });
+
+        /*Save Button onClick*/
+        savebttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                validator.validate();
+
+            }
+        });
+
+        /*Cancle Button onClick*/
+        canclebttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Constant.setAlert(BabyHomeActivity.this, getResources().getString(R.string.close_permission));
+            }
+
+        });
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
+
+        String mount = String.valueOf(month + 1);
+        String da = String.valueOf(day);
+
+        if (mount.length() < 2) {
+            mount = "0" + mount;
+        }
+        if (da.length() < 2) {
+            da = "0" + da;
+        }
+        String datesave = year + "-" + mount + "-" + da;
+        dobET.setText(datesave);
+    }
+
+
+    @Override
+    public void onValidationSucceeded() {
+        int selctid = genderRG.getCheckedRadioButtonId();
+        genderbttn = (RadioButton) findViewById(selctid);
+
+        firstname = firstnameET.getText().toString().trim();
+        lastname = lastnameET.getText().toString();
+        date = dobET.getText().toString().trim();
+        gender = genderbttn.getText().toString().trim();
+        weight = weightET.getText().toString().trim();
+        height = heightET.getText().toString().trim();
+        circum = circumET.getText().toString().trim();
+        name = firstname + " " + lastname;
+
+
+        weigh = Float.parseFloat(weight);
+        heigh = Integer.parseInt(height);
+        circu = Integer.parseInt(circum);
+
+        setConfirmDialog(BabyHomeActivity.this, "\nName : " + name + "\nDate Of Birth :" + date + "\nGender :" + gender);
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        Constant.setAlert(BabyHomeActivity.this, errors.get(0).getCollatedErrorMessage(BabyHomeActivity.this));
+    }
+
+    /*Dialog box for confirmation*/
+    public void setConfirmDialog(Activity activity, String msg) {
+        final Dialog dialog = new Dialog(activity, R.style.DialogSlideAnim);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.baby_infoconfirmation_dialog);
+        dialog.getWindow().setLayout(Constant.width - 10, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        LinearLayout linearLayout = (LinearLayout) dialog.findViewById(R.id.dialog_no_layout);
+        TextView title = (TextView) dialog.findViewById(R.id.dialog_title);
+        TextView message = (TextView) dialog.findViewById(R.id.action);
+
+        TextView okBttn = (TextView) dialog.findViewById(R.id.confirm_yes);
+        TextView cancleBttn = (TextView) dialog.findViewById(R.id.confirm_no);
+
+        cancleBttn.setVisibility(View.VISIBLE);
+        linearLayout.setVisibility(View.VISIBLE);
+
+
+        title.setText("CONFIRMTION");
+        message.setText("Are you sure?\n\n" + msg);
+        /*Dialog Buttons*/
+        okBttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                PreferenceConnector.writeString(BabyHomeActivity.this, PreferenceConnector.IS_FIRSTTIME_BABY, "No");
+
+                      /*Insert Data in database*/
+                helper.addBabyInfo(name, date, gender, weigh, heigh, circu);
+
+                Constant.type = 2;
+
+                Intent ok = new Intent(getApplicationContext(), MainFragmentActivity.class);
+                ok.putExtra("1111", "info");
+                ok.putExtra("NAME", name);
+                ok.putExtra("FirstName", firstname);
+                ok.putExtra("LastName", lastname);
+                ok.putExtra("DATE", date);
+                ok.putExtra("GENDER", gender);
+                ok.putExtra("WEIGHT", weight);
+                ok.putExtra("HEIGHT", height);
+                ok.putExtra("CIRCUM", circum);
+                startActivity(ok);
+                finish();
+
+            }
+        });
+        cancleBttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+//    private void openAlert(View view) {
+//        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(BabyHomeActivity.this);
+//
+//        alertDialogBuilder.setTitle("Confirmation");
+//        alertDialogBuilder.setMessage("Are you sure?" + name + date + gender);
+//        // set positive button: Yes message
+//        alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int id) {
+//                // go to a new activity of the app
+//                Intent positveActivity = new Intent(getApplicationContext(),
+//                        MainFragmentActivity.class);
+//                startActivity(positveActivity);
+//            }
+//        });
+//        // set negative button: No message
+//        alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int id) {
+//                dialog.cancel();
+//                Toast.makeText(getApplicationContext(), "Please Enter Proper Data",
+//                        Toast.LENGTH_LONG).show();
+//            }
+//        });
+//        // set neutral button: Exit the app message
+//        alertDialogBuilder.setNeutralButton("Exit the app", new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int id) {
+//                // exit the app and go to the HOME
+//                Intent exitActivity = new Intent(getApplicationContext(),
+//                        HomeActivity.class);
+//                startActivity(exitActivity);
+//                finish();
+////                BabyHomeActivity.this.finish();
+//            }
+//        });
+//
+//        AlertDialog alertDialog = alertDialogBuilder.create();
+//        // show alert
+//        alertDialog.show();
+//    }
+}
+
+

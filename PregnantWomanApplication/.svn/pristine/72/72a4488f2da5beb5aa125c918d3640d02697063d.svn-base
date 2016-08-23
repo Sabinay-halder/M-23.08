@@ -1,0 +1,48 @@
+// Generated code from Butter Knife. Do not modify!
+package com.widevision.pregnantwoman.babby;
+
+import android.view.View;
+import butterknife.ButterKnife.Finder;
+import butterknife.ButterKnife.ViewBinder;
+
+public class BabyHeightWeight$$ViewBinder<T extends com.widevision.pregnantwoman.babby.BabyHeightWeight> implements ViewBinder<T> {
+  @Override public void bind(final Finder finder, final T target, Object source) {
+    View view;
+    view = finder.findRequiredView(source, 2131558558, "field 'noteBTTN'");
+    target.noteBTTN = finder.castView(view, 2131558558, "field 'noteBTTN'");
+    view = finder.findRequiredView(source, 2131558559, "field 'nameET'");
+    target.nameET = finder.castView(view, 2131558559, "field 'nameET'");
+    view = finder.findRequiredView(source, 2131558560, "field 'dateofbirthET'");
+    target.dateofbirthET = finder.castView(view, 2131558560, "field 'dateofbirthET'");
+    view = finder.findRequiredView(source, 2131558561, "field 'genderET'");
+    target.genderET = finder.castView(view, 2131558561, "field 'genderET'");
+    view = finder.findRequiredView(source, 2131558562, "field 'dateMeasureEt'");
+    target.dateMeasureEt = finder.castView(view, 2131558562, "field 'dateMeasureEt'");
+    view = finder.findRequiredView(source, 2131558568, "field 'weightSB'");
+    target.weightSB = finder.castView(view, 2131558568, "field 'weightSB'");
+    view = finder.findRequiredView(source, 2131558573, "field 'heightSB'");
+    target.heightSB = finder.castView(view, 2131558573, "field 'heightSB'");
+    view = finder.findRequiredView(source, 2131558566, "field 'weightET'");
+    target.weightET = finder.castView(view, 2131558566, "field 'weightET'");
+    view = finder.findRequiredView(source, 2131558571, "field 'heightET'");
+    target.heightET = finder.castView(view, 2131558571, "field 'heightET'");
+    view = finder.findRequiredView(source, 2131558574, "field 'saveBTTN'");
+    target.saveBTTN = finder.castView(view, 2131558574, "field 'saveBTTN'");
+    view = finder.findRequiredView(source, 2131558575, "field 'cancelBTTN'");
+    target.cancelBTTN = finder.castView(view, 2131558575, "field 'cancelBTTN'");
+  }
+
+  @Override public void unbind(T target) {
+    target.noteBTTN = null;
+    target.nameET = null;
+    target.dateofbirthET = null;
+    target.genderET = null;
+    target.dateMeasureEt = null;
+    target.weightSB = null;
+    target.heightSB = null;
+    target.weightET = null;
+    target.heightET = null;
+    target.saveBTTN = null;
+    target.cancelBTTN = null;
+  }
+}

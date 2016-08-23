@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/chart_parent_heightWeight"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clickable="true">
+
+    <com.widevision.pregnantwoman.model.CustomTextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Height-Weight Chart"
+        android:textSize="20sp"
+        android:textColor="@color/baby_heading" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_below="@+id/title"
+        android:background="@color/baby_name"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/view"
+        android:orientation="vertical"
+        android:weightSum="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/nameEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:hint="Name"
+                    android:singleLine="true"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelTextColor="@color/text_color"
+                    app:met_textColor="@color/text_color"
+                    app:met_textColorHint="@color/text_color"
+                    app:met_floatingLabelTextSize="@dimen/text_size"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/ageEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:hint="Age"
+                    android:singleLine="true"
+                    android:textSize="@dimen/text_size"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelTextColor="@color/text_color"
+                    app:met_textColor="@color/text_color"
+                    app:met_textColorHint="@color/text_color"
+                    app:met_floatingLabelTextSize="@dimen/text_size"/>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <android.support.v7.widget.CardView xmlns:cardview="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp">
+
+            <LinearLayout
+                android:id="@+id/chartLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"></LinearLayout>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+</RelativeLayout>

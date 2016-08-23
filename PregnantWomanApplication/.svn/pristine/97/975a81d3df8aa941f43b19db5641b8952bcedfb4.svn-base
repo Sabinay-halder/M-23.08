@@ -1,0 +1,397 @@
+package com.widevision.pregnantwoman.baby;
+
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
+import com.widevision.pregnantwoman.MainFragmentActivity;
+import com.widevision.pregnantwoman.R;
+import com.widevision.pregnantwoman.database.ActiveAndroidDBHelper;
+import com.widevision.pregnantwoman.database.BabyInfoTable;
+import com.widevision.pregnantwoman.model.HideKeyFragment;
+import com.widevision.pregnantwoman.util.Constant;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.util.Calendar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+/**
+ * Created by mercury-two on 17/8/15.
+ */
+public class BabyFoodIntake extends HideKeyFragment implements Validator.ValidationListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+
+    @Bind(R.id.bttnotefoodintake)
+    ImageView noteBTTN;
+    @NotEmpty(message = "Name Required.")
+    @Bind(R.id.etnamefoodin)
+    EditText nameET;
+    @NotEmpty(message = "Date Required.")
+    @Bind(R.id.etdateofbirthfoodin)
+    EditText dateET;
+    @NotEmpty(message = "Time Required.")
+    @Bind(R.id.etintaketime)
+    EditText intakeTimeET;
+
+    @Bind(R.id.spintakefoodin)
+    Spinner foodInSP;
+    @NotEmpty(message = "Other Intake Required.")
+    @Bind(R.id.etotherintake)
+    EditText otherintake;
+    @NotEmpty(message = "Quantity Required.")
+    @Bind(R.id.etquantityfoodin)
+    EditText quantityET;
+    @Bind(R.id.spquantity)
+    Spinner quantitySP;
+
+    @Bind(R.id.bttnsave)
+    Button saveBTTN;
+    @Bind(R.id.bttncancel)
+    Button cancelBTTN;
+
+
+    ArrayAdapter<String> quantityAdapter;
+    private ActiveAndroidDBHelper helper;
+    private Validator validator;
+
+    private boolean otherin = false, aDate = false, bDate = false;
+    private String name, date, quantity, notettitle, note, unit, other, foodintake = null, intakeTime = null;
+    private Long babyid;
+
+    private int quantint;
+
+//    private String category[] = {"Milk", "Water", "Juice", "Breast Milk", "Cereal", "Bread", "Meat", "Egg", "Other"};
+
+    private String fullquantity[] = {"Milliliter", "Cup", "Tablespoon(Tbsp)", "Gram", "Ounce", "Slice", "Piece"};
+    private String milli[] = {"Milliliter"};
+    private String quantitys[] = {"Gram", "Ounce"};
+    private String liquid[] = {"Milliliter", "Cup", "Tablespoon(Tbsp)"};
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.baby_food_intakefragactiv, container, false);
+        ButterKnife.bind(this, view);
+        setupUI(view);
+
+        helper = ActiveAndroidDBHelper.getInstance();
+        validator = new Validator(this);
+        validator.setValidationListener(this);
+
+        Intent in = getActivity().getIntent();
+        Bundle b = in.getExtras();
+        String match = b.getString("1111");
+
+        /*Fetch Value From Dialog List*/
+
+        if (match.equals("dialog")) {
+            babyid = b.getLong("ID");
+            name = b.getString("NAME");
+            date = b.getString("DATE");
+            nameET.setText(name);
+
+        } else if (match.equals("info")) {
+
+              /*Fetch Value From Database*/
+            List<BabyInfoTable> list = helper.babyDetail();
+            if (list != null && list.size() != 0) {
+                for (BabyInfoTable item : list) {
+                    babyid = item.getId();
+                    name = item.name;
+                    date = item.dobbaby;
+                }
+            }
+            nameET.setText(name);
+
+          }
+
+         /*Note Button*/
+        noteBTTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                setNoteDialog(getActivity(), "");
+            }
+        });
+
+        otherintake.setVisibility(View.GONE);
+        /*Date picker*/
+        dateET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                aDate = b;
+                if (b) {
+                    DateTimeFormatter formatter = DateTimeFormat.forPattern(Constant.datePattern);
+                    DateTime dt = formatter.parseDateTime(date);
+
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.DAY_OF_MONTH, dt.getDayOfMonth());
+                    calendar.set(Calendar.MONTH, dt.getMonthOfYear()-1);
+                    calendar.set(Calendar.YEAR, dt.getYear());
+
+                    Calendar now = Calendar.getInstance();
+                    DatePickerDialog dpd = DatePickerDialog.newInstance(
+                            BabyFoodIntake.this,
+                            now.get(Calendar.YEAR),
+                            now.get(Calendar.MONTH),
+                            now.get(Calendar.DAY_OF_MONTH)
+                    );
+
+                    dpd.setMinDate(calendar);
+                    dpd.setMaxDate(now);
+                    dpd.show(getActivity().getFragmentManager(), "Datepickerdialog");
+                }
+            }
+        });
+
+        dateET.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                aDate = true;
+                DateTimeFormatter formatter = DateTimeFormat.forPattern(Constant.datePattern);
+                DateTime dt = formatter.parseDateTime(date);
+
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.DAY_OF_MONTH, dt.getDayOfMonth());
+                calendar.set(Calendar.MONTH, dt.getMonthOfYear()-1);
+                calendar.set(Calendar.YEAR, dt.getYear());
+
+                Calendar now = Calendar.getInstance();
+                DatePickerDialog dpd = DatePickerDialog.newInstance(BabyFoodIntake.this, now.get(Calendar.YEAR),
+                        now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH)
+                );
+
+                dpd.setMinDate(calendar);
+                dpd.setMaxDate(now);
+                dpd.show(getActivity().getFragmentManager(), "Datepickerdialog");
+            }
+        });
+
+        /*Time Intake*/
+        intakeTimeET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    Calendar calendartime = Calendar.getInstance();
+                    TimePickerDialog timePickerDialog = new TimePickerDialog().newInstance(BabyFoodIntake.this, calendartime.get(Calendar.HOUR_OF_DAY), calendartime.get(Calendar.MINUTE), false);
+                    timePickerDialog.show(getActivity().getFragmentManager(), "Timepickerdialog");
+                }
+            }
+        });
+        intakeTimeET.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar calendar = Calendar.getInstance();
+                TimePickerDialog timePickerDialog = new TimePickerDialog().newInstance(BabyFoodIntake.this, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
+                timePickerDialog.show(getActivity().getFragmentManager(), "Timepickerdialog");
+            }
+        });
+
+
+        /*Intake Spinner */
+        /*Fetch Value For spinner*/
+
+        List<String> foodlist = helper.foodIntakeCategList();
+
+        ArrayAdapter<String> foodIntakeCategoryAdapter;
+        foodIntakeCategoryAdapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, foodlist);
+        foodInSP.setAdapter(foodIntakeCategoryAdapter);
+        foodInSP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int arg2, long arg3) {
+
+
+
+                String category = foodInSP.getSelectedItem().toString();
+                if (category.equals("Milk") || category.equals("Water") || category.equals("Juice")) {
+
+                    otherintake.setVisibility(View.GONE);
+                    otherin = false;
+                    quantityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, liquid);
+                    quantitySP.setAdapter(quantityAdapter);
+
+                } else if (category.equals("Breast Milk")){
+
+                    otherintake.setVisibility(View.GONE);
+                    otherin = false;
+                    quantityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, milli);
+                    quantitySP.setAdapter(quantityAdapter);
+
+                }  else if ( category.equals("Cereal") ){
+
+                    otherintake.setVisibility(View.GONE);
+                    otherin = false;
+                    quantityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, quantitys);
+                    quantitySP.setAdapter(quantityAdapter);
+
+                } else {
+
+                    otherintake.setVisibility(View.VISIBLE);
+                    otherin = true;
+                    quantityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, fullquantity);
+                    quantitySP.setAdapter(quantityAdapter);
+
+                }
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+
+            }
+        });
+
+//        /*Quantity Spinner */
+//        ArrayAdapter<String> quantityAdapter;
+//        quantityAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, quantitys);
+//        quantitySP.setAdapter(quantityAdapter);
+
+        quantitySP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int arg2, long arg3) {
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+
+            }
+        });
+
+        /*Save Button*/
+        saveBTTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                validator.validate();
+            }
+        });
+        /*Cancle Button*/
+        cancelBTTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MainFragmentActivity.fragmentManager.popBackStack();
+            }
+        });
+
+        return view;
+    }
+
+
+    /*Date Set*/
+    @Override
+    public void onDateSet(DatePickerDialog datePickerDialog, int year, int month, int day) {
+
+        String mount = String.valueOf(month + 1);
+        String da = String.valueOf(day);
+        if (mount.length()<2){
+            mount = "0"+mount;
+        }
+        if(da.length()<2){
+            da= "0"+da;
+        }
+        String datesave = year + "-" + mount + "-" + da;dateET.setText(datesave);
+    }
+
+    /*Time Set*/
+    @Override
+    public void onTimeSet(RadialPickerLayout radialPickerLayout, int i, int i2) {
+
+        intakeTime = i + ":" + i2;
+        intakeTimeET.setText(intakeTime);
+    }
+
+    /*Validation Set*/
+    @Override
+    public void onValidationSucceeded() {
+        name = nameET.getText().toString().trim();
+        date = dateET.getText().toString().trim();
+        intakeTime = intakeTimeET.getText().toString().trim();
+
+        /*Condition To take Value Either from Spinner or from Edittext*/
+        if (otherin) {
+            foodintake = otherintake.getText().toString().trim();
+            other = otherintake.getText().toString().trim();
+        } else {
+             foodintake = foodInSP.getSelectedItem().toString().trim();
+        }
+
+        String food = foodintake;
+        quantity = quantityET.getText().toString().trim();
+        quantint = Integer.parseInt(quantity);
+        unit = quantitySP.getSelectedItem().toString().trim();
+
+
+        Log.e("data of food", " " + babyid + " " + name + " " + date + " " + food + " " + quantity+ " "+unit +" "+note +" "+notettitle);
+
+        helper.addBabyFoodIntake(babyid, date, intakeTime, food, quantint, unit, notettitle, note);
+        helper.addIntakeCategory(other);
+        Constant.babysaveAlert(getActivity(), "Food Detail added Successfully.");
+//        MainFragmentActivity.fragmentManager.popBackStack();
+    }
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        Constant.setAlert(getActivity(), errors.get(0).getCollatedErrorMessage(getActivity()));
+    }
+
+    /*Dialog box for confirmation*/
+    public void setNoteDialog(final Activity activity, String msg) {
+        final Dialog dialog = new Dialog(activity, R.style.DialogSlideAnim);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.add_note_activity);
+        dialog.getWindow().setLayout(Constant.width - 10, ViewGroup.LayoutParams.FILL_PARENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        setupUI(getView());
+        Button savebttn = (Button) dialog.findViewById(R.id.saveBt);
+        final EditText title = (EditText) dialog.findViewById(R.id.titleEdt);
+        final EditText noteet = (EditText) dialog.findViewById(R.id.noteEdt);
+
+        /*Dialog Buttons*/
+        savebttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                note = noteet.getText().toString();
+                notettitle = title.getText().toString();
+
+                if (note.trim().equals("") || notettitle.trim().equals("")) {
+                    Toast.makeText(getActivity(), "All Fields are Required. ", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+
+                    dialog.dismiss();
+                }
+            }
+        });
+        dialog.show();
+    }
+
+}

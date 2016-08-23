@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<io.codetail.widget.RevealLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:clickable="true">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/accent_material_dark"
+        android:id="@+id/parent_noteList"
+        android:clickable="true"
+        android:visibility="invisible">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:id="@+id/parent_second_noteList"
+            android:clickable="true"
+            android:visibility="invisible">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:id="@+id/top">
+
+
+                <TextView
+                    android:id="@+id/note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Notes"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/black"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/add"
+                    android:id="@+id/addNoteBtn" />
+
+            </RelativeLayout>
+
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/top"
+                android:fadingEdge="none"
+                android:cacheColorHint="#00000000"
+                android:id="@+id/noteList"
+                android:divider="@color/calendar_header"
+                android:dividerHeight="0.6dp"></ListView>
+
+
+            <com.widevision.pregnantwoman.model.CustomTextView
+                android:id="@+id/addNoteTxt"
+                android:layout_margin="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="Add Your First Note"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textColor="@color/accent_material_light"
+                android:background="@drawable/button_selector" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</io.codetail.widget.RevealLinearLayout><!-- From: file:/home/newtrainee/AndroidStudioProjects/PregnantWomanApplication/app/src/main/res/layout/notes_list_activity.xml -->

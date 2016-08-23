@@ -1,0 +1,376 @@
+package com.widevision.pregnantwoman.baby;
+
+import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+
+import com.widevision.pregnantwoman.Bean.BabyHeightWeightBean;
+import com.widevision.pregnantwoman.Bean.BabyInfoBean;
+import com.widevision.pregnantwoman.R;
+import com.widevision.pregnantwoman.database.ActiveAndroidDBHelper;
+import com.widevision.pregnantwoman.model.HideKeyFragment;
+import com.widevision.pregnantwoman.spinner.NiceSpinner;
+import com.widevision.pregnantwoman.util.Constant;
+
+import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
+import org.achartengine.chart.LineChart;
+import org.achartengine.chart.PointStyle;
+import org.achartengine.chart.ScatterChart;
+import org.achartengine.model.RangeCategorySeries;
+import org.achartengine.model.XYMultipleSeriesDataset;
+import org.achartengine.model.XYSeries;
+import org.achartengine.renderer.XYMultipleSeriesRenderer;
+import org.achartengine.renderer.XYSeriesRenderer;
+import org.joda.time.LocalDate;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+/**
+ * Created by Mercury-five on 21/09/15.
+ */
+public class BabyHeightWeightChart extends HideKeyFragment {
+
+    /*these variable for chart*/
+    private XYMultipleSeriesRenderer multiRenderer;
+    private XYMultipleSeriesDataset dataset;
+    private XYSeries boy_heightSeries, boy_weightSeries, actualHeightSeries, actualWeightSeries;
+    private GraphicalView chart;
+    private float chartTextSize;
+
+    @Bind(R.id.chartLayout)
+    LinearLayout mChartLayout;
+    @Bind(R.id.date_spinner)
+    NiceSpinner spinner;
+    @Bind(R.id.from_toEdt)
+    EditText mFromToEdt;
+
+    private View view;
+    private ActiveAndroidDBHelper helper;
+    private ArrayList<BabyHeightWeightBean> babbyHeightWeightList = new ArrayList<BabyHeightWeightBean>();
+
+    private String[] testX = {"6", "10", "14", "18", "22", "26", "30", "34", "38", "42", "46", "50"};
+    private String[] months = {"Birth", "3M", "6M", "9M", "12M", "15M", "18M", "21M", "24M", "27M", "30M", "33M", "36M", "4yr", " 5yr"};
+    private int[] months_ideal = {0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 48, 60};
+    private int month_position = 0;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        view = inflater.inflate(R.layout.blood_sugar_char_activity, container, false);
+        ButterKnife.bind(this, view);
+        helper = ActiveAndroidDBHelper.getInstance();
+        /*get all the record from health parameter table*/
+        babbyHeightWeightList = helper.getBabyHeightWeightData();
+        DisplayMetrics metrics = getActivity().getResources().getDisplayMetrics();
+        chartTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, metrics);
+
+
+        if (babbyHeightWeightList != null && babbyHeightWeightList.size() != 0) {
+            if (Constant.gender.trim().equals("Boy")) {
+                openChartBoy(babbyHeightWeightList);
+            } else if (Constant.gender.trim().equals("Girl")) {
+                openChartGirl(babbyHeightWeightList);
+            }
+        }
+
+
+        List<BabyInfoBean> list = helper.babyHeightInfo(Constant.babyId);
+        if (list.size() != 0) {
+            String dob = Constant.babyDOB;
+            String[] d = dob.split("-");
+            String l = list.get(list.size() - 1).date;
+            String[] last = l.split("-");
+            LocalDate startDate = new LocalDate(Integer.parseInt(d[0]), Integer.parseInt(d[1]), Integer.parseInt(d[2]));          //Birth date
+            LocalDate endDate = new LocalDate(Integer.parseInt(last[0]), Integer.parseInt(last[1]), Integer.parseInt(last[2]));                    //Today's date
+            Period period = new Period(startDate, endDate, PeriodType.yearMonthDay());
+            int months = period.getMonths();
+
+            for (int i = 0; i < months_ideal.length; i++) {
+                if (months_ideal[i] > months) {
+                    month_position = i - 1;
+                    break;
+                }
+            }
+        } else {
+            getFragmentManager().popBackStack();
+            Constant.setAlert(getActivity(), "insert height weight first.");
+        }
+
+
+
+/*
+        */
+/*for spinner*//*
+
+        final ArrayList<String> list = new ArrayList<String>();
+        list.add("ALL");
+        for (MotherHealthBean item : mHelthParameterList) {
+            list.add(item._Date);
+        }
+        List<String> dataset = new LinkedList<>(list);
+        spinner.attachDataSource(dataset);
+        spinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String date = list.get(i);
+                if (date.trim().equals("ALL")) {
+                    openChart(mHelthParameterList);
+                    mFromToEdt.setText("showing chart from " + mHelthParameterList.get(0)._Date + " to " + mHelthParameterList.get(mHelthParameterList.size() - 1)._Date);
+                } else {
+                    for (int j = 0; j < mHelthParameterList.size(); j++) {
+                        if (mHelthParameterList.get(j)._Date.trim().equals(date.trim())) {
+                            MotherHealthBean item = mHelthParameterList.get(j);
+                            Log.e("", "date selected list <,,,,, " + item._Date);
+                            openChart(item);
+                            mFromToEdt.setText("showing chart for " + item._Date);
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+*/
+
+        return view;
+    }
+
+
+    @SuppressLint("ResourceAsColor")
+    private void openChartBoy(ArrayList<BabyHeightWeightBean> list) {
+// Creating an XYSeries for before meal & after meal
+        boy_heightSeries = new XYSeries(" Height ");  // Adding data to
+        boy_weightSeries = new XYSeries(" Weight ");
+
+        actualWeightSeries = new XYSeries("");
+        actualHeightSeries = new XYSeries("");
+
+        RangeCategorySeries expenseSeries = new RangeCategorySeries("BloodSugar Range");
+        expenseSeries.add(60, 60);
+        expenseSeries.add(60, 60);
+
+
+        // Creating a dataset to hold each series
+        dataset = new XYMultipleSeriesDataset(); // Adding Income Series to the
+        // dataset
+
+        dataset.addSeries(expenseSeries.toXYSeries());
+        // Creating XYSeriesRenderer to customize expenseSeries
+        XYSeriesRenderer expenseRenderer = new XYSeriesRenderer();
+        expenseRenderer.setColor(Color.BLUE);
+        expenseRenderer.setPointStyle(PointStyle.CIRCLE);
+        expenseRenderer.setFillPoints(true);
+        expenseRenderer.setLineWidth(2);
+        expenseRenderer.setDisplayChartValues(true);
+
+
+        // Adding beforeMeal Series to dataset
+        dataset.addSeries(boy_heightSeries);
+        // Creating XYSeriesRenderer to customize beforeMealSeries
+        XYSeriesRenderer beforeMealRenderer = new XYSeriesRenderer();
+        beforeMealRenderer.setColor(Color.RED);
+        beforeMealRenderer.setPointStyle(PointStyle.CIRCLE);
+        beforeMealRenderer.setFillPoints(true);
+        beforeMealRenderer.setLineWidth(2f);
+        beforeMealRenderer.setDisplayChartValues(true);
+
+        dataset.addSeries(boy_weightSeries);
+        // Creating XYSeriesRenderer to customize afterMealSeries
+        XYSeriesRenderer afterMealRenderer = new XYSeriesRenderer();
+        afterMealRenderer.setColor(Color.GREEN);
+        afterMealRenderer.setPointStyle(PointStyle.CIRCLE);
+        afterMealRenderer.setFillPoints(true);
+        afterMealRenderer.setLineWidth(2f);
+        afterMealRenderer.setDisplayChartValues(true);
+
+/*
+        dataset.addSeries(actualWeightSeries);
+        XYSeriesRenderer actualWeightRenderer = new XYSeriesRenderer();
+        afterMealRenderer.setColor(Color.BLACK);
+        afterMealRenderer.setPointStyle(PointStyle.CIRCLE);
+        afterMealRenderer.setFillPoints(true);
+        afterMealRenderer.setLineWidth(2f);
+        afterMealRenderer.setDisplayChartValues(true);
+
+        dataset.addSeries(actualHeightSeries);
+        XYSeriesRenderer actualHeightRenderer = new XYSeriesRenderer();
+        afterMealRenderer.setColor(Color.BLACK);
+        afterMealRenderer.setPointStyle(PointStyle.CIRCLE);
+        afterMealRenderer.setFillPoints(true);
+        afterMealRenderer.setLineWidth(2f);
+        afterMealRenderer.setDisplayChartValues(true);
+*/
+
+
+        // Creating a XYMultipleSeriesRenderer to customize the whole chart
+
+        multiRenderer = new XYMultipleSeriesRenderer();
+        multiRenderer.setXLabels(0);
+        multiRenderer.setYLabels(10);//
+        multiRenderer.setLegendTextSize(chartTextSize);
+        multiRenderer.setXTitle("Dates");
+        multiRenderer.setYTitle(" Age ");
+        multiRenderer.setAxisTitleTextSize(chartTextSize);
+        multiRenderer.setChartTitleTextSize(chartTextSize);
+        multiRenderer.setShowGrid(false);
+        multiRenderer.setZoomEnabled(false, false);
+        multiRenderer.setPanEnabled(false, false);
+        multiRenderer.setXAxisMax(5);
+        multiRenderer.setYAxisMax(60);
+        multiRenderer.setYAxisMin(0);
+        multiRenderer.setYLabelsPadding(8);
+        multiRenderer.setMargins(new int[]{15, 30, 5, 15});
+
+
+        for (int i = 0; i < list.size(); i++) {
+            BabyHeightWeightBean item = list.get(i);
+            boy_heightSeries.add(i, item.getBoys_Height());
+            boy_weightSeries.add(i, item.getBoys_Weight());
+
+
+            /*multiRenderer.addXTextLabel(i, item.getAge());*/
+            /*multiRenderer.addYTextLabel(i, "" + item.getBoys_Height());*/
+
+        }
+
+        for (int j = 0; j < months.length; j++) {
+            multiRenderer.addXTextLabel(j, months[j]);
+        }
+
+
+        multiRenderer.setLabelsColor(Color.BLACK);
+        multiRenderer.setXLabelsColor(Color.BLACK);
+        multiRenderer.setYLabelsColor(0, Color.BLACK);
+        // for change background multiRenderer.setApplyBackgroundColor(true);
+        multiRenderer.setBackgroundColor(Color.WHITE);
+        multiRenderer.setMarginsColor(Color.WHITE);
+
+
+        // for zoom buttons
+        multiRenderer.setZoomButtonsVisible(true);
+        multiRenderer.setPanEnabled(true, false);
+        multiRenderer.setShowGrid(true);
+        multiRenderer.addSeriesRenderer(expenseRenderer);
+        multiRenderer.addSeriesRenderer(beforeMealRenderer);
+        multiRenderer.addSeriesRenderer(afterMealRenderer);
+
+        if (chart != null) {
+            mChartLayout.removeView(chart);
+        }
+
+        String[] types = new String[]{ScatterChart.TYPE, LineChart.TYPE, LineChart.TYPE};
+        if (chart != null) {
+            mChartLayout.removeView(chart);
+        }
+        // Creating a combined chart with the chart types specified in types array
+        chart = (GraphicalView) ChartFactory.getCombinedXYChartView(getActivity(), dataset, multiRenderer, types);
+
+        mChartLayout.addView(chart);
+    }
+
+    @SuppressLint("ResourceAsColor")
+    private void openChartGirl(ArrayList<BabyHeightWeightBean> list) {
+// Creating an XYSeries for before meal & after meal
+        boy_heightSeries = new XYSeries(" Height ");  // Adding data to
+        boy_weightSeries = new XYSeries(" Weight ");
+
+
+        // Creating a dataset to hold each series
+        dataset = new XYMultipleSeriesDataset(); // Adding Income Series to the
+        // dataset
+
+        // Adding beforeMeal Series to dataset
+        dataset.addSeries(boy_heightSeries);
+        // Creating XYSeriesRenderer to customize beforeMealSeries
+        XYSeriesRenderer beforeMealRenderer = new XYSeriesRenderer();
+        beforeMealRenderer.setColor(Color.RED);
+        beforeMealRenderer.setPointStyle(PointStyle.CIRCLE);
+        beforeMealRenderer.setFillPoints(true);
+        beforeMealRenderer.setLineWidth(2f);
+        beforeMealRenderer.setDisplayChartValues(true);
+
+        dataset.addSeries(boy_weightSeries);
+        // Creating XYSeriesRenderer to customize afterMealSeries
+        XYSeriesRenderer afterMealRenderer = new XYSeriesRenderer();
+        afterMealRenderer.setColor(Color.GREEN);
+        afterMealRenderer.setPointStyle(PointStyle.CIRCLE);
+        afterMealRenderer.setFillPoints(true);
+        afterMealRenderer.setLineWidth(2f);
+        afterMealRenderer.setDisplayChartValues(true);
+
+
+        // Creating a XYMultipleSeriesRenderer to customize the whole chart
+
+        multiRenderer = new XYMultipleSeriesRenderer();
+        multiRenderer.setXLabels(0);
+        multiRenderer.setYLabels(10);//
+        multiRenderer.setLegendTextSize(chartTextSize);
+        multiRenderer.setXTitle("Dates");
+        multiRenderer.setYTitle(" Age ");
+        multiRenderer.setAxisTitleTextSize(chartTextSize);
+        multiRenderer.setChartTitleTextSize(chartTextSize);
+        multiRenderer.setShowGrid(false);
+        multiRenderer.setZoomEnabled(false, false);
+        multiRenderer.setPanEnabled(false, false);
+        multiRenderer.setXAxisMax(5);
+        multiRenderer.setYAxisMax(60);
+        multiRenderer.setYAxisMin(0);
+        multiRenderer.setYLabelsPadding(8);
+        multiRenderer.setMargins(new int[]{15, 30, 5, 15});
+
+
+        for (int i = 0; i < list.size(); i++) {
+            BabyHeightWeightBean item = list.get(i);
+            boy_heightSeries.add(i, item.getGirls_Height());
+            boy_weightSeries.add(i, item.getGirls_Weight());
+
+
+            /*multiRenderer.addXTextLabel(i, item.getAge());*/
+            /*multiRenderer.addYTextLabel(i, "" + item.getBoys_Height());*/
+
+        }
+
+        for (int j = 0; j < months.length; j++) {
+            multiRenderer.addXTextLabel(j, months[j]);
+        }
+
+
+        multiRenderer.setLabelsColor(Color.BLACK);
+        multiRenderer.setXLabelsColor(Color.BLACK);
+        multiRenderer.setYLabelsColor(0, Color.BLACK);
+        // for change background multiRenderer.setApplyBackgroundColor(true);
+        multiRenderer.setBackgroundColor(Color.WHITE);
+        multiRenderer.setMarginsColor(Color.WHITE);
+
+
+        // for zoom buttons
+        multiRenderer.setZoomButtonsVisible(true);
+        multiRenderer.setPanEnabled(true, false);
+        multiRenderer.setShowGrid(true);
+        multiRenderer.addSeriesRenderer(beforeMealRenderer);
+        multiRenderer.addSeriesRenderer(afterMealRenderer);
+        if (chart != null) {
+            mChartLayout.removeView(chart);
+        }
+        chart = ChartFactory.getLineChartView(getActivity(), dataset,
+                multiRenderer);
+        mChartLayout.addView(chart);
+    }
+
+}
+

@@ -1,0 +1,44 @@
+package com.widevision.pregnantwoman.database;
+
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
+
+/**
+ * Created by Akhilesh on 08/04/15.
+ */
+@Table(name = "MotherRecordTable")
+public class MotherRecordTable extends Model {
+
+    @Column(name = "name")
+    public String name;
+    @Column(name = "insertionDate")
+    public String insertionDate;
+    @Column(name = "dob")
+    public String dob;
+    @Column(name = "age")
+    public String age;
+    @Column(name = "expecteConceiveDate")
+    public String expecteConceiveDate;
+    @Column(name = "expecteDeliveryDate")
+    public String expecteDeliveryDate;
+    @Column(name = "babbyMonth")
+    public String babbyMonth;
+
+
+    public MotherRecordTable() {
+        super();
+    }
+
+    public MotherRecordTable(String name, String insertionDate, String dob, String age, String expecteConceiveDate, String expecteDeliveryDate, String babbyMonth) {
+
+        super();
+        this.name = name;
+        this.insertionDate = insertionDate;
+        this.dob = dob;
+        this.age = age;
+        this.expecteConceiveDate = expecteConceiveDate;
+        this.expecteDeliveryDate = expecteDeliveryDate;
+        this.babbyMonth = babbyMonth;
+    }
+}

@@ -1,0 +1,170 @@
+package com.widevision.pregnantwoman.baby;
+
+import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+
+import com.widevision.pregnantwoman.Bean.BabySleepRequiredBean;
+import com.widevision.pregnantwoman.R;
+import com.widevision.pregnantwoman.database.ActiveAndroidDBHelper;
+import com.widevision.pregnantwoman.model.HideKeyFragment;
+import com.widevision.pregnantwoman.util.Constant;
+
+import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
+import org.achartengine.chart.PointStyle;
+import org.achartengine.model.XYMultipleSeriesDataset;
+import org.achartengine.model.XYSeries;
+import org.achartengine.renderer.XYMultipleSeriesRenderer;
+import org.achartengine.renderer.XYSeriesRenderer;
+import org.joda.time.LocalDate;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
+
+import java.util.ArrayList;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+/**
+ * Created by mercury-two on 28/8/15.
+ */
+public class BabySleepChart extends HideKeyFragment {
+
+    /*these variable for chart*/
+    private XYMultipleSeriesRenderer multiRenderer;
+    private XYMultipleSeriesDataset dataset;
+    private XYSeries babySleepRequiredSeries, babySleepSeries;
+    private GraphicalView chart;
+    private float chartTextSize;
+    @Bind(R.id.chartLayout)
+    LinearLayout mChartLayout;
+
+
+    @Bind(R.id.etnamesleepcart)
+    EditText nameSleepChartET;
+    @Bind(R.id.LLSleepchart)
+    LinearLayout sleepchartLL;
+
+    private ActiveAndroidDBHelper helper;
+    private ArrayList<BabySleepRequiredBean> requiredList;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.blood_sugar_char_activity, container, false);
+        ButterKnife.bind(this, view);
+
+        helper = ActiveAndroidDBHelper.getInstance();
+        requiredList = helper.babySleepRequiredData();
+
+        DisplayMetrics metrics = getActivity().getResources().getDisplayMetrics();
+        chartTextSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, metrics);
+
+        String dob = Constant.babyDOB;
+        String[] d = dob.split("-");
+
+        LocalDate startDate = new LocalDate(Integer.parseInt(d[0]), Integer.parseInt(d[1]), Integer.parseInt(d[2]));          //Birth date
+        LocalDate now = new LocalDate();                   //Today's date
+        Period period = new Period(startDate, now, PeriodType.yearMonthDay());
+        int months = period.getMonths();
+
+
+        return view;
+    }
+
+
+    @SuppressLint("ResourceAsColor")
+    private void openChartBoy(ArrayList<BabySleepRequiredBean> list) {
+// Creating an XYSeries for before meal & after meal
+        babySleepRequiredSeries = new XYSeries(" Required ");  // Adding data to
+        /*babySleepSeries = new XYSeries(" Actual ");*/
+
+
+        // Creating a dataset to hold each series
+        dataset = new XYMultipleSeriesDataset(); // Adding Income Series to the
+        // dataset
+
+        // Adding beforeMeal Series to dataset
+        dataset.addSeries(babySleepRequiredSeries);
+        // Creating XYSeriesRenderer to customize beforeMealSeries
+        XYSeriesRenderer beforeMealRenderer = new XYSeriesRenderer();
+        beforeMealRenderer.setColor(Color.RED);
+        beforeMealRenderer.setPointStyle(PointStyle.CIRCLE);
+        beforeMealRenderer.setFillPoints(true);
+        beforeMealRenderer.setLineWidth(2f);
+        beforeMealRenderer.setDisplayChartValues(true);
+
+      /*  dataset.addSeries(babySleepSeries);
+        // Creating XYSeriesRenderer to customize afterMealSeries
+        XYSeriesRenderer afterMealRenderer = new XYSeriesRenderer();
+        afterMealRenderer.setColor(Color.GREEN);
+        afterMealRenderer.setPointStyle(PointStyle.CIRCLE);
+        afterMealRenderer.setFillPoints(true);
+        afterMealRenderer.setLineWidth(2f);
+        afterMealRenderer.setDisplayChartValues(true);*/
+
+
+        // Creating a XYMultipleSeriesRenderer to customize the whole chart
+
+        multiRenderer = new XYMultipleSeriesRenderer();
+        multiRenderer.setXLabels(0);
+        multiRenderer.setYLabels(10);//
+        multiRenderer.setLegendTextSize(chartTextSize);
+        multiRenderer.setXTitle("Dates");
+        multiRenderer.setYTitle(" Age ");
+        multiRenderer.setAxisTitleTextSize(chartTextSize);
+        multiRenderer.setChartTitleTextSize(chartTextSize);
+        multiRenderer.setShowGrid(false);
+        multiRenderer.setZoomEnabled(false, false);
+        multiRenderer.setPanEnabled(false, false);
+        multiRenderer.setXAxisMax(5);
+        multiRenderer.setYAxisMax(60);
+        multiRenderer.setYAxisMin(0);
+        multiRenderer.setYLabelsPadding(8);
+        multiRenderer.setMargins(new int[]{15, 30, 5, 15});
+
+
+        for (int i = 0; i < list.size(); i++) {
+            BabySleepRequiredBean item = list.get(i);
+            babySleepRequiredSeries.add(i, Integer.parseInt(item.getHour()));
+            /*babySleepSeries.add(i, item.getBoys_Weight());*/
+
+
+            /*multiRenderer.addXTextLabel(i, item.getAge());*/
+            /*multiRenderer.addYTextLabel(i, "" + item.getBoys_Height());*/
+
+        }
+
+
+
+
+        multiRenderer.setLabelsColor(Color.BLACK);
+        multiRenderer.setXLabelsColor(Color.BLACK);
+        multiRenderer.setYLabelsColor(0, Color.BLACK);
+        // for change background multiRenderer.setApplyBackgroundColor(true);
+        multiRenderer.setBackgroundColor(Color.WHITE);
+        multiRenderer.setMarginsColor(Color.WHITE);
+
+
+        // for zoom buttons
+        multiRenderer.setZoomButtonsVisible(true);
+        multiRenderer.setPanEnabled(true, false);
+        multiRenderer.setShowGrid(true);
+        multiRenderer.addSeriesRenderer(beforeMealRenderer);
+        /*multiRenderer.addSeriesRenderer(afterMealRenderer);*/
+        if (chart != null) {
+            mChartLayout.removeView(chart);
+        }
+        chart = ChartFactory.getLineChartView(getActivity(), dataset,
+                multiRenderer);
+        mChartLayout.addView(chart);
+    }
+
+}

@@ -1,0 +1,304 @@
+package com.widevision.pregnantwoman.mother;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
+import android.text.method.ScrollingMovementMethod;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.widevision.pregnantwoman.R;
+import com.widevision.pregnantwoman.database.ActiveAndroidDBHelper;
+import com.widevision.pregnantwoman.database.NoteRecordTable;
+import com.widevision.pregnantwoman.model.HideKeyFragment;
+import com.widevision.pregnantwoman.util.Constant;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+/**
+ * Created by newtrainee on 4/8/15.
+ */
+public class NotesListActivity extends HideKeyFragment {
+
+    @Bind(R.id.addNoteBtn)
+    ImageView mAddNoteBtn;
+    @Bind(R.id.noteList)
+    ListView mNoteList;
+    @Bind(R.id.addNoteTxt)
+    TextView mAddNoteTxt;
+
+
+    private NoteAdapter noteAdapter;
+    private List<NoteRecordTable> notesList;
+    private ActiveAndroidDBHelper helper;
+
+    int tag = 0;
+    private Animation fadeInAnimation;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.notes_list_activity, container, false);
+        ButterKnife.bind(this, view);
+        setupUI(view);
+        final View myView = view.findViewById(R.id.parent_noteList);
+        final View myViewSecond = view.findViewById(R.id.parent_second_noteList);
+        final ViewTreeObserver obs = myView.getViewTreeObserver();
+        obs.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                if (tag == 0) {
+                    fadeInAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
+                    float finalRadius = Constant.hypo(myView.getWidth(), myView.getHeight());
+                    Constant.animateReavel(getActivity(), fadeInAnimation, myView.getWidth() / 2, myView.getHeight() / 2, myView, myViewSecond, finalRadius);
+                    tag = 1;
+                }
+                return true;
+            }
+        });
+        helper = ActiveAndroidDBHelper.getInstance();
+        notesList = helper.viewAllNote();
+        if (notesList != null && notesList.size() != 0) {
+            mAddNoteTxt.setVisibility(View.GONE);
+            noteAdapter = new NoteAdapter(getActivity());
+            mNoteList.setAdapter(noteAdapter);
+        } else {
+            mAddNoteTxt.setVisibility(View.VISIBLE);
+        }
+        mAddNoteTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Constant.buttonEnable) {
+                    Constant.setButtonEnable();
+                    AddNoteFragment myf = new AddNoteFragment();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.parent_noteList, myf);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            }
+        });
+        mAddNoteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Constant.buttonEnable) {
+                    Constant.setButtonEnable();
+                    AddNoteFragment myf = new AddNoteFragment();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.parent_noteList, myf);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            }
+        });
+
+
+        return view;
+    }
+
+    class NoteAdapter extends BaseAdapter {
+
+        private Context context;
+        private LayoutInflater inflater;
+        private Holder holder;
+
+        NoteAdapter(Context context) {
+            this.context = context;
+            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            holder = new Holder();
+        }
+
+        @Override
+        public int getCount() {
+            return notesList.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return notesList.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(final int i, View view, ViewGroup viewGroup) {
+
+            view = inflater.inflate(R.layout.note_list_row, viewGroup, false);
+
+            holder.noteTxt = (TextView) view.findViewById(R.id.rowNoteTxt);
+            holder.noteTxt.setText(notesList.get(i).title);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (Constant.buttonEnable) {
+                        Constant.setButtonEnable();
+//                        viewNoteDialog(notesList.get(i));
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("value", notesList.get(i));
+
+                        Constant.setButtonEnable();
+                        EditNoteFragment myf = new EditNoteFragment();
+                        myf.setArguments(bundle);
+                        FragmentTransaction transaction =  getFragmentManager().beginTransaction();
+                        transaction.add(R.id.parent_second_noteList, myf, Constant.TAGFRAGMENT);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
+                    }
+                }
+
+            });
+            return view;
+        }
+
+        class Holder {
+            TextView noteTxt;
+        }
+    }
+
+
+    void viewNoteDialog(final NoteRecordTable note) {
+        final Dialog dialog = new Dialog(getActivity(), R.style.PopUpAnimation);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.view_note_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        Button editBtn = (Button) dialog.findViewById(R.id.editBtn);
+        Button deleteBtn = (Button) dialog.findViewById(R.id.deleteBtn);
+        Button saveBtn = (Button) dialog.findViewById(R.id.saveBt);
+        Button cancelBtn = (Button) dialog.findViewById(R.id.cancelBt);
+        TextView titleTxt = (TextView) dialog.findViewById(R.id.viewNoteTitle);
+        final EditText noteEdt = (EditText) dialog.findViewById(R.id.noteEdt);
+        final TextView noteTxt = (TextView) dialog.findViewById(R.id.noteTxt);
+        final TextView noteTitleTxt = (TextView) dialog.findViewById(R.id.titleTxt);
+        final EditText noteTitleEdt = (EditText) dialog.findViewById(R.id.titleEdt);
+
+        noteEdt.setText(note.note);
+        titleTxt.setText("View Note");
+        noteTxt.setText(note.note);
+        noteTitleEdt.setText(note.title);
+        noteTitleTxt.setText(note.title);
+        noteTxt.setMovementMethod(new ScrollingMovementMethod());
+
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                noteTxt.setVisibility(View.GONE);
+                noteTitleTxt.setVisibility(View.GONE);
+                noteEdt.setVisibility(View.VISIBLE);
+                noteTitleEdt.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Dialog dialog1 = new Dialog(getActivity(), R.style.DialogSlideAnim);
+                dialog1.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog1.setContentView(R.layout.dialog_view);
+                dialog1.getWindow().setLayout(Constant.width - 10, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                LinearLayout linearLayout = (LinearLayout) dialog1.findViewById(R.id.dialog_no_layout);
+                TextView message = (TextView) dialog1.findViewById(R.id.dialog_message);
+                TextView okBtn = (TextView) dialog1.findViewById(R.id.dialog_ok);
+                TextView cancle = (TextView) dialog1.findViewById(R.id.dialog_no);
+                cancle.setVisibility(View.VISIBLE);
+                linearLayout.setVisibility(View.VISIBLE);
+                message.setText(getResources().getString(R.string.note_delete_str));
+                okBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //delete entry from database
+                        helper.deleteNote(note.getId());
+                        dialog1.dismiss();
+                        dialog.dismiss();
+                        updateNotesList();
+                    }
+                });
+                cancle.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog1.dismiss();
+                        dialog.dismiss();
+                    }
+                });
+                dialog1.show();
+            }
+        });
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //update entry in database
+                String notestr = noteEdt.getText().toString().trim();
+                String title = noteTitleEdt.getText().toString().trim();
+                if (!notestr.equals("") && !title.equals("")) {
+                    helper.updateNote("", notestr, title, Constant.getCurrentTime(), note.getId());
+                    updateNotesList();
+                    dialog.dismiss();
+                } else if (notestr.equals("")) {
+                    Constant.setAlert(getActivity(), "Please add your Note.");
+                } else {
+                    Constant.setAlert(getActivity(), "Title required.");
+                }
+            }
+        });
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateNotesList();
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    void updateNotesList() {
+        notesList = helper.viewAllNote();
+        noteAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (Constant.tagForNoteFragment == 1) {
+            Constant.tagForNoteFragment = 0;
+            notesList = helper.viewAllNote();
+            if (notesList != null && notesList.size() != 0) {
+                mAddNoteTxt.setVisibility(View.GONE);
+                /*if (noteAdapter != null) {
+                    noteAdapter.notifyDataSetChanged();
+                } else {*/
+                    noteAdapter = new NoteAdapter(getActivity());
+                    mNoteList.setAdapter(noteAdapter);
+                /*}*/
+            } else {
+                mAddNoteTxt.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+}

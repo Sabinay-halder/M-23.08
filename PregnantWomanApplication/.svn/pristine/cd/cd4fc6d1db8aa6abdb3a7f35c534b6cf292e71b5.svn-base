@@ -1,0 +1,193 @@
+package com.widevision.pregnantwoman.mother;
+
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.widevision.pregnantwoman.MainFragmentActivity;
+import com.widevision.pregnantwoman.R;
+import com.widevision.pregnantwoman.util.Constant;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+/**
+ * Created by newtrainee on 31/7/15.
+ */
+public class WomanMainActivity extends Fragment {
+
+    @Bind(R.id.helth_btn)
+    Button mHelthBtn;
+    @Bind(R.id.addNote)
+    Button mAddNote;
+    @Bind(R.id.appointment_btn)
+    Button mAppointmentBtn;
+    @Bind(R.id.chart_btn)
+    Button mChartBtn;
+    @Bind(R.id.tips_btn)
+    Button mTipsBtn;
+    int tag = 0;
+    private Animation fadeInAnimation;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.main_fragmentactivity, container, false);
+        ButterKnife.bind(this, view);
+        final View myView = view.findViewById(R.id.parent_main_fragmentactivity);
+        final View myViewSecond = view.findViewById(R.id.parentsecond_main_fragmentactivity);
+        final ViewTreeObserver obs = myView.getViewTreeObserver();
+        obs.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+
+                if (tag == 0) {
+                    fadeInAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
+                    float finalRadius = Constant.hypo(myView.getWidth(), myView.getHeight());
+                    Constant.animateReavel(getActivity(), fadeInAnimation, myView.getWidth() / 2, myView.getHeight() / 2, myView, myViewSecond, finalRadius);
+                    tag = 1;
+                }
+                return true;
+            }
+        });
+
+
+        mHelthBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Constant.buttonEnable) {
+                    Constant.setButtonEnable();
+                    HelthParameterActivityWomen myf = new HelthParameterActivityWomen();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.add(R.id.frame, myf, Constant.TAGFRAGMENT);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            }
+        });
+        mAppointmentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Constant.buttonEnable) {
+                    Constant.setButtonEnable();
+                    AppointmentRequestActivity myf = new AppointmentRequestActivity();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.add(R.id.frame, myf, Constant.TAGFRAGMENT);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            }
+        });
+
+        mAddNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Constant.buttonEnable) {
+                    Constant.setButtonEnable();
+                    NotesListActivity myf = new NotesListActivity();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.add(R.id.frame, myf, Constant.TAGFRAGMENT);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            }
+        });
+        mChartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Constant.buttonEnable) {
+                    selectChartDialog();
+                }
+            }
+        });
+        mTipsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Constant.buttonEnable) {
+                    Constant.setButtonEnable();
+                    TipsFragment myf = new TipsFragment();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.add(R.id.frame, myf, Constant.TAGFRAGMENT);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            }
+        });
+        return view;
+    }
+
+
+    void selectChartDialog() {
+        final Dialog dialog = new Dialog(getActivity(), R.style.DialogFadeAnim);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.char_selection_popup);
+        dialog.getWindow().setLayout(Constant.width - 10, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        TextView cancel = (TextView) dialog.findViewById(R.id.dialog_cancel);
+        TextView weight = (TextView) dialog.findViewById(R.id.weight);
+        TextView bloodPressure = (TextView) dialog.findViewById(R.id.blood_pressure);
+        TextView bloodSugar = (TextView) dialog.findViewById(R.id.blood_sugar);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        weight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Constant.buttonEnable) {
+                    dialog.dismiss();
+                    Constant.setButtonEnable();
+                    WeightChart myf = new WeightChart();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.add(R.id.frame, myf, Constant.TAGFRAGMENT);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            }
+        });
+        bloodPressure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Constant.buttonEnable) {
+                    dialog.dismiss();
+                    Constant.setButtonEnable();
+                    BloodPresureChart myf = new BloodPresureChart();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.add(R.id.frame, myf, Constant.TAGFRAGMENT);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            }
+        });
+        bloodSugar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (Constant.buttonEnable) {
+                    dialog.dismiss();
+                    Constant.setButtonEnable();
+                    BloodSugarChart myf = new BloodSugarChart();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.add(R.id.frame, myf, Constant.TAGFRAGMENT);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            }
+        });
+        dialog.show();
+    }
+}

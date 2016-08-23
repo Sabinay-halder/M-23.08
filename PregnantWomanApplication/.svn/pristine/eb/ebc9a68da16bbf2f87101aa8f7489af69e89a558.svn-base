@@ -1,0 +1,100 @@
+package com.widevision.pregnantwoman.mother;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.widevision.pregnantwoman.MainFragmentActivity;
+import com.widevision.pregnantwoman.R;
+import com.widevision.pregnantwoman.database.ActiveAndroidDBHelper;
+import com.widevision.pregnantwoman.model.HideKeyFragment;
+import com.widevision.pregnantwoman.util.Constant;
+
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
+/**
+ * Created by newtrainee on 3/8/15.
+ */
+public class AddNoteFragment extends HideKeyFragment implements Validator.ValidationListener {
+
+    @NotEmpty(message = "enter your note.")
+    @Bind(R.id.noteEdt)
+    EditText mNoteEdt;
+    @Bind(R.id.saveBt)
+    Button mSaveBtn;
+    @NotEmpty(message = "enter title.")
+    @Bind(R.id.titleEdt)
+    EditText mTitleEdt;
+
+    private Validator validator;
+    int tag = 0;
+    private Animation fadeInAnimation;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.add_note_activity, container, false);
+        ButterKnife.bind(this, view);
+        setupUI(view);
+        final View myView = view.findViewById(R.id.parent_addNote);
+        final View myViewSecond = view.findViewById(R.id.parentsecond_addNote);
+        final ViewTreeObserver obs = myView.getViewTreeObserver();
+        obs.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                if (tag == 0) {
+                    fadeInAnimation = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
+                    float finalRadius = Constant.hypo(myView.getWidth(), myView.getHeight());
+                    Constant.animateReavel(getActivity(), fadeInAnimation, myView.getWidth() / 2, myView.getHeight() / 2, myView, myViewSecond, finalRadius);
+                    tag = 1;
+                }
+                return true;
+            }
+        });
+
+
+        validator = new Validator(this);
+        validator.setValidationListener(this);
+
+        mSaveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validator.validate();
+            }
+        });
+
+        return view;
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+        String note = mNoteEdt.getText().toString().trim();
+        String title = mTitleEdt.getText().toString().trim();
+        ActiveAndroidDBHelper dbHelper = ActiveAndroidDBHelper.getInstance();
+        dbHelper.addNote("", note, title, Constant.getCurrentTime());
+        Constant.tagForNoteFragment = 1;
+        MainFragmentActivity.fragmentManager.popBackStack();
+
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        Constant.setAlert(getActivity(), errors.get(0).getCollatedErrorMessage(getActivity()));
+    }
+
+
+}

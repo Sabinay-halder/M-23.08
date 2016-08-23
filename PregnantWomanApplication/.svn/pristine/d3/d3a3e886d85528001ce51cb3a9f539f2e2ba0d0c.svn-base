@@ -1,0 +1,24 @@
+// Generated code from Butter Knife. Do not modify!
+package com.widevision.pregnantwoman.mother;
+
+import android.view.View;
+import butterknife.ButterKnife.Finder;
+import butterknife.ButterKnife.ViewBinder;
+
+public class AddNoteFragment$$ViewBinder<T extends com.widevision.pregnantwoman.mother.AddNoteFragment> implements ViewBinder<T> {
+  @Override public void bind(final Finder finder, final T target, Object source) {
+    View view;
+    view = finder.findRequiredView(source, 2131558517, "field 'mNoteEdt'");
+    target.mNoteEdt = finder.castView(view, 2131558517, "field 'mNoteEdt'");
+    view = finder.findRequiredView(source, 2131558518, "field 'mSaveBtn'");
+    target.mSaveBtn = finder.castView(view, 2131558518, "field 'mSaveBtn'");
+    view = finder.findRequiredView(source, 2131558516, "field 'mTitleEdt'");
+    target.mTitleEdt = finder.castView(view, 2131558516, "field 'mTitleEdt'");
+  }
+
+  @Override public void unbind(T target) {
+    target.mNoteEdt = null;
+    target.mSaveBtn = null;
+    target.mTitleEdt = null;
+  }
+}

@@ -1,0 +1,39 @@
+// Generated code from Butter Knife. Do not modify!
+package com.widevision.pregnantwoman.mother;
+
+import android.view.View;
+import butterknife.ButterKnife.Finder;
+import butterknife.ButterKnife.ViewBinder;
+
+public class EditMotherProfileActivity$$ViewBinder<T extends com.widevision.pregnantwoman.mother.EditMotherProfileActivity> implements ViewBinder<T> {
+  @Override public void bind(final Finder finder, final T target, Object source) {
+    View view;
+    view = finder.findRequiredView(source, 2131558846, "field 'nameEt'");
+    target.nameEt = finder.castView(view, 2131558846, "field 'nameEt'");
+    view = finder.findRequiredView(source, 2131558577, "field 'dateofbirthEt'");
+    target.dateofbirthEt = finder.castView(view, 2131558577, "field 'dateofbirthEt'");
+    view = finder.findRequiredView(source, 2131558847, "field 'ageEt'");
+    target.ageEt = finder.castView(view, 2131558847, "field 'ageEt'");
+    view = finder.findRequiredView(source, 2131558848, "field 'mExpecteConceiveDate'");
+    target.mExpecteConceiveDate = finder.castView(view, 2131558848, "field 'mExpecteConceiveDate'");
+    view = finder.findRequiredView(source, 2131558849, "field 'mExpecteDeliveryDate'");
+    target.mExpecteDeliveryDate = finder.castView(view, 2131558849, "field 'mExpecteDeliveryDate'");
+    view = finder.findRequiredView(source, 2131558518, "field 'mSaveBtn'");
+    target.mSaveBtn = finder.castView(view, 2131558518, "field 'mSaveBtn'");
+    view = finder.findRequiredView(source, 2131558584, "field 'mCancelBtn'");
+    target.mCancelBtn = finder.castView(view, 2131558584, "field 'mCancelBtn'");
+    view = finder.findRequiredView(source, 2131558850, "field 'mTwinsChek'");
+    target.mTwinsChek = finder.castView(view, 2131558850, "field 'mTwinsChek'");
+  }
+
+  @Override public void unbind(T target) {
+    target.nameEt = null;
+    target.dateofbirthEt = null;
+    target.ageEt = null;
+    target.mExpecteConceiveDate = null;
+    target.mExpecteDeliveryDate = null;
+    target.mSaveBtn = null;
+    target.mCancelBtn = null;
+    target.mTwinsChek = null;
+  }
+}

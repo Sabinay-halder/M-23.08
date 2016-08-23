@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@color/white"
+    android:clickable="true">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_weight="1">
+
+
+            <com.widevision.pregnantwoman.model.CustomTextViewBold
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/dialog_message"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="sfsdfdsfds"
+                android:textColor="@color/black"
+                android:gravity="center" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginRight="3dp"
+                android:layout_weight="1">
+
+                <com.widevision.pregnantwoman.model.CustomTextViewBold
+                    android:id="@+id/dialog_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="No"
+                    android:gravity="center"
+                    android:textColor="@color/red_light"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:padding="10dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/accent_material_light"></View>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginLeft="3dp"
+                android:layout_weight="1">
+
+                <com.widevision.pregnantwoman.model.CustomTextViewBold
+                    android:id="@+id/dialog_ok"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Ok"
+                    android:gravity="center"
+                    android:textColor="@color/accent_material_light"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+
+                    android:padding="10dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/accent_material_light"></View>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
+<!-- From: file:/Users/rocks/Documents/workspace%20android/PregnantWomanApplication/app/src/main/res/layout/baby_vaccin_alert_view.xml -->

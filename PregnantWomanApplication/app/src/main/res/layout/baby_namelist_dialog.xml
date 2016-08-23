@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#00000000"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_white_background"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:padding="1dp">
+
+            <RelativeLayout
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="@color/baby_heading"
+                android:padding="5dp">
+
+                <com.widevision.pregnantwoman.model.CustomTextView
+                    android:id="@+id/txtdialogbabyselect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="left"
+                    android:padding="10dp"
+                    android:text="SELECT BABY"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@color/white" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:background="@drawable/rounded_corner"
+                android:padding="5dp"
+                android:layout_below="@+id/title">
+            <ListView
+                android:id="@+id/lvbaby"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+
+                android:background="@drawable/rounded_corner"
+                android:cacheColorHint="#00000000"
+                android:fadingEdge="none"
+                android:gravity="left|center"
+                android:paddingLeft="20dp" />
+
+            <LinearLayout
+                android:id="@+id/LLladdnew"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/lvbaby"
+                android:background="#ffffff"
+                android:gravity="left|center"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:layout_margin="10dp">
+
+
+                <LinearLayout
+                    android:id="@+id/lladdnew"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/title"
+                    android:gravity="left|center"
+                    android:orientation="vertical">
+
+                    <com.balysv.materialripple.MaterialRippleLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:mrl_rippleAlpha="0.2"
+                        app:mrl_rippleColor="#7F000000"
+                        app:mrl_rippleDelayClick="true"
+                        app:mrl_rippleHover="true"
+                        app:mrl_rippleOverlay="true">
+
+                        <com.widevision.pregnantwoman.model.CustomTextView
+                            android:id="@+id/txtaddnew"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="Add New Baby Detail"
+                            android:textColor="@color/text_color"
+                            android:textSize="14sp" />
+                    </com.balysv.materialripple.MaterialRippleLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+</RelativeLayout>
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/babydialocancle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/close_popup" />
+</RelativeLayout>

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<io.codetail.widget.RevealLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:clickable="true">
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/mdtp_accent_color"
+        android:clickable="true"
+        android:id="@+id/parent_main_fragmentactivity"
+        android:visibility="invisible">
+
+        <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/white"
+            android:clickable="true"
+            android:id="@+id/parentsecond_main_fragmentactivity"
+            android:visibility="invisible">
+
+
+            <FrameLayout
+                android:id="@+id/frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:weightSum="1"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".2"></LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".6"
+                            android:orientation="vertical">
+
+                            <com.balysv.materialripple.MaterialRippleLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/button_selector"
+                                app:mrl_rippleOverlay="true"
+                                app:mrl_rippleColor="#7F000000"
+                                app:mrl_rippleAlpha="0.2"
+                                app:mrl_rippleDelayClick="false"
+                                app:mrl_rippleHover="true">
+
+                                <com.widevision.pregnantwoman.model.CustomButton
+                                    android:id="@+id/helth_btn"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/selector_ripple"
+                                    android:textColor="@color/accent_material_light"
+                                    android:text="@string/helth_button"
+                                    android:padding="10dp"
+                                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                            </com.balysv.materialripple.MaterialRippleLayout>
+
+                            <com.balysv.materialripple.MaterialRippleLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/button_selector"
+                                app:mrl_rippleOverlay="true"
+                                app:mrl_rippleColor="#7F000000"
+                                app:mrl_rippleAlpha="0.2"
+                                app:mrl_rippleDelayClick="false"
+                                app:mrl_rippleHover="true"
+                                android:layout_marginTop="25dp">
+
+                                <com.widevision.pregnantwoman.model.CustomButton
+                                    android:id="@+id/chart_btn"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/selector_ripple"
+                                    android:textColor="@color/accent_material_light"
+
+                                    android:padding="10dp"
+                                    android:text="@string/chart_button"
+                                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                            </com.balysv.materialripple.MaterialRippleLayout>
+
+                            <com.balysv.materialripple.MaterialRippleLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/button_selector"
+                                app:mrl_rippleOverlay="true"
+                                app:mrl_rippleColor="#7F000000"
+                                app:mrl_rippleAlpha="0.2"
+                                app:mrl_rippleDelayClick="false"
+                                app:mrl_rippleHover="true"
+                                android:layout_marginTop="25dp">
+
+                                <com.widevision.pregnantwoman.model.CustomButton
+                                    android:id="@+id/appointment_btn"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/selector_ripple"
+                                    android:textColor="@color/accent_material_light"
+
+                                    android:padding="10dp"
+                                    android:text="@string/appointment_button"
+                                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                            </com.balysv.materialripple.MaterialRippleLayout>
+
+                            <com.balysv.materialripple.MaterialRippleLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/button_selector"
+                                app:mrl_rippleOverlay="true"
+                                app:mrl_rippleColor="#7F000000"
+                                app:mrl_rippleAlpha="0.2"
+                                app:mrl_rippleDelayClick="false"
+                                app:mrl_rippleHover="true"
+                                android:layout_marginTop="25dp">
+
+                                <com.widevision.pregnantwoman.model.CustomButton
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/selector_ripple"
+                                    android:textColor="@color/accent_material_light"
+
+                                    android:padding="10dp"
+                                    android:textAppearance="?android:attr/textAppearanceMedium"
+                                    android:text="@string/note_button"
+                                    android:id="@+id/addNote" />
+                            </com.balysv.materialripple.MaterialRippleLayout>
+
+                            <com.balysv.materialripple.MaterialRippleLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/button_selector"
+                                app:mrl_rippleOverlay="true"
+                                app:mrl_rippleColor="#7F000000"
+                                app:mrl_rippleAlpha="0.2"
+                                app:mrl_rippleDelayClick="false"
+                                app:mrl_rippleHover="true"
+                                android:layout_marginTop="25dp">
+
+                                <com.widevision.pregnantwoman.model.CustomButton
+                                    android:id="@+id/tips_btn"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/selector_ripple"
+                                    android:textColor="@color/accent_material_light"
+
+                                    android:padding="10dp"
+                                    android:text="@string/tips_button"
+                                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                            </com.balysv.materialripple.MaterialRippleLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".2"></LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+</io.codetail.widget.RevealLinearLayout><!-- From: file:/Users/rocks/Documents/workspace%20android/PregnantWomanApplication/app/src/main/res/layout/main_fragmentactivity.xml -->

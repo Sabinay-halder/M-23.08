@@ -1,0 +1,647 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/babyhomeactivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true">
+
+
+    <RelativeLayout
+        android:id="@+id/rltxtview"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/baby_heading"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="10dp">
+
+        <LinearLayout
+            android:id="@+id/back"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/back_arrow" />
+
+            <com.widevision.pregnantwoman.model.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/back"
+                android:text="Baby Care"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/white"></com.widevision.pregnantwoman.model.CustomTextView>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rltxtview"
+        android:background="@drawable/baby_background"
+        android:fadingEdge="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/llfirstname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="left|center"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etfirstnamebaby"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:editable="true"
+                    android:focusable="true"
+                    android:hint="First Name"
+                    android:inputType="textCapWords"
+                    android:singleLine="true"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelTextColor="@color/text"
+                    app:met_floatingLabelTextSize="@dimen/text_size"
+                    app:met_typeface="fonts/Raleway-Regular.ttf"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lllastname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="left|center"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etlastnamebaby"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:editable="true"
+                    android:focusable="true"
+                    android:hint="Last Name"
+                    android:inputType="textCapWords"
+                    android:singleLine="true"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelTextColor="@color/text"
+                    app:met_floatingLabelTextSize="@dimen/text_size"
+                    app:met_typeface="fonts/Raleway-Regular.ttf" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lldob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etdateofbirthbaby"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:hint="Date Of Birth "
+                    android:inputType="date"
+                    android:singleLine="true"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/text_size"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelTextColor="@color/text"
+                    app:met_floatingLabelTextSize="@dimen/text_size"
+                    app:met_typeface="fonts/Raleway-Regular.ttf" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llgender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:weightSum="2">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="30dp"
+                    android:layout_weight="0.7"
+                    android:gravity="left|center"
+                    android:orientation="horizontal">
+
+                    <com.widevision.pregnantwoman.model.CustomTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gender "
+                        android:textColor="@color/text_color"
+                        android:textSize="20sp" />
+                </LinearLayout>
+
+                <RadioGroup
+                    android:id="@+id/rggender"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1.3"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <RadioButton
+                        android:id="@+id/radiobtnboy"
+                        style="@style/BoyRadio"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:text="  Boy"
+                        android:textColor="#000000"
+                        android:textSize="13sp" />
+
+                    <RadioButton
+                        android:id="@+id/radiobtngirl"
+                        style="@style/GirlRadio"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="  Girl"
+                        android:textColor="#000000"
+                        android:textSize="13sp" />
+                </RadioGroup>
+                >
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lldetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:weightSum="3">
+
+                <!--Weight-->
+
+                <LinearLayout
+                    android:id="@+id/llweight"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/slider_bg"
+                    android:orientation="vertical"
+                    android:weightSum="3">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/edit_text_padding10dp"
+                        android:orientation="horizontal"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp">
+
+                        <com.widevision.pregnantwoman.model.CustomTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:text="Weight  "
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/text_color" />
+
+                        <com.widevision.pregnantwoman.model.CustomTextView
+                            android:id="@+id/weightTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@+id/unit"
+                            android:singleLine="true"
+                            android:text="3"
+                            android:textColor="@color/green"
+                            android:textSize="15sp" />
+
+                        <com.widevision.pregnantwoman.model.CustomTextView
+                            android:id="@+id/unit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:singleLine="true"
+                            android:text=" Kg"
+                            android:textColor="@color/green"
+                            android:textSize="12sp" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llseekbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+                            android:id="@+id/sbweightinfo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:dsb_indicatorColor="@color/green"
+                            app:dsb_max="20"
+                            app:dsb_min="0"
+                            app:dsb_progressColor="@color/blue_color"
+                            app:dsb_trackColor="@color/track_color"
+                            app:dsb_value="3" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:text="0"
+                                android:textColor="#000000" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true">
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:text="20"
+                                android:textColor="#000000" />
+                        </LinearLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <!---->
+                <!--Height-->
+
+                <LinearLayout
+                    android:id="@+id/llheight"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/slider_bg"
+                    android:orientation="vertical"
+                    android:weightSum="3">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/edit_text_padding10dp"
+                        android:orientation="horizontal"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp">
+
+                        <com.widevision.pregnantwoman.model.CustomTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:text="Height  "
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/text" />
+
+                        <com.widevision.pregnantwoman.model.CustomTextView
+                            android:id="@+id/heightTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@+id/unit1"
+                            android:singleLine="true"
+                            android:text="40"
+                            android:textColor="@color/green"
+                            android:textSize="15sp" />
+
+                        <com.widevision.pregnantwoman.model.CustomTextView
+                            android:id="@+id/unit1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:singleLine="true"
+                            android:text=" cms"
+                            android:textColor="@color/green"
+                            android:textSize="12sp" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llseekbarheight"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+
+                        android:orientation="horizontal">
+
+                        <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+                            android:id="@+id/sbheightinfo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:dsb_indicatorColor="@color/green"
+                            app:dsb_max="150"
+                            app:dsb_min="0"
+                            app:dsb_progressColor="@color/blue_color"
+                            app:dsb_trackColor="@color/track_color"
+                            app:dsb_value="40" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:text="0"
+                                android:textColor="#000000" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true">
+
+                            <!-- <TextView
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:paddingLeft="20dp"
+                                 android:paddingRight="20dp"
+                                 android:text="75"
+                                 android:textColor="#000000" />-->
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:text="150"
+                                android:textColor="#000000" />
+                        </LinearLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <!---->
+                <!--Circumference-->
+
+                <LinearLayout
+                    android:id="@+id/llcircum"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/slider_bg"
+                    android:orientation="vertical"
+                    android:weightSum="3">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/edit_text_padding10dp"
+                        android:orientation="horizontal"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp">
+
+                        <com.widevision.pregnantwoman.model.CustomTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:text="Circumference Of Head "
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textColor="@color/text" />
+
+                        <com.widevision.pregnantwoman.model.CustomTextView
+                            android:id="@+id/circumferenceTxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@+id/unit2"
+                            android:singleLine="true"
+                            android:text="15"
+                            android:textColor="@color/green"
+                            android:textSize="15sp" />
+
+                        <com.widevision.pregnantwoman.model.CustomTextView
+                            android:id="@+id/unit2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:singleLine="true"
+                            android:text=" cms"
+                            android:textColor="@color/green"
+                            android:textSize="12sp" />
+                    </RelativeLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llcircumseekbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
+                            android:id="@+id/sbcircuminfo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            app:dsb_indicatorColor="@color/green"
+                            app:dsb_max="60"
+                            app:dsb_min="0"
+                            app:dsb_progressColor="@color/blue_color"
+                            app:dsb_trackColor="@color/track_color"
+                            app:dsb_value="15" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:text="0"
+                                android:textColor="#000000" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true">
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:text="60"
+                                android:textColor="#000000" />
+                        </LinearLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/buttomLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.balysv.materialripple.MaterialRippleLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    app:mrl_rippleAlpha="0.2"
+                    app:mrl_rippleColor="#7F000000"
+                    app:mrl_rippleDelayClick="true"
+                    app:mrl_rippleHover="true"
+                    app:mrl_rippleOverlay="true"
+                    app:mrl_rippleRoundedCorners="@dimen/ripple_corner">
+
+                    <ImageView
+                        android:id="@+id/btncanclehomebaby"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/cancel" />
+                </com.balysv.materialripple.MaterialRippleLayout>
+
+                <com.balysv.materialripple.MaterialRippleLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:mrl_rippleAlpha="0.2"
+                    app:mrl_rippleColor="#7F000000"
+                    app:mrl_rippleDelayClick="true"
+                    app:mrl_rippleHover="true"
+                    app:mrl_rippleOverlay="true"
+                    app:mrl_rippleRoundedCorners="@dimen/ripple_corner">
+
+                    <ImageView
+                        android:id="@+id/btnsavehomebaby"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/baby_save" />
+                </com.balysv.materialripple.MaterialRippleLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"></LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>
+

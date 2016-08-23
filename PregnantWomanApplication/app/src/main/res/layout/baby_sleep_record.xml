@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/baby_sleeprecord"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/baby_background"
+    android:clickable="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/buttomLayout"
+        android:fadingEdge="none"
+        android:fillViewport="true">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--Title Sleep record -->
+
+
+            <com.widevision.pregnantwoman.model.CustomTextView
+                android:id="@+id/txtsleeptitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="Sleep Record For"
+                android:textColor="@color/heading"
+                android:textSize="20sp" />
+
+            <com.widevision.pregnantwoman.model.CustomTextViewBold
+                android:id="@+id/etnamesleep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="Sleep Records"
+                android:textColor="@color/baby_name"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/bttnotesleep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:gravity="center"
+
+                android:src="@drawable/right_arrow" />
+
+            <!--Name-->
+
+
+            <!---->
+            <!--Date of birth-->
+
+            <LinearLayout
+                android:id="@+id/lldob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etdateofbirthsleep"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:clickable="false"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:hint="Date "
+                    android:inputType="date"
+                    android:singleLine="true"
+                    android:textColor="@color/text_color"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelTextColor="@color/text_color" />
+
+
+                <!---->
+                <!--Start Time-->
+
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etstarttimesleep"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:focusable="true"
+                    android:hint="Sleep Start Time"
+                    android:singleLine="true"
+                    android:textColor="@color/text_color"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelTextColor="@color/text_color" />
+
+                <!---->
+                <!--End Time-->
+
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/etendtimesleep"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:focusable="true"
+                    android:hint="Sleep End Time"
+                    android:singleLine="true"
+                    android:textColor="@color/text_color"
+                    app:met_floatingLabel="highlight"
+                    app:met_floatingLabelTextColor="@color/text_color" />
+
+
+                <!---->
+
+            </LinearLayout>
+
+
+            <!--Footer Sleep Record-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center|bottom"
+                android:orientation="horizontal">
+
+                <com.balysv.materialripple.MaterialRippleLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    app:mrl_rippleAlpha="0.2"
+                    app:mrl_rippleColor="#7F000000"
+                    app:mrl_rippleDelayClick="true"
+                    app:mrl_rippleHover="true"
+                    app:mrl_rippleOverlay="true"
+                    app:mrl_rippleRoundedCorners="@dimen/ripple_corner">
+                <ImageView
+                    android:id="@+id/bttncancelsleep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/cancel" /></com.balysv.materialripple.MaterialRippleLayout>
+                <com.balysv.materialripple.MaterialRippleLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    app:mrl_rippleAlpha="0.2"
+                    app:mrl_rippleColor="#7F000000"
+                    app:mrl_rippleDelayClick="true"
+                    app:mrl_rippleHover="true"
+                    app:mrl_rippleOverlay="true"
+                    app:mrl_rippleRoundedCorners="@dimen/ripple_corner">
+                <ImageView
+                    android:id="@+id/bttnsavesleep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:background="@drawable/baby_save" />
+</com.balysv.materialripple.MaterialRippleLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"></LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

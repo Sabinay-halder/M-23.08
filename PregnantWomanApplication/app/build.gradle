@@ -1,0 +1,73 @@
+apply plugin: 'com.android.application'
+allprojects {
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+        maven {
+            url "https://jitpack.io"
+        }
+    }
+}
+android {
+    compileSdkVersion 22
+    buildToolsVersion "22.0.0"
+
+    defaultConfig {
+        applicationId "com.widevision.pregnantwoman"
+        minSdkVersion 16
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/notice.txt'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:support-v4:22.2.1'
+    compile 'com.android.support:appcompat-v7:22.2.1'
+    compile files('libs/ActiveAndroid.jar')
+    compile files('libs/joda-time-2.0.jar')
+    /*this is for validation*/
+    compile 'com.mobsandgeeks:android-saripaar:2.0-SNAPSHOT'
+    /*this is for material seekbar*/
+    compile 'org.adw.library:discrete-seekbar:1.0.0'
+    /*this is for material date picker*/
+    compile 'com.wdullaer:materialdatetimepicker:1.4.2'
+    /*this is for material design edit text*/
+    compile 'com.rengwuxian.materialedittext:library:2.1.4'
+    /*this lib for findView in activity */
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile files('libs/achartengine-1.1.0.jar')
+    compile 'com.android.support:recyclerview-v7:+'
+    compile 'com.yalantis:contextmenu:1.0.4'
+    compile 'com.baoyz.swipemenulistview:library:1.2.1'
+    compile 'com.diogobernardino:williamchart:2.0.1'
+    compile 'com.android.support:cardview-v7:22.0.0'
+    compile 'com.github.ozodrukh:CircularReveal:1.1.1@aar'
+    compile 'com.balysv:material-ripple:1.0.2'
+    compile 'com.squareup.picasso:picasso:2.3.2'
+    compile 'com.android.support:cardview-v7:+'
+    /*for fragment transaction */
+    compile 'com.desarrollodroide:fragmenttransactionextended:1'
+    compile project(':library')
+}

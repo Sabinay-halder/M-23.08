@@ -1,0 +1,523 @@
+package com.widevision.pregnantwoman;
+
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.widevision.pregnantwoman.baby.BabyMainFragment;
+import com.widevision.pregnantwoman.database.ActiveAndroidDBHelper;
+import com.widevision.pregnantwoman.database.AppointmentRecordTable;
+import com.widevision.pregnantwoman.mother.AddNoteFragment;
+import com.widevision.pregnantwoman.mother.AppointmentRequestActivity;
+import com.widevision.pregnantwoman.mother.BloodPresureChart;
+import com.widevision.pregnantwoman.mother.EditMotherProfileActivity;
+import com.widevision.pregnantwoman.mother.HelthParameterActivityWomen;
+import com.widevision.pregnantwoman.mother.NotesListActivity;
+import com.widevision.pregnantwoman.mother.TipsFragment;
+import com.widevision.pregnantwoman.mother.WeightChart;
+import com.widevision.pregnantwoman.mother.WomanMainActivity;
+import com.widevision.pregnantwoman.util.Constant;
+import com.widevision.pregnantwoman.util.ObjectSerializer;
+import com.widevision.pregnantwoman.util.PreferenceConnector;
+import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
+import com.yalantis.contextmenu.lib.MenuObject;
+import com.yalantis.contextmenu.lib.MenuParams;
+import com.yalantis.contextmenu.lib.interfaces.OnMenuItemClickListener;
+import com.yalantis.contextmenu.lib.interfaces.OnMenuItemLongClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by newtrainee on 7/8/15.
+ */
+public class MainFragmentActivity extends ActionBarActivity implements OnMenuItemClickListener,
+        OnMenuItemLongClickListener {
+    public static FragmentManager fragmentManager;
+    private DialogFragment mMenuDialogFragment;
+    private ActiveAndroidDBHelper helper;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        fragmentManager = getSupportFragmentManager();
+        helper = ActiveAndroidDBHelper.getInstance();
+        initToolbar();
+        initMenuFragment();
+
+        if(Constant.type == 1){
+            addFragment(new WomanMainActivity(), true, R.id.container);
+        }else if(Constant.type == 2){
+            addFragment(new BabyMainFragment(), true, R.id.container);
+        }
+       // addFragment(new WomanMainActivity(), true, R.id.container);
+
+
+        fragmentManager.addOnBackStackChangedListener(getListener());
+    }
+
+    private void initMenuFragment() {
+        MenuParams menuParams = new MenuParams();
+        menuParams.setActionBarSize((int) getResources().getDimension(R.dimen.tool_bar_height));
+        menuParams.setMenuObjects(getMenuObjects());
+        menuParams.setClosableOutside(false);
+        mMenuDialogFragment = ContextMenuDialogFragment.newInstance(menuParams);
+    }
+
+    private List<MenuObject> getMenuObjects() {
+// You can use any [resource, bitmap, drawable, color] as image:
+// item.setResource(...)
+// item.setBitmap(...)
+// item.setDrawable(...)
+// item.setColor(...)
+// You can set image ScaleType:
+// item.setScaleType(ScaleType.FIT_XY)
+// You can use any [resource, drawable, color] as background:
+// item.setBgResource(...)
+// item.setBgDrawable(...)
+// item.setBgColor(...)
+// You can use any [color] as text color:
+// item.setTextColor(...)
+// You can set any [color] as divider color:
+// item.setDividerColor(...)
+        List<MenuObject> menuObjects = new ArrayList<>();
+        MenuObject close = new MenuObject();
+        close.setResource(R.drawable.icn_close);
+        MenuObject send = new MenuObject("Go to Home");
+        send.setResource(R.drawable.icn_1);
+        MenuObject like = new MenuObject("Alert");
+        Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.icn_2);
+        like.setBitmap(b);
+        MenuObject addFr = new MenuObject("Reminder");
+        BitmapDrawable bd = new BitmapDrawable(getResources(),
+                BitmapFactory.decodeResource(getResources(), R.drawable.icn_3));
+        addFr.setDrawable(bd);
+        MenuObject set = new MenuObject("Settings");
+        BitmapDrawable sett = new BitmapDrawable(getResources(),
+                BitmapFactory.decodeResource(getResources(), R.drawable.icn_4));
+        set.setDrawable(sett);
+       /* MenuObject addFav = new MenuObject("Add to favorites");
+        addFav.setResource(R.drawable.icn_4);
+        MenuObject block = new MenuObject("Block user");
+        block.setResource(R.drawable.icn_5);*/
+        menuObjects.add(close);
+        menuObjects.add(send);
+        menuObjects.add(like);
+        menuObjects.add(addFr);
+        menuObjects.add(set);
+        /*menuObjects.add(addFav);
+        menuObjects.add(block);*/
+        return menuObjects;
+    }
+
+    private void initToolbar() {
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        TextView mToolBarTextView = (TextView) findViewById(R.id.text_view_toolbar_title);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        mToolbar.setNavigationIcon(R.drawable.btn_back);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        mToolBarTextView.setText("Mother Care");
+    }
+
+    protected void addFragment(Fragment fragment, boolean addToBackStack, int containerId) {
+        invalidateOptionsMenu();
+        String backStackName = Constant.TAGFRAGMENT;
+        boolean fragmentPopped = fragmentManager.popBackStackImmediate(backStackName, 0);
+        if (!fragmentPopped) {
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.add(containerId, fragment, backStackName)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            if (addToBackStack)
+                transaction.addToBackStack(backStackName);
+            transaction.commit();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.context_menu:
+                if (fragmentManager.findFragmentByTag(ContextMenuDialogFragment.TAG) == null) {
+                    mMenuDialogFragment.show(fragmentManager, ContextMenuDialogFragment.TAG);
+                }
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mMenuDialogFragment != null && mMenuDialogFragment.isAdded()) {
+            mMenuDialogFragment.dismiss();
+        } else {
+            goBack();
+//            finish();
+        }
+    }
+
+
+    public void goBack() {
+      /* if (Constant.tagFragment == 1) {
+        finish();
+        startActivity(new Intent(MainFragmentActivity.this, MainFragmentActivity.class));
+        Constant.tagFragment = 0;
+        return;
+    }*/
+        if (fragmentManager.getBackStackEntryCount() != 1) {
+            fragmentManager.popBackStack();
+            Fragment fragment = MainFragmentActivity.fragmentManager.findFragmentByTag(Constant.TAGFRAGMENT);
+            if (fragment instanceof WomanMainActivity) {
+                startActivity(new Intent(MainFragmentActivity.this, HomeActivity.class));
+                finish();
+            }
+        } else {
+            startActivity(new Intent(MainFragmentActivity.this, HomeActivity.class));
+            finish();
+        }
+    }
+
+    @Override
+    public void onMenuItemClick(View clickedView, int position) {
+        switch (position) {
+            case 1:
+                startActivity(new Intent(MainFragmentActivity.this, HomeActivity.class));
+                finish();
+                break;
+            case 2:
+                setAlertNotification();
+                break;
+            case 3:
+                setNotification();
+                break;
+            case 4:
+                Fragment fragment = MainFragmentActivity.fragmentManager.findFragmentByTag(Constant.TAGFRAGMENT);
+                if (fragment instanceof NotesListActivity) {
+                    EditMotherProfileActivity myf = new EditMotherProfileActivity();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.add(R.id.parent_second_noteList, myf, Constant.TAGFRAGMENT);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                } else if (fragment instanceof HelthParameterActivityWomen) {
+                    EditMotherProfileActivity myf = new EditMotherProfileActivity();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.add(R.id.helthparameter_parent_second, myf, Constant.TAGFRAGMENT);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                } else if (fragment instanceof WomanMainActivity) {
+                    EditMotherProfileActivity myf = new EditMotherProfileActivity();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.add(R.id.frame, myf, Constant.TAGFRAGMENT);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                } else if (fragment instanceof AddNoteFragment) {
+                    EditMotherProfileActivity myf = new EditMotherProfileActivity();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.add(R.id.parentsecond_addNote, myf, Constant.TAGFRAGMENT);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                } else if (fragment instanceof AppointmentRequestActivity) {
+                    EditMotherProfileActivity myf = new EditMotherProfileActivity();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.add(R.id.appointment_parent_second, myf, Constant.TAGFRAGMENT);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                } else if (fragment instanceof BloodPresureChart) {
+                    EditMotherProfileActivity myf = new EditMotherProfileActivity();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.add(R.id.chart_parent, myf, Constant.TAGFRAGMENT);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                } else if (fragment instanceof TipsFragment) {
+                    EditMotherProfileActivity myf = new EditMotherProfileActivity();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.add(R.id.tips_parent_second, myf, Constant.TAGFRAGMENT);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                } else if (fragment instanceof WeightChart) {
+                    EditMotherProfileActivity myf = new EditMotherProfileActivity();
+                    FragmentTransaction transaction = MainFragmentActivity.fragmentManager.beginTransaction();
+                    transaction.add(R.id.chart_parent, myf, Constant.TAGFRAGMENT);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onMenuItemLongClick(View clickedView, int position) {
+        Toast.makeText(this, "Long clicked on position: " + position, Toast.LENGTH_SHORT).show();
+    }
+
+
+    private FragmentManager.OnBackStackChangedListener getListener() {
+        FragmentManager.OnBackStackChangedListener result = new FragmentManager.OnBackStackChangedListener() {
+            public void onBackStackChanged() {
+                fragmentManager = getSupportFragmentManager();
+                if (fragmentManager != null) {
+                    if (Constant.tagForNoteFragment == 1) {
+                        NotesListActivity currFrag = (NotesListActivity) fragmentManager.findFragmentById(R.id.frame);
+                        if (currFrag != null) {
+                            currFrag.onResume();
+                        }
+                    }
+                }
+            }
+        };
+        return result;
+    }
+
+    void setNotification() {
+        Dialog dialog = new Dialog(MainFragmentActivity.this, R.style.DialogSlideAnimSecond);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.popup_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        ListView listView = (ListView) dialog.findViewById(R.id.popup_list);
+        List<AppointmentRecordTable> list = helper.viewAllAppointment();
+        if (list != null && list.size() != 0) {
+            PopUpAdapter adapter = new PopUpAdapter(MainFragmentActivity.this, list);
+            listView.setAdapter(adapter);
+            dialog.show();
+        } else {
+            Constant.setAlert(MainFragmentActivity.this, "Nothing to Show");
+        }
+    }
+
+
+    void setAlertNotification() {
+        /*Dialog dialog = new Dialog(MainFragmentActivity.this, R.style.DialogSlideAnimSecond);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.popup_dialog);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        ListView listView = (ListView) dialog.findViewById(R.id.popup_list);
+        List<AppointmentRecordTable> list = helper.viewAllAppointment();
+        PopUpAdapterAlert adapter = new PopUpAdapterAlert(MainFragmentActivity.this, list);
+        listView.setAdapter(adapter);
+*/
+        String column_min = "";
+        String column_max = "";
+        float mStartWeight = 0;
+        ArrayList<Float> minList = new ArrayList<Float>();
+        ArrayList<Float> maxList = new ArrayList<Float>();
+        ArrayList<Float> listFirst = new ArrayList<Float>();
+        //      load tasks from preference
+        SharedPreferences prefs = getSharedPreferences("list_file", Context.MODE_PRIVATE);
+        try {
+            listFirst = (ArrayList<Float>) ObjectSerializer.deserialize(prefs.getString("weight_list", ObjectSerializer.serialize(new ArrayList<Float>())));
+        } catch (Exception e) {
+        }
+        mStartWeight = listFirst.get(0);
+        if (PreferenceConnector.readString(MainFragmentActivity.this, PreferenceConnector.TWINS, "No").equals("Yes")) {
+            if (mStartWeight < 69) {
+                column_min = "twins_min_68";
+                column_max = "twins_max_68";
+            } else if (mStartWeight < 82) {
+                column_min = "twins_min_81";
+                column_max = "twins_max_81";
+            } else if (mStartWeight < 151) {
+                column_min = "twins_min_150";
+                column_max = "twins_max_150";
+            }
+        } else {
+            if (mStartWeight < 51) {
+                column_min = "min_51";
+                column_max = "max_51";
+            } else if (mStartWeight < 69) {
+                column_min = "min_68";
+                column_max = "max_68";
+            } else if (mStartWeight < 82) {
+                column_min = "min_69";
+                column_max = "max_81";
+            } else if (mStartWeight < 151) {
+                column_min = "min_150";
+                column_max = "max_150";
+            }
+        }
+        int week = PreferenceConnector.readInteger(MainFragmentActivity.this, PreferenceConnector.WEEK, 0);
+        Cursor cursor = helper.viewAll();
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                Float s = cursor.getFloat(cursor.getColumnIndex(column_min));
+                Float s1 = cursor.getFloat(cursor.getColumnIndex(column_max));
+                minList.add(s + mStartWeight);
+                maxList.add(s1 + mStartWeight);
+            } while (cursor.moveToNext());
+        }
+        if (listFirst.get(week - 1) > maxList.get(week - 1)) {
+            float a = listFirst.get(week - 1) - maxList.get(week - 1);
+            Toast.makeText(MainFragmentActivity.this, "your weight is " + a + " more compare to Chart.", Toast.LENGTH_SHORT).show();
+        } else if (listFirst.get(week - 1) < minList.get(week - 1)) {
+            float a = maxList.get(week - 1) - listFirst.get(week - 1);
+            Toast.makeText(MainFragmentActivity.this, "your weight is " + a + " less compare to Chart.", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(MainFragmentActivity.this, "your weight is " + listFirst.get(week - 1) + ".", Toast.LENGTH_SHORT).show();
+        }
+
+        //for blood presure
+        //      load tasks from preference
+        ArrayList<Integer> systolic = new ArrayList<Integer>();
+        ArrayList<Integer> diastolic = new ArrayList<Integer>();
+        try {
+            systolic = (ArrayList<Integer>) ObjectSerializer.deserialize(prefs.getString("systolic_list", ObjectSerializer.serialize(new ArrayList<Integer>())));
+            diastolic = (ArrayList<Integer>) ObjectSerializer.deserialize(prefs.getString("diastolic_list", ObjectSerializer.serialize(new ArrayList<Integer>())));
+        } catch (Exception e) {
+        }
+        if (systolic.get(week - 1) < 90 || diastolic.get(week - 1) < 60) {
+            Toast.makeText(MainFragmentActivity.this, "you blood pressure is low.", Toast.LENGTH_SHORT).show();
+        } else if (systolic.get(week - 1) < 120 || diastolic.get(week - 1) < 80) {
+            Toast.makeText(MainFragmentActivity.this, "your blood pressure is ideal.", Toast.LENGTH_SHORT).show();
+        } else if (systolic.get(week - 1) < 140 || diastolic.get(week - 1) < 90) {
+            Toast.makeText(MainFragmentActivity.this, "your blood pressure is pre-high.", Toast.LENGTH_SHORT).show();
+        } else if (systolic.get(week - 1) > 140 || diastolic.get(week - 1) > 90) {
+            Toast.makeText(MainFragmentActivity.this, "your blood pressure is high.", Toast.LENGTH_SHORT).show();
+        }
+
+//        dialog.show();
+    }
+
+    class PopUpAdapter extends BaseAdapter {
+
+        private LayoutInflater inflater;
+        private Context context;
+        private List<AppointmentRecordTable> list;
+        private ViewHolder holder;
+
+        PopUpAdapter(Context context, List<AppointmentRecordTable> list) {
+            this.context = context;
+            this.list = list;
+            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            holder = new ViewHolder();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return list.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public int getCount() {
+            return list.size();
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+
+            view = inflater.inflate(R.layout.popup_list_row, viewGroup, false);
+            holder.titleTxt = (TextView) view.findViewById(R.id.title);
+            holder.dateTxt = (TextView) view.findViewById(R.id.date);
+            holder.timeTxt = (TextView) view.findViewById(R.id.time);
+            holder.messageTxt = (TextView) view.findViewById(R.id.msg);
+
+            holder.titleTxt.setText("Appointment Reminder");
+            holder.dateTxt.setText(list.get(i).date);
+            holder.timeTxt.setText(list.get(i).time);
+            String msg = "Your Appointment is scheduled on " + list.get(i).date + " at " + list.get(i).time + " with " + list.get(i).doctorName;
+            holder.messageTxt.setText(msg);
+
+            return view;
+        }
+
+        class ViewHolder {
+            TextView titleTxt, dateTxt, timeTxt, messageTxt;
+        }
+    }
+
+    class PopUpAdapterAlert extends BaseAdapter {
+
+        private LayoutInflater inflater;
+        private Context context;
+        private List<AppointmentRecordTable> list;
+        private ViewHolder holder;
+
+        PopUpAdapterAlert(Context context, List<AppointmentRecordTable> list) {
+            this.context = context;
+            this.list = list;
+            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            holder = new ViewHolder();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return list.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public int getCount() {
+            return list.size();
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+
+            view = inflater.inflate(R.layout.popup_list_row, viewGroup, false);
+            holder.titleTxt = (TextView) view.findViewById(R.id.title);
+            holder.dateTxt = (TextView) view.findViewById(R.id.date);
+            holder.timeTxt = (TextView) view.findViewById(R.id.time);
+            holder.messageTxt = (TextView) view.findViewById(R.id.msg);
+
+            holder.titleTxt.setText("Appointment Reminder");
+            holder.dateTxt.setText(list.get(i).date);
+            holder.timeTxt.setText(list.get(i).time);
+            String msg = "You have your Appointment with Doctor " + list.get(i).doctorName + " on " + list.get(i).date + ", " + list.get(i).time;
+            holder.messageTxt.setText(msg);
+            return view;
+        }
+
+        class ViewHolder {
+            TextView titleTxt, dateTxt, timeTxt, messageTxt;
+        }
+    }
+}

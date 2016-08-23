@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="10dp">
+
+    <com.widevision.pregnantwoman.model.CustomTextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|center_vertical"
+        android:text="title"
+        android:drawableRight="@drawable/edit_img"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/black" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/title">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dialog_rounded_white_background"
+            android:padding="10dp">
+
+            <com.widevision.pregnantwoman.model.LineEditText
+                android:id="@+id/noteEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:gravity="left"
+                android:hint="Note Details"
+                android:imeOptions="actionNone"
+                android:inputType="textMultiLine|textNoSuggestions"
+                android:lines="10"
+                android:maxLines="10"
+                android:minLines="10"
+                android:singleLine="false"
+                android:textColor="@color/black"
+                android:textColorHint="@color/calendar_header"
+                android:textCursorDrawable="@null"
+                android:visibility="gone"/>
+            <com.widevision.pregnantwoman.model.CustomTextView
+                android:id="@+id/noteTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:inputType="textMultiLine|textNoSuggestions"
+                android:singleLine="false"
+                android:imeOptions="actionNone"
+                android:textColor="@color/black"
+                android:textColorHint="@color/calendar_header"
+                android:textCursorDrawable="@null"
+                android:gravity="left|top"
+                android:minLines="10"
+                android:lines="10"
+                android:maxLines="10"
+                android:scrollbars="vertical"
+                android:fadeScrollbars="false" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="15dp"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/updateTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dialog_rounded_white_background"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="Update" />
+
+            <TextView
+                android:id="@+id/cancelTxt"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/dialog_rounded_white_background"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:text="Cancel" />
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
